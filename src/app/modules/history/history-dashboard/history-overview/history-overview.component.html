@@ -10,15 +10,13 @@
       <ul class="nav flex-column pt-3">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-12">
-              <li><app-history-item></app-history-item></li>
-              <li><app-history-item></app-history-item></li>
-              <li><app-history-item></app-history-item></li>
-              <li><app-history-item></app-history-item></li>
-              <li><app-history-item></app-history-item></li>
-              <li><app-history-item></app-history-item></li>
-              <li><app-history-item></app-history-item></li>
-              <li><app-history-item></app-history-item></li>
+            <div class="col-md-12">
+              <li>
+                <app-history-item
+                  *ngFor="let patient of patients"
+                  [patient]="patient"
+                ></app-history-item>
+              </li>
             </div>
           </div>
         </div>

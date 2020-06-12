@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { HistoryService } from '../../../services/history.service';
+import { HistoryPatient } from '../../../interfaces/history-patient';
 
 @Component({
   selector: 'app-history-item',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryItemComponent implements OnInit {
   isCollapsed: boolean = true;
-  constructor() {}
+  @Input() patient: HistoryPatient;
+
+  constructor(private historyService: HistoryService) {}
 
   ngOnInit(): void {}
 }

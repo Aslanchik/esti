@@ -1,14 +1,21 @@
 <div class="container-fluid item">
   <div class="row">
-    <div class="col-9" (click)="isCollapsed = !isCollapsed">
-      <h5><i>123456789</i> - Aslan Badalov</h5>
+    <div class="col-md-6" (click)="isCollapsed = !isCollapsed">
+      <h6>
+        <i>{{ patient.patientId }}</i> - {{ patient.patientName }}
+      </h6>
     </div>
   </div>
 
   <div [ngbCollapse]="isCollapsed">
     <div class="card">
       <div class="card-body">
-        <button class="btn btn-outline-secondary">29.05.2019</button>
+        <button
+          class="btn btn-outline-secondary ml-3"
+          *ngFor="let visit of patient.visits; index as idx"
+        >
+          {{ patient.visits[idx].date }}
+        </button>
       </div>
     </div>
   </div>

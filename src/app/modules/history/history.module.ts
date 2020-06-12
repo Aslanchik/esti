@@ -6,10 +6,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HistoryDashboardComponent } from './history-dashboard/history-dashboard.component';
 import { HistoryOverviewComponent } from './history-dashboard/history-overview/history-overview.component';
 import { HistoryItemComponent } from './history-dashboard/history-overview/history-item/history-item.component';
-import { HistoryPatientComponent } from './history-dashboard/history-patient/history-patient.component';
+
 import { MainModule } from '../main/main.module';
 import { HistoryRoutingModule } from './history-routing.module';
 import { HistorySearchComponent } from './history-dashboard/history-overview/history-search/history-search.component';
+import { HistoryVisitComponent } from './history-visit/history-visit.component';
 
 const exporting = [HistoryDashboardComponent];
 
@@ -18,8 +19,8 @@ const exporting = [HistoryDashboardComponent];
     ...exporting,
     HistoryOverviewComponent,
     HistoryItemComponent,
-    HistoryPatientComponent,
     HistorySearchComponent,
+    HistoryVisitComponent,
   ],
   imports: [
     CommonModule,
