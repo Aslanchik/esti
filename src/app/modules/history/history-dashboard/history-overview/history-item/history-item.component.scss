@@ -1,0 +1,9 @@
+.item {
+  padding: 20px;
+  border-bottom: 1px #ccc dotted;
+  background-color: #f1e7e5;
+  &:hover {
+    background-color: #fcece9a8;
+    cursor: pointer;
+  }
+}

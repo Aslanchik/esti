@@ -16,7 +16,11 @@ import { MedicalFormComponent } from './add-new-patient/medical-form/medical-for
 import { PlanFormComponent } from './add-new-patient/plan-form/plan-form.component';
 import { MainRoutingModule } from './main-routing.module';
 
-const exporting = [MainDashboardComponent, AddNewPatientComponent];
+const exporting = [
+  MainDashboardComponent,
+  AddNewPatientComponent,
+  NavigationComponent,
+];
 
 @NgModule({
   declarations: [

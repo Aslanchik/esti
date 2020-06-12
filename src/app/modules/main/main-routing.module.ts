@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { AddNewPatientComponent } from './add-new-patient/add-new-patient.component';
 import { GeneralFormComponent } from './add-new-patient/general-form/general-form.component';

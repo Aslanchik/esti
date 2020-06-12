@@ -25,8 +25,8 @@ export class NavigationComponent implements OnInit {
     },
     {
       title: 'history',
-      icon: ' fas fa-file-medical-alt',
-      link: 'history',
+      icon: 'fas fa-file-medical-alt',
+      link: '/history',
     },
     {
       title: 'help',
