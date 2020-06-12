@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row mt-3 ml-2">
+    <div class="row col-12 mb-4 justify-content-between">
+      <input type="search" placeholder="Search" class="form-control col-9" />
+      <div ngbDropdown class="col-1 mr-3">
+        <button
+          class="btn btn-outline-primary"
+          id="dropdownBasic1"
+          ngbDropdownToggle
+        >
+          Sort
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem>State</button>
+          <button ngbDropdownItem>Name</button>
+          <button ngbDropdownItem>Something else is here</button>
+        </div>
+      </div>
+      <button class="btn btn-outline-success col-1">Search</button>
+    </div>
+    <div class="col-12">
+      <div *ngIf="patients; else noPatients">
+        <app-patient-card></app-patient-card>
+      </div>
+      <ng-template #noPatients
+        ><p class="noPatients">
+          <i class="fas fa-broom"></i> There are no active patients..
+        </p>
+        <div class="col-4 mb-4">
+          <div class="card add">
+            <div class="card-body">
+              <i class="fas fa-user-plus ml-5 mt-3 mb-2"></i>
+              <h5 class="ml-4">Add new patient</h5>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

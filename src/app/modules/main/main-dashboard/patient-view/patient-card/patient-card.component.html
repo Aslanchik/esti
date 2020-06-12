@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-4 mb-4">
+    <div class="card colors text-center">
+      <div class="card-body">
+        <div class="row flex-column mt-2 mx-auto">
+          <div class="col-12 critical mb-2">Critical</div>
+          <div class="col-12 active mb-2">Active</div>
+          <div class="col-12 discharged">Discharged</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4 mb-4" *ngFor="let patient of patients">
+    <div class="card patients" [ngClass]="setPatientClass(patient)">
+      <div class="card-body">
+        <h5 class="card-title">{{ patient.fname }} {{ patient.lname }}</h5>
+        <p class="card-text mb-0">Id:{{ patient.id }}</p>
+        <p class="card-text">Age:{{ patient.age }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-4 mb-4">
+    <div class="card add" routerLink="/main/add-new-patient/general-form">
+      <div class="card-body">
+        <i class="fas fa-user-plus ml-5 mt-3 mb-2"></i>
+        <h5 class="ml-4">Add new patient</h5>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div [ngClass]="{ 'd-none': dNone }" class="dark">
+  <div class="dark_box">
+    <div>
+      <button type="button" class="btn close" (click)="closeDark()">
+        <span>x</span>
+      </button>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN SIGN IN AND REGISTER BUTTONS -->
+<div class="parent">
+  <div class="child">
+    <button
+      class="btn btn-dark m-3"
+      id="login_dark"
+      routerLink="login"
+      (click)="darkLogin()"
+    >
+      Sign In
+    </button>
+    <button
+      class="btn btn-light m-3"
+      id="register_dark"
+      routerLink="register"
+      (click)="darkRegister()"
+    >
+      Register
+    </button>
+  </div>
+</div>

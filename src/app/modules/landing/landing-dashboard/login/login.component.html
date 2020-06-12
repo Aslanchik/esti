@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-12">
+    <h3 class="mb-4">Login</h3>
+    <form
+      #loginForm="ngForm"
+      (ngSubmit)="onSubmit(loginForm)"
+      novalidate
+      autocomplete="off"
+    >
+      <!-- ID INPUT -->
+      <div class="row mx-auto">
+        <div class="col-md-12 mb-3">
+          <input
+            placeholder="ID"
+            #idf="ngModel"
+            type="text"
+            name="id"
+            required
+            minlength="9"
+            maxlength="9"
+            id="id"
+            [(ngModel)]="user.id"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': idf.errors && idf.touched,
+              'is-valid': !idf.errors && idf.touched
+            }"
+          />
+          <div [hidden]="!idf.errors?.required" class="invalid-feedback">
+            This field is required.
+          </div>
+          <div [hidden]="!idf.errors?.minlength" class="invalid-feedback">
+            Invalid Id.
+          </div>
+        </div>
+      </div>
+      <!-- Password Input -->
+      <div class="row mx-auto">
+        <div class="col-md-12 mb-3">
+          <input
+            placeholder="Password"
+            #passf="ngModel"
+            type="password"
+            name="pass"
+            required
+            minlength="9"
+            id="pass"
+            [(ngModel)]="user.password"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': passf.errors && passf.touched,
+              'is-valid': !passf.errors && passf.touched
+            }"
+          />
+          <div [hidden]="!passf.errors?.required" class="invalid-feedback">
+            This field is required.
+          </div>
+          <div [hidden]="!passf.errors?.minlength" class="invalid-feedback">
+            Invalid password.
+          </div>
+        </div>
+      </div>
+      <input
+        type="submit"
+        name="submit"
+        value="Submit"
+        class="btn btn-secondary ml-3 mb-3"
+        routerLink="../main"
+      />
+      <a routerLink="/register" class="btn btn-outline-secondary ml-3 mb-3"
+        >Not a user? Register</a
+      >
+    </form>
+  </div>
+</div>

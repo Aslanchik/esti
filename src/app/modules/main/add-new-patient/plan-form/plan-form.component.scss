@@ -1,0 +1,26 @@
+.navBtn {
+  font-size: 3rem;
+  color: #232323b4;
+  transition: all 0.2s ease;
+  &:hover {
+    color: #353535;
+  }
+}
+.form {
+  padding-top: 1rem;
+  line-height: 3rem;
+  padding-left: 2rem;
+}
+.btn-success {
+  background-color: #57a773;
+  &:hover {
+    background-color: #32a75b;
+  }
+}
+.btn-danger {
+  background-color: #de5469e1;
+
+  &:hover {
+    background-color: #de5469;
+  }
+}

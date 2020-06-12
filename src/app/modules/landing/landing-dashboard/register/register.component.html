@@ -1,0 +1,148 @@
+<div class="row">
+  <div class="col-12">
+    <h3 class="mb-4">Register</h3>
+    <form
+      #loginForm="ngForm"
+      (ngSubmit)="onSubmit(loginForm)"
+      novalidate
+      autocomplete="off"
+    >
+      <!-- ID INPUT -->
+      <div class="row mx-auto">
+        <div class="col-md-12 mb-3">
+          <input
+            placeholder="Your ID"
+            #idf="ngModel"
+            type="text"
+            name="id"
+            required
+            minlength="9"
+            maxlength="9"
+            [(ngModel)]="user.id"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': idf.errors && idf.touched,
+              'is-valid': !idf.errors && idf.touched
+            }"
+          />
+          <div [hidden]="!idf.errors?.required" class="invalid-feedback">
+            This field is required.
+          </div>
+          <div [hidden]="!idf.errors?.minlength" class="invalid-feedback">
+            Invalid Id.
+          </div>
+        </div>
+      </div>
+      <!-- Name Input -->
+      <div class="row mx-auto">
+        <div class="col-md-6 mb-3">
+          <input
+            placeholder="First Name"
+            #fnf="ngModel"
+            type="text"
+            name="fname"
+            required
+            minlength="2"
+            [(ngModel)]="user.fname"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': fnf.errors && fnf.touched,
+              'is-valid': !fnf.errors && fnf.touched
+            }"
+          />
+          <div [hidden]="!fnf.errors?.required" class="invalid-feedback">
+            This field is required.
+          </div>
+          <div [hidden]="!fnf.errors?.minlength" class="invalid-feedback">
+            This field must be longer than
+            {{ fnf.errors?.minlength?.requiredLength }} characters.
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <input
+            placeholder="Last Name"
+            #lnf="ngModel"
+            type="text"
+            name="lname"
+            required
+            minlength="2"
+            [(ngModel)]="user.lname"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': lnf.errors && lnf.touched,
+              'is-valid': !lnf.errors && lnf.touched
+            }"
+          />
+          <div [hidden]="!lnf.errors?.required" class="invalid-feedback">
+            This field is required.
+          </div>
+          <div [hidden]="!lnf.errors?.minlength" class="invalid-feedback">
+            This field must be longer than
+            {{ lnf.errors?.minlength?.requiredLength }} characters.
+          </div>
+        </div>
+      </div>
+      <!-- E-Mail Input -->
+      <div class="row mx-auto">
+        <div class="col-md-12 mb-3">
+          <input
+            placeholder="E-Mail"
+            #ef="ngModel"
+            type="email"
+            name="email"
+            required
+            pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+            [(ngModel)]="user.email"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': ef.errors && ef.touched,
+              'is-valid': !ef.errors && ef.touched
+            }"
+          />
+          <div [hidden]="!ef.errors?.required" class="invalid-feedback">
+            This field is required.
+          </div>
+          <div [hidden]="!ef.errors?.pattern" class="invalid-feedback">
+            Invalid E-Mail address.
+          </div>
+        </div>
+      </div>
+      <!-- Password Input -->
+      <div class="row mx-auto">
+        <div class="col-md-12 mb-3">
+          <input
+            placeholder="Password"
+            #passf="ngModel"
+            type="password"
+            name="password"
+            required
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,32}$"
+            [(ngModel)]="user.password"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': passf.errors && passf.touched,
+              'is-valid': !passf.errors && passf.touched
+            }"
+          />
+          <div [hidden]="!passf.errors?.required" class="invalid-feedback">
+            This field is required.
+          </div>
+          <div [hidden]="!passf.errors?.pattern" class="invalid-feedback">
+            Minimum 8 characters, at least one lowercase, one uppercase and one
+            special character is required.
+          </div>
+        </div>
+      </div>
+      <!-- Input Buttons -->
+      <input
+        type="submit"
+        name="submit"
+        value="Submit"
+        class="btn btn-secondary ml-3 mb-3"
+      />
+      <a routerLink="/login" class="btn btn-outline-secondary ml-3 mb-3"
+        >Already have a user? Login</a
+      >
+    </form>
+  </div>
+</div>

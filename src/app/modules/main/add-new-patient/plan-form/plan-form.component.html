@@ -1,0 +1,199 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-1 pl-0">
+      <a routerLink="/main/add-new-patient/medical-form" class="btn navBtn"
+        ><i class="fas fa-arrow-circle-left" ></i
+      ></a>
+    </div>
+    <div class="col-10 mt-4">
+      <h2>3. Treatment Plan</h2>
+      <div class="row">
+        <div class="col-12 form">
+          <form
+            #planForm="ngForm"
+            (ngSubmit)="onSubmit(planForm)"
+            novalidate
+            autocomplete="off"
+          >
+            <!--Diagnosis Input-->
+            <div class="row mx-auto mt-3">
+              <div class="col-md-8">
+                <label for="diag">
+                  Diagnosis
+                </label>
+                <input
+                  #diagf="ngModel"
+                  type="text"
+                  name="diag"
+                  required
+                  minlength="2"
+                  id="diag"
+                  [(ngModel)]="form.diagnosis"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': diagf.errors && diagf.touched,
+                    'is-valid': !diagf.errors && diagf.touched
+                  }"
+                />
+                <div
+                  [hidden]="!diagf.errors?.required"
+                  class="invalid-feedback"
+                >
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <!--Treatment Medication Input-->
+            <div class="row mx-auto">
+              <div class="col-md-4">
+                <label for="meds">
+                  Medication
+                </label>
+                <input
+                  #medsf="ngModel"
+                  type="text"
+                  name="meds"
+                  minlength="2"
+                  placeholder="If no medication required leave blank"
+                  id="meds"
+                  [(ngModel)]="form.treatment.medication"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': medsf.errors && medsf.touched,
+                    'is-valid': !medsf.errors && medsf.touched
+                  }"
+                />
+                <div
+                  [hidden]="!medsf.errors?.required"
+                  class="invalid-feedback"
+                >
+                  This field is required.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="pain">
+                  Painkillers
+                </label>
+                <input
+                  #painf="ngModel"
+                  type="text"
+                  name="pain"
+                  minlength="2"
+                  placeholder="If no painkillers required leave blank"
+                  id="pain"
+                  [(ngModel)]="form.treatment.painkillers"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': painf.errors && painf.touched,
+                    'is-valid': !painf.errors && painf.touched
+                  }"
+                />
+                <div
+                  [hidden]="!painf.errors?.required"
+                  class="invalid-feedback"
+                >
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <!--Procedures Input-->
+            <div class="row mx-auto">
+              <div class="col-md-8">
+                <label for="procedure">
+                  Procedures
+                </label>
+                <input
+                  #proceduref="ngModel"
+                  type="text"
+                  name="procedure"
+                  minlength="2"
+                  placeholder="If no procedure needed leave blank"
+                  id="procedure"
+                  [(ngModel)]="form.tasks.procedures"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': proceduref.errors && proceduref.touched,
+                    'is-valid': !proceduref.errors && proceduref.touched
+                  }"
+                />
+                <div
+                  [hidden]="!proceduref.errors?.required"
+                  class="invalid-feedback"
+                >
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <!--Tests Input-->
+            <div class="row mx-auto">
+              <div class="col-md-8">
+                <label for="tests">
+                  Tests
+                </label>
+                <input
+                  #testsf="ngModel"
+                  type="text"
+                  name="tests"
+                  placeholder="If no tests needed leave blank"
+                  minlength="2"
+                  id="tests"
+                  [(ngModel)]="form.tasks.tests"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': testsf.errors && testsf.touched,
+                    'is-valid': !testsf.errors && testsf.touched
+                  }"
+                />
+                <div
+                  [hidden]="!testsf.errors?.required"
+                  class="invalid-feedback"
+                >
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <!--Tests Input-->
+            <div class="row mx-auto">
+              <div class="col-md-8">
+                <label for="notes">
+                  Additional Notes
+                </label>
+                <textarea
+                  #notesf="ngModel"
+                  type="text"
+                  name="notes"
+                  minlength="2"
+                  id="notes"
+                  [(ngModel)]="form.notes"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': notesf.errors && notesf.touched,
+                    'is-valid': !notesf.errors && testsf.touched
+                  }"
+                ></textarea>
+                <div
+                  [hidden]="!notesf.errors?.required"
+                  class="invalid-feedback"
+                >
+                  This field is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="p-3 mt-5 ml-5">
+              <input
+                type="submit"
+                name="submit"
+                value="Submit"
+                class="btn btn-success ml-5 col-4"
+                routerLink="../main"
+                [disabled]="planForm.form.invalid"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

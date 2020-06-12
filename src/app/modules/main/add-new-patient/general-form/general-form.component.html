@@ -1,0 +1,279 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-1 pl-0">
+      <a routerLink="/main" class="btn navBtn"
+        ><i class="fas fa-arrow-circle-left" routerLink="../main"></i
+      ></a>
+    </div>
+    <div class="col-10 mt-4">
+      <h2>1. General Information</h2>
+      <div class="row">
+        <div class="col-12 form">
+          <form
+            #generalForm="ngForm"
+            (ngSubmit)="onSubmit()"
+            novalidate
+            autocomplete="off"
+          >
+            <!--First name Input-->
+            <div class="row mx-auto justify-content-start mt-3">
+              <div class="col-md-4">
+                <label for="fname">
+                  First Name
+                </label>
+                <input
+                  #fnf="ngModel"
+                  type="text"
+                  name="fname"
+                  required
+                  minlength="2"
+                  id="fname"
+                  [(ngModel)]="form.fname"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': fnf.errors && fnf.touched,
+                    'is-valid': !fnf.errors && fnf.touched
+                  }"
+                />
+                <div [hidden]="!fnf.errors?.required" class="invalid-feedback">
+                  This field is required.
+                </div>
+                <div [hidden]="!fnf.errors?.minlength" class="invalid-feedback">
+                  This field must be longer than
+                  {{ fnf.errors?.minlength?.requiredLength }} characters.
+                </div>
+              </div>
+              <!--Last name Input-->
+              <div class="col-md-4">
+                <label for="lname">
+                  Last Name
+                </label>
+                <input
+                  #lnf="ngModel"
+                  type="text"
+                  name="lname"
+                  required
+                  minlength="2"
+                  id="lname"
+                  [(ngModel)]="form.lname"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': lnf.errors && lnf.touched,
+                    'is-valid': !lnf.errors && lnf.touched
+                  }"
+                />
+                <div [hidden]="!lnf.errors?.required" class="invalid-feedback">
+                  This field is required.
+                </div>
+                <div [hidden]="!lnf.errors?.minlength" class="invalid-feedback">
+                  This field must be longer than
+                  {{ lnf.errors?.minlength?.requiredLength }} characters.
+                </div>
+              </div>
+            </div>
+            <div class="row mx-auto">
+              <!-- Age Input -->
+              <div class="col-md-2">
+                <label for="age">
+                  Age
+                </label>
+                <input
+                  #agef="ngModel"
+                  type="number"
+                  name="age"
+                  required
+                  min="1"
+                  id="age"
+                  oninput="this.value = Math.abs(this.value)"
+                  [(ngModel)]="form.age"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': agef.errors && agef.touched,
+                    'is-valid': !agef.errors && agef.touched
+                  }"
+                />
+                <div [hidden]="!agef.errors?.required" class="invalid-feedback">
+                  This field is required
+                </div>
+              </div>
+              <!-- Phone Number Input -->
+              <div class="col-md-3">
+                <label for="phone">
+                  Phone Number
+                </label>
+                <input
+                  #pf="ngModel"
+                  type="tel"
+                  pattern="^\+?(972|0)(\-)?0?(([23489]{1}\d{7})|[5]{1}\d{8})$"
+                  name="phone"
+                  required
+                  id="phone"
+                  [(ngModel)]="form.phone"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': pf.errors && pf.touched,
+                    'is-valid': !pf.errors && pf.touched
+                  }"
+                />
+                <div [hidden]="!pf.errors?.required" class="invalid-feedback">
+                  This field is required.
+                </div>
+                <div [hidden]="!pf.errors?.pattern" class="invalid-feedback">
+                  Please enter a valid Phone Number.
+                </div>
+              </div>
+              <!--ID INPUT-->
+              <div class="col-md-3">
+                <label for="id">
+                  ID
+                </label>
+                <input
+                  #idf="ngModel"
+                  type="number"
+                  name="id"
+                  required
+                  minlength="9"
+                  maxlength="9"
+                  id="id"
+                  [(ngModel)]="form.id"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': idf.errors && idf.touched,
+                    'is-valid': !idf.errors && idf.touched
+                  }"
+                />
+                <div [hidden]="!idf.errors?.required" class="invalid-feedback">
+                  This field is required.
+                </div>
+                <div [hidden]="!idf.errors?.minlength" class="invalid-feedback">
+                  Too short to be an ID.
+                </div>
+              </div>
+            </div>
+            <div class="row mx-auto">
+              <!-- Email Input -->
+              <div class="col-md-8">
+                <label for="email">
+                  E-Mail
+                </label>
+                <input
+                  #ef="ngModel"
+                  type="email"
+                  pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$"
+                  name="email"
+                  required
+                  minlength="5"
+                  id="email"
+                  [(ngModel)]="form.email"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': ef.errors && ef.touched,
+                    'is-valid': !ef.errors && ef.touched
+                  }"
+                />
+                <div [hidden]="!ef.errors?.required" class="invalid-feedback">
+                  This field is required.
+                </div>
+                <div [hidden]="!ef.errors?.pattern" class="invalid-feedback">
+                  Invalid E-Mail address.
+                </div>
+              </div>
+            </div>
+            <div class="row mx-auto">
+              <!-- Address Input -->
+              <div class="col-md-8">
+                <label for="address">
+                  Address
+                </label>
+                <textarea
+                  #addf="ngModel"
+                  name="address"
+                  id="address"
+                  required
+                  [(ngModel)]="form.address"
+                  [ngClass]="{
+                    'is-invalid': addf.errors && addf.touched,
+                    'is-valid': !addf.errors && addf.touched
+                  }"
+                  class="form-control"
+                ></textarea>
+                <div [hidden]="!addf.errors?.required" class="invalid-feedback">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <div class="row mx-auto">
+              <!--Time of Admission Input-->
+              <div class="col-md-4">
+                <label for="date">
+                  Time of admission
+                </label>
+                <input
+                  #df="ngModel"
+                  type="datetime-local"
+                  name="date"
+                  required
+                  minlength="2"
+                  id="date"
+                  class="form-control"
+                  [(ngModel)]="form.visit.admissionTime"
+                  [ngClass]="{
+                    'is-invalid': df.errors && df.touched,
+                    'is-valid': !df.errors && df.touched
+                  }"
+                />
+                <div [hidden]="!df.errors?.required" class="invalid-feedback">
+                  This field is required.
+                </div>
+              </div>
+              <!--Way of Admission Input-->
+              <div class="col-md-4">
+                <label for="way">
+                  Way of admittance
+                </label>
+                <input
+                  #wayf="ngModel"
+                  type="text"
+                  name="way"
+                  required
+                  minlength="2"
+                  id="way"
+                  class="form-control"
+                  [(ngModel)]="form.visit.wayOfAdmission"
+                  [ngClass]="{
+                    'is-invalid': wayf.errors && wayf.touched,
+                    'is-valid': !wayf.errors && wayf.touched
+                  }"
+                />
+                <div [hidden]="!wayf.errors?.required" class="invalid-feedback">
+                  This field is required.
+                </div>
+              </div>
+            </div>
+            <!-- Submit and Reset Buttons -->
+            <div class="p-3 mt-5 ml-3">
+              <input
+                type="submit"
+                name="submit"
+                value="Save & Move to Medical Form"
+                class="btn btn-success ml-3 col-4"
+                [disabled]="generalForm.form.invalid"
+              />
+              <input
+                type="button"
+                value="Reset"
+                class="btn btn-danger ml-5 col-2"
+                (click)="resetForm(generalForm)"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-1">
+      <a routerLink="/main/add-new-patient/medical-form" class="btn navBtn ml-5"
+        ><i class="fas fa-arrow-circle-right"></i
+      ></a>
+    </div>
+  </div>
+</div>

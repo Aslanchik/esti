@@ -1,0 +1,38 @@
+.fa-check-circle {
+  font-size: 2rem;
+  color: #0e951b;
+}
+.fa-times-circle {
+  font-size: 1.8rem;
+  color: #f0544f;
+}
+.fa-undo-alt {
+  font-size: 1.8rem;
+  color: #35a7ff;
+}
+
+.card {
+  background-color: #fcefed1e;
+}
+
+.isComplete {
+  background: #d1e0d3 !important;
+  margin-left: 1rem;
+  &:hover {
+    background: #e5f0e6 !important;
+  }
+}
+
+.card-body {
+  color: #423545;
+}
+
+.task {
+  padding: 10px;
+  border-bottom: 1px #ccc dotted;
+  background-color: #f0dbd87c;
+  &:hover {
+    background-color: #fcece9b7;
+    cursor: pointer;
+  }
+}

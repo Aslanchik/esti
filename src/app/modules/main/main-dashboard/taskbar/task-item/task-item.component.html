@@ -1,0 +1,25 @@
+<div class="container-fluid task" [ngClass]="setClasses(task)">
+  <div class="row">
+    <div class="col-9" (click)="collapse(task)">
+      <h6>
+        {{ task.title }}
+      </h6>
+      <p>
+        <i>{{ task.patientId }}</i> - {{ task.patientName }}
+      </p>
+    </div>
+    <i class="fas fa-check-circle col-1 mt-3" (click)="markComplete(task)"></i>
+    <div class="row flex-column col-1 mt-1 ml-2">
+      <i class="fas fa-times-circle mb-2" (click)="onDelete(task)"></i
+      ><i class="fas fa-undo-alt" (click)="undo(task)"></i>
+    </div>
+  </div>
+
+  <div [ngbCollapse]="task.isCollapsed">
+    <div class="card">
+      <div class="card-body">
+        {{ task.description }}
+      </div>
+    </div>
+  </div>
+</div>

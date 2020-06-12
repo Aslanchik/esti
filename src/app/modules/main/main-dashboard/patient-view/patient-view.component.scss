@@ -1,0 +1,20 @@
+.noPatients {
+  font-size: 2.3rem;
+}
+.fa-broom {
+  color: #b392ac;
+}
+.add {
+  height: 17vh;
+  background-color: #d1e0d39f;
+  box-shadow: 5px 5px 0px 0px #e5f0e6, 10px 10px 0px 0px #e5f0e6a8,
+    15px 15px 0px 0px #e5f0e65d, 20px 20px 0px 0px #e5f0e621;
+  &:hover {
+    background-color: #e5f0e6;
+    cursor: pointer;
+  }
+}
+.fa-user-plus {
+  color: #57a773;
+  font-size: 3rem;
+}
