@@ -9,7 +9,7 @@ import { HistoryService } from '../services/history.service';
 })
 export class HistoryVisitComponent implements OnInit {
   visit: HistoryVisit;
-  isCollapsedTreat: boolean = false;
+  isCollapsedTreat: boolean = true;
   isCollapsedNotes: boolean = true;
 
   constructor(private historySer: HistoryService) {
