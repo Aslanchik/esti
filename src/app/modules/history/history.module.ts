@@ -11,6 +11,7 @@ import { MainModule } from '../main/main.module';
 import { HistoryRoutingModule } from './history-routing.module';
 import { HistorySearchComponent } from './history-dashboard/history-overview/history-search/history-search.component';
 import { HistoryVisitComponent } from './history-visit/history-visit.component';
+import { YesNoPipe } from './pipes/yes-no.pipe';
 
 const exporting = [HistoryDashboardComponent];
 
@@ -21,6 +22,7 @@ const exporting = [HistoryDashboardComponent];
     HistoryItemComponent,
     HistorySearchComponent,
     HistoryVisitComponent,
+    YesNoPipe,
   ],
   imports: [
     CommonModule,

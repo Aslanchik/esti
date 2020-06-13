@@ -1,10 +1,135 @@
 <div class="container-fluid">
-  <div class="col-1 pl-0">
-    <a routerLink="/add-new-patient/general-form" class="btn navBtn"
-      ><i class="fas fa-arrow-circle-left"></i
-    ></a>
+  <div class="row mt-4">
+    <div class="col-md-1 pl-0">
+      <a routerLink="#" class="btn navBtn"
+        ><i class="fas fa-arrow-circle-left"></i
+      ></a>
+    </div>
+    <h1 class="col-md-10 header">{{ visit.patientName | titlecase }}</h1>
   </div>
   <div class="row">
-    <h3></h3>
+    <h3 class="col-md-8 mx-auto">
+      Displaying visit from <span class="when">{{ visit.when }}</span>
+    </h3>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-3">
+      <label>ID</label>
+      <div class="form-control">123456789</div>
+    </div>
+    <div class="col-md-3">
+      <label>How the patient arrived?</label>
+      <div class="form-control">{{ visit.how | titlecase }}</div>
+    </div>
+    <div class="col-md-3">
+      <label>Attending Nurse</label>
+      <div class="form-control">{{ visit.attendingNurse }}</div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-md-9">
+      <label for="">Diagnosis</label>
+      <div class="form-control">{{ visit.diagnosis }}</div>
+    </div>
+  </div>
+  <div class="row mt-3 ml-1">
+    <nav ngbNav #habits="ngbNav" class="nav-tabs col-md-9">
+      <ng-container ngbNavItem>
+        <a ngbNavLink>Habits</a>
+        <ng-template ngbNavContent>
+          <p>Smoking: {{ visit.habits.smoking | yesNo }}</p>
+          <p>Alcohol: {{ visit.habits.alcohol | yesNo }}</p>
+          <p>Drugs: {{ visit.habits.drugs | yesNo }}</p>
+        </ng-template>
+      </ng-container>
+      <ng-container ngbNavItem>
+        <a ngbNavLink>Diet</a>
+        <ng-template ngbNavContent>
+          <p *ngIf="visit.diet; else noDiet">{{ visit.diet | titlecase }}</p>
+          <ng-template #noDiet>
+            <p>No specific diet.</p>
+          </ng-template>
+        </ng-template>
+      </ng-container>
+      <ng-container ngbNavItem>
+        <a ngbNavLink>Allergies</a>
+        <ng-template ngbNavContent>
+          <p *ngIf="visit.allergies; else noAllergies">
+            {{ visit.allergies }}
+          </p>
+          <ng-template #noAllergies>
+            <p>No known allergies.</p>
+          </ng-template>
+        </ng-template>
+      </ng-container>
+    </nav>
+    <div [ngbNavOutlet]="habits" class="content mt-2 col-md-9"></div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <button
+        class="btn btn-outline-secondary collapseBtn"
+        (click)="isCollapsedTreat = !isCollapsedTreat"
+      >
+        Treatment Information ⏷
+      </button>
+    </div>
+    <div [ngbCollapse]="isCollapsedTreat" class="col-md-10 mt-2">
+      <div class="card">
+        <div class="card-body row">
+          <nav ngbNav #treatment="ngbNav" class="nav-tabs col-md-8">
+            <ng-container ngbNavItem>
+              <a ngbNavLink><i class="fas fa-pills"></i> Medication</a>
+              <ng-template ngbNavContent>
+                <p>Prescribed:</p>
+                <div *ngFor="let medicine of visit.medication; index as idx">
+                  {{ visit.medication[idx] }}
+                </div>
+              </ng-template>
+            </ng-container>
+            <ng-container ngbNavItem>
+              <a ngbNavLink><i class="fas fa-procedures"></i> Procedures</a>
+              <ng-template ngbNavContent>
+                <p *ngIf="visit.procedures; else noProcedures">
+                  {{ visit.procedures }}
+                </p>
+                <ng-template #noProcedures>
+                  <p>No procedures were made.</p>
+                </ng-template>
+              </ng-template>
+            </ng-container>
+            <ng-container ngbNavItem>
+              <a ngbNavLink><i class="fas fa-vials"></i> Tests</a>
+              <ng-template ngbNavContent>
+                <p *ngIf="visit.tests; else noTests">
+                  {{ visit.tests }}
+                </p>
+                <ng-template #noTests>
+                  <p>No tests were orederd.</p>
+                </ng-template>
+              </ng-template>
+            </ng-container>
+          </nav>
+          <div [ngbNavOutlet]="treatment" class="mt-2 col-md-9"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4 mb-5">
+    <div class="col-md-6">
+      <button
+        class="btn btn-outline-secondary collapseBtn"
+        (click)="isCollapsedNotes = !isCollapsedNotes"
+      >
+        Additional Notes ⏷
+      </button>
+    </div>
+    <div [ngbCollapse]="isCollapsedNotes" class="col-md-10 mt-2">
+      <div class="card">
+        <div class="card-body">
+          <p>{{ visit.notes }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

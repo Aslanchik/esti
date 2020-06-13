@@ -1,0 +1,29 @@
+.navBtn {
+  font-size: 3rem;
+  color: #232323b4;
+  transition: all 0.2s ease;
+  &:hover {
+    color: #353535;
+  }
+}
+.header {
+  font-size: 4rem;
+  color: #423545;
+}
+h3 {
+  color: #4235457a;
+}
+.when {
+  color: #423545ce;
+}
+a {
+  color: #423545;
+  font-size: 1rem;
+}
+.content {
+  border-bottom: 1px rgba(204, 204, 204, 0.521) solid;
+}
+.collapseBtn {
+  border: none;
+  text-decoration: wavy;
+}
