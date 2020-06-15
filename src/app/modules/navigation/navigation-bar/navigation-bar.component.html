@@ -1,7 +1,7 @@
 <ul class="nav flex-column pt-2">
-  <a routerLink="/main" class="logoNav ml-2"
-    ><h1 class="ml-5 mb-5">ES <i class="fas fa-stethoscope"></i> TI</h1></a
-  >
+  <a routerLink="/main" class="logoNav ml-2">
+    <h1 class="ml-5 mb-5">ES <i class="fas fa-stethoscope"></i> TI</h1>
+  </a>
   <li *ngFor="let item of navItems" class="mt-2 ml-1">
     <a routerLinkActive="active" [routerLink]="item.link" class="nav-link">
       <i class="{{ item.icon }}"></i>

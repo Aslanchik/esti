@@ -10,12 +10,7 @@ export class HistoryService {
     {
       patientId: '123456789',
       patientName: 'Aslan Badalov',
-      visits: [
-        { date: '29/05/2019', link: '#' },
-        { date: '31/05/2019', link: '#' },
-        { date: '21/07/2019', link: '#' },
-        { date: '18/09/2019', link: '#' },
-      ],
+      visits: [{ date: '29/05/2019', link: '/history/visit' }],
     },
   ];
   private visit: HistoryVisit = {

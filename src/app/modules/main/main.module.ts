@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
-import { NavigationComponent } from './navigation/navigation.component';
 import { TaskbarComponent } from './main-dashboard/taskbar/taskbar.component';
 import { PatientViewComponent } from './main-dashboard/patient-view/patient-view.component';
 import { TaskItemComponent } from './main-dashboard/taskbar/task-item/task-item.component';
@@ -15,17 +14,13 @@ import { GeneralFormComponent } from './add-new-patient/general-form/general-for
 import { MedicalFormComponent } from './add-new-patient/medical-form/medical-form.component';
 import { PlanFormComponent } from './add-new-patient/plan-form/plan-form.component';
 import { MainRoutingModule } from './main-routing.module';
+import { NavigationModule } from '../navigation/navigation.module';
 
-const exporting = [
-  MainDashboardComponent,
-  AddNewPatientComponent,
-  NavigationComponent,
-];
+const exporting = [MainDashboardComponent, AddNewPatientComponent];
 
 @NgModule({
   declarations: [
     ...exporting,
-    NavigationComponent,
     TaskbarComponent,
     PatientViewComponent,
     TaskItemComponent,
@@ -37,6 +32,7 @@ const exporting = [
   imports: [
     CommonModule,
     RouterModule,
+    NavigationModule,
     NgbModule,
     FormsModule,
     MainRoutingModule,

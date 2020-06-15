@@ -13,6 +13,7 @@
         <button
           class="btn btn-outline-secondary ml-3"
           *ngFor="let visit of patient.visits; index as idx"
+          [routerLink]="visit.link"
         >
           {{ patient.visits[idx].date }}
         </button>

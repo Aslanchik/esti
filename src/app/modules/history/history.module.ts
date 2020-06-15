@@ -6,7 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HistoryDashboardComponent } from './history-dashboard/history-dashboard.component';
 import { HistoryOverviewComponent } from './history-dashboard/history-overview/history-overview.component';
 import { HistoryItemComponent } from './history-dashboard/history-overview/history-item/history-item.component';
-
+import { NavigationModule } from '../navigation/navigation.module';
 import { MainModule } from '../main/main.module';
 import { HistoryRoutingModule } from './history-routing.module';
 import { HistorySearchComponent } from './history-dashboard/history-overview/history-search/history-search.component';
@@ -29,6 +29,7 @@ const exporting = [HistoryDashboardComponent];
     MainModule,
     RouterModule,
     NgbModule,
+    NavigationModule,
     HistoryRoutingModule,
   ],
   exports: [...exporting],
