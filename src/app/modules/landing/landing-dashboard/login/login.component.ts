@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoginUser } from '../../../../interfaces/login-user';
+import { LoginUser } from '../../interfaces/login-user';
+import { LoginService } from '../../services/login.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,13 +12,30 @@ import { LoginUser } from '../../../../interfaces/login-user';
 })
 export class LoginComponent implements OnInit {
   user: LoginUser = {
-    id: '123456789',
-    password: '123456789',
+    govId: '',
+    password: '',
   };
-  constructor() {}
+  private loginListenerSubs: Subscription;
+
+  isLoggedIn = false;
+
+  constructor(public loginSer: LoginService, private router: Router) {}
 
   ngOnInit(): void {}
+
+  checkLogIn() {
+    this.loginListenerSubs = this.loginSer
+      .getLoginStatusListener()
+      .subscribe((isLoggedIn) => {
+        this.isLoggedIn = isLoggedIn;
+        if (this.isLoggedIn) this.router.navigate(['/main']);
+      });
+  }
+
   onSubmit({ value, valid }: { value: LoginUser; valid: boolean }): void {
-    console.log(value, valid);
+    if (valid) {
+      this.loginSer.loginStaff(value);
+      this.checkLogIn();
+    }
   }
 }

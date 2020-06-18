@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RegisterUser } from '../../../../interfaces/register-user';
+import { RegisterUser } from '../../interfaces/register-user';
+import { RegisterService } from '../../services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -8,17 +9,18 @@ import { RegisterUser } from '../../../../interfaces/register-user';
 })
 export class RegisterComponent implements OnInit {
   user: RegisterUser = {
-    id: '',
+    govId: '',
     email: '',
     fname: '',
     lname: '',
     password: '',
   };
 
-  constructor() {}
+  constructor(public registerSer: RegisterService) {}
 
   ngOnInit(): void {}
+
   onSubmit({ value, valid }: { value: RegisterUser; valid: boolean }): void {
-    console.log(value, valid);
+    this.registerSer.registerStaff(value);
   }
 }

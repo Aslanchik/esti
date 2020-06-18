@@ -1,5 +1,5 @@
 export interface RegisterUser {
-  id: string;
+  govId: string;
   email: string;
   fname: string;
   lname: string;

@@ -25,7 +25,7 @@ export class NavigationBarComponent implements OnInit {
     }, */
     {
       title: 'history',
-      icon: 'fas fa-file-medical-alt',
+      icon: 'fas fa-book-medical',
       link: '/history/overview',
     },
     {

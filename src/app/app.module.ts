@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { LandingModule } from './modules/landing/landing.module';
 import { MainModule } from './modules/main/main.module';
 import { HistoryModule } from './modules/history/history.module';
+import { Interceptor } from './modules/landing/services/auth-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,9 @@ import { HistoryModule } from './modules/history/history.module';
     HttpClientModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

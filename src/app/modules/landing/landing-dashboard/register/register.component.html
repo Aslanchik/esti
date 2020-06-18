@@ -2,8 +2,8 @@
   <div class="col-12">
     <h3 class="mb-4">Register</h3>
     <form
-      #loginForm="ngForm"
-      (ngSubmit)="onSubmit(loginForm)"
+      #registerForm="ngForm"
+      (ngSubmit)="onSubmit(registerForm)"
       novalidate
       autocomplete="off"
     >
@@ -14,11 +14,11 @@
             placeholder="Your ID"
             #idf="ngModel"
             type="text"
-            name="id"
+            name="govId"
             required
             minlength="9"
             maxlength="9"
-            [(ngModel)]="user.id"
+            [(ngModel)]="user.govId"
             class="form-control"
             [ngClass]="{
               'is-invalid': idf.errors && idf.touched,
@@ -139,6 +139,7 @@
         name="submit"
         value="Submit"
         class="btn btn-secondary ml-3 mb-3"
+        [disabled]="registerForm.form.invalid"
       />
       <a routerLink="/login" class="btn btn-outline-secondary ml-3 mb-3"
         >Already have a user? Login</a

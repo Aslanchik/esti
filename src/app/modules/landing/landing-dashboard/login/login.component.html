@@ -14,12 +14,11 @@
             placeholder="ID"
             #idf="ngModel"
             type="text"
-            name="id"
+            name="govId"
             required
             minlength="9"
             maxlength="9"
-            id="id"
-            [(ngModel)]="user.id"
+            [(ngModel)]="user.govId"
             class="form-control"
             [ngClass]="{
               'is-invalid': idf.errors && idf.touched,
@@ -41,10 +40,9 @@
             placeholder="Password"
             #passf="ngModel"
             type="password"
-            name="pass"
+            name="password"
             required
-            minlength="9"
-            id="pass"
+            minlength="8"
             [(ngModel)]="user.password"
             class="form-control"
             [ngClass]="{
@@ -65,7 +63,7 @@
         name="submit"
         value="Submit"
         class="btn btn-secondary ml-3 mb-3"
-        routerLink="../main"
+        [disabled]="loginForm.form.invalid"
       />
       <a routerLink="/register" class="btn btn-outline-secondary ml-3 mb-3"
         >Not a user? Register</a
