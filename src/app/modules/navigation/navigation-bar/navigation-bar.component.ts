@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavItem } from '../../../interfaces/nav-item';
+import { LoginService } from '../../landing/services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -34,7 +36,16 @@ export class NavigationBarComponent implements OnInit {
       link: 'help',
     },
   ];
-  constructor() {}
 
+  loggedInStaff: string;
+
+  constructor(private loginServ: LoginService) {
+    const loggedIn = this.loginServ.getCurrentlyLoggedIn();
+    this.loggedInStaff = loggedIn;
+  }
+
+  onLogout() {
+    this.loginServ.logoutStaff();
+  }
   ngOnInit(): void {}
 }

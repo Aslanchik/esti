@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Patient } from 'src/app/interfaces/patient';
+import { Patient } from '../../../interfaces/patient';
 import { PatientService } from '../../../services/patient.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class PatientCardComponent implements OnInit {
   patients: Patient[];
 
   setPatientClass(p: Patient) {
-    if (p.visit.state === 'active') {
+    /* if (p.visit.state === 'active') {
       let state = {
         patientActive: true,
       };
@@ -28,7 +28,7 @@ export class PatientCardComponent implements OnInit {
       return state;
     } else {
       return false;
-    }
+    } */
   }
 
   constructor(private patientService: PatientService) {

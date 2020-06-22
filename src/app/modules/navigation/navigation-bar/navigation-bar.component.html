@@ -2,7 +2,10 @@
   <a routerLink="/main" class="logoNav ml-2">
     <h1 class="ml-5 mb-3">ES <i class="fas fa-stethoscope"></i> TI</h1>
   </a>
-  <div class="logged ml-3 mb-3">Logged In As</div>
+  <div class="logged ml-4 mb-3">
+    Welcome back
+    <span class="loggedIn"> {{ loggedInStaff | titlecase }} </span>
+  </div>
   <li *ngFor="let item of navItems" class="mt-2 ml-1">
     <a routerLinkActive="active" [routerLink]="item.link" class="nav-link">
       <i class="{{ item.icon }}"></i>
@@ -10,7 +13,7 @@
     </a>
   </li>
   <li class="ml-1 mt-2">
-    <a class="nav-link">
+    <a class="nav-link" (click)="onLogout()" routerLink>
       <i class="fas fa-sign-out-alt"></i>
       <span class="ml-3">Log Out</span>
     </a>

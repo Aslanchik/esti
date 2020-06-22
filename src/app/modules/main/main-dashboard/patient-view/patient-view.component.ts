@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientService } from '../../services/patient.service';
-import { Patient } from 'src/app/interfaces/patient';
+import { Patient } from '../../interfaces/patient';
 
 @Component({
   selector: 'app-patient-view',

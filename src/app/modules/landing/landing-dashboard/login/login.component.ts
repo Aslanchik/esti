@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   isLoggedIn = false;
 
-  constructor(public loginSer: LoginService, private router: Router) {}
+  constructor(public loginSer: LoginService) {}
 
   ngOnInit(): void {}
 
@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
       .getLoginStatusListener()
       .subscribe((isLoggedIn) => {
         this.isLoggedIn = isLoggedIn;
-        if (this.isLoggedIn) this.router.navigate(['/main']);
       });
   }
 
