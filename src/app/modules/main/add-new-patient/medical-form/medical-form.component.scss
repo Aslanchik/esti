@@ -1,22 +1,31 @@
 .navBtn {
-  font-size: 3rem;
-  color: #232323b4;
-  transition: all 0.2s ease;
+  font-size: 7em;
+  color: #32a75ba9;
+  transition: all 0.8s ease-in-out;
   &:hover {
-    color: #353535;
+    color: #32a75b;
+    transform: translate(30px);
   }
 }
+.vitals {
+  padding: 14px;
+  color: #4d3340;
+  background-color: #fcece9de;
+  border-radius: 22px;
+  border-bottom: #fde0db 1px solid;
+
+  &:hover {
+    background-color: #ffe9e6;
+    cursor: pointer;
+  }
+}
+
 .form {
-  padding-top: 3rem;
-  line-height: 1rem;
-  padding-left: 3rem;
+  padding-top: 1rem;
+  line-height: 2rem;
+  padding-left: 1rem;
 }
-.btn-success {
-  background-color: #57a773;
-  &:hover {
-    background-color: #32a75b;
-  }
-}
+
 .btn-danger {
   background-color: #de5469e1;
 
@@ -29,4 +38,21 @@
 }
 .stateActive {
   background-color: #f8c45a;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid #de5469b2;
+}
+input.ng-valid.ng-touched {
+  border: 1px solid #32a75b79;
+}
+textarea.ng-invalid.ng-touched {
+  border: 1px solid #de5469b2;
+}
+textarea.ng-valid.ng-touched {
+  border: 1px solid #32a75b79;
+}
+.invalid {
+  font-size: 1rem;
+  color: #de5469de;
 }

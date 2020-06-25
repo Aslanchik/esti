@@ -15,11 +15,6 @@ const routes: Routes = [
   {
     path: 'add-new-patient',
     component: AddNewPatientComponent,
-    children: [
-      { path: 'general-form', component: GeneralFormComponent },
-      { path: 'medical-form', component: MedicalFormComponent },
-      { path: 'plan-form', component: PlanFormComponent },
-    ],
   },
 ];
 

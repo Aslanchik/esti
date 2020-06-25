@@ -1,26 +1,36 @@
-.navBtn {
-  font-size: 3rem;
-  color: #232323b4;
-  transition: all 0.2s ease;
-  &:hover {
-    color: #353535;
-  }
-}
 .form {
   padding-top: 1rem;
-  line-height: 2rem;
-  padding-left: 2rem;
+  line-height: 3rem;
+  padding-left: 1rem;
 }
-.btn-success {
-  background-color: #57a773;
+
+.navBtn {
+  font-size: 7em;
+  color: #32a75ba9;
+  transition: all 0.8s ease-in-out;
   &:hover {
-    background-color: #32a75b;
+    color: #32a75b;
+    transform: translate(30px);
   }
 }
+
 .btn-danger {
   background-color: #de5469e1;
+}
 
-  &:hover {
-    background-color: #de5469;
-  }
+input.ng-invalid.ng-touched {
+  border: 1px solid #de5469b2;
+}
+input.ng-valid.ng-touched {
+  border: 1px solid #32a75b79;
+}
+textarea.ng-invalid.ng-touched {
+  border: 1px solid #de5469b2;
+}
+textarea.ng-valid.ng-touched {
+  border: 1px solid #32a75b79;
+}
+.invalid {
+  font-size: 1rem;
+  color: #de5469de;
 }

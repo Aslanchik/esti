@@ -13,7 +13,7 @@ export class NavigationBarComponent implements OnInit {
     {
       title: 'add new patient',
       icon: 'fas fa-user-plus',
-      link: '/main/add-new-patient/general-form',
+      link: '/main/add-new-patient',
     },
     /* {
       title: 'patient overview',

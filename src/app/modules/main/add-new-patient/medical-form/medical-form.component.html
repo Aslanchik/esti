@@ -1,101 +1,73 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-1 pl-0">
-      <a routerLink="/add-new-patient/general-form" class="btn navBtn"
-        ><i class="fas fa-arrow-circle-left"></i
-      ></a>
-    </div>
     <div class="col-10 mt-4">
-      <h2>2. Medical Observation</h2>
-      <div class="row">
-        <div class="col-12 form">
-          <form
-            #medicalForm="ngForm"
-            (ngSubmit)="onSubmit(medicalForm)"
-            novalidate
-            autocomplete="off"
-          >
+      <h2 class="display-4">2. Medical Observation</h2>
+      <div class="row" [formGroup]="parentFormGroup">
+        <div class="col-12 form" formGroupName="visit">
+          <div formGroupName="medical">
             <div class="row mx-auto">
               <!--Reason of visit Input-->
               <div class="col-md-4 form-group">
                 <label for="reason">
-                  Reason for visit?
+                  <span class="invalid mr-2">*</span>Reason for visit?
                 </label>
                 <input
-                  #rf="ngModel"
                   type="text"
                   name="reason"
-                  required
-                  minlength="2"
                   id="reason"
                   class="form-control"
-                  [(ngModel)]="form.visit.reasonOfVisit"
-                  [ngClass]="{
-                    'is-invalid': rf.errors && rf.touched,
-                    'is-valid': !rf.errors && rf.touched
-                  }"
+                  formControlName="reasonOfVisit"
                 />
-                <div [hidden]="!rf.errors?.required" class="invalid-feedback">
+                <span
+                  *ngIf="
+                    !parentFormGroup.get('visit.medical.reasonOfVisit').valid &&
+                    parentFormGroup.get('visit.medical.reasonOfVisit').touched
+                  "
+                  class="invalid"
+                >
                   This field is required.
-                </div>
+                </span>
               </div>
 
               <!--Way of Admission Input-->
-              <div class="col-md-4 form-group">
-                <label>
-                  Allergies?
-                </label>
+              <div class="col-md-5 form-group">
+                <label> <span class="invalid mr-2">*</span>Allergies? </label>
                 <input
-                  #allerf="ngModel"
                   type="text"
                   name="allergies"
-                  required
-                  minlength="2"
                   class="form-control"
-                  [(ngModel)]="form.visit.allergies"
-                  [ngClass]="{
-                    'is-invalid': allerf.errors && allerf.touched,
-                    'is-valid': !allerf.errors && allerf.touched
-                  }"
+                  formControlName="allergies"
                 />
-                <div
-                  [hidden]="!allerf.errors?.required"
-                  class="invalid-feedback"
+                <span
+                  *ngIf="
+                    !parentFormGroup.get('visit.medical.allergies').valid &&
+                    parentFormGroup.get('visit.medical.allergies').touched
+                  "
+                  class="invalid"
                 >
                   This field is required.
-                </div>
+                </span>
               </div>
               <!-- State -->
               <div class="col-md-3 form-group">
-                <label>State?</label>
-                <div
-                  class="form-control text-center state"
-                  [ngClass]="{
-                    stateActive: form.visit.state === 'active',
-                    stateCritical: form.visit.state === 'critical'
-                  }"
-                >
+                <label><span class="invalid mr-2">*</span>State?</label>
+                <div class="form-control text-center state">
                   <label class="raido-inline"
                     ><input
-                      #activef="ngModel"
                       type="radio"
                       id="activeState"
-                      name="state"
                       value="active"
-                      [(ngModel)]="form.visit.state"
-                      checked
+                      formControlName="state"
                     />
                     Active
                   </label>
                   <label class="raido-inline"
                     ><input
-                      #criticalf="ngModel"
                       type="radio"
                       id="criticalState"
-                      name="state"
                       value="critical"
                       class="ml-3"
-                      [(ngModel)]="form.visit.state"
+                      formControlName="state"
                     />
                     Critical</label
                   >
@@ -103,217 +75,152 @@
               </div>
             </div>
             <!-- Habits -->
-            <div class="row mx-auto">
+            <div class="row mx-auto" formGroupName="habits">
               <!-- Smoking -->
-              <div class="col-md-2 form-group">
+              <div class="col-lg-3 form-group">
                 <label>Smoking?</label>
                 <div class="form-control">
+                  <span class="invalid mr-4">*</span>
                   <label class="raido-inline"
                     ><input
-                      #smoketruef="ngModel"
                       type="radio"
-                      name="smokeTrue"
                       value="true"
-                      [(ngModel)]="form.visit.habits.smoking"
-                      checked
-                    />
-                    True
-                  </label>
-                  <label class="raido-inline"
-                    ><input
-                      #smokefalsef="ngModel"
-                      type="radio"
-                      name="smokeFalse"
-                      value="false"
-                      class="ml-3"
-                      [(ngModel)]="form.visit.habits.smoking"
-                    />
-                    False</label
-                  >
-                </div>
-              </div>
-              <!-- DRINKING -->
-              <div class="col-md-2 form-group">
-                <label>Drinking?</label>
-                <div class="form-control">
-                  <label class="raido-inline"
-                    ><input
-                      #drinktruef="ngModel"
-                      type="radio"
-                      name="drinkTrue"
-                      value="true"
-                      [(ngModel)]="form.visit.habits.drinking"
-                    />
-                    True
-                  </label>
-                  <label class="raido-inline"
-                    ><input
-                      #drinkfalsef="ngModel"
-                      type="radio"
-                      name="drinkFalse"
-                      value="false"
-                      class="ml-3"
-                      [(ngModel)]="form.visit.habits.drinking"
-                    />
-                    False</label
-                  >
-                </div>
-              </div>
-              <!-- Drugs -->
-              <div class="col-md-2 form-group">
-                <label>Drugs?</label>
-                <div class="form-control">
-                  <label class="raido-inline"
-                    ><input
-                      #drugstruef="ngModel"
-                      type="radio"
-                      name="drugsTrue"
-                      value="true"
-                      [(ngModel)]="form.visit.habits.drugs"
-                    />
-                    True
-                  </label>
-                  <label class="raido-inline"
-                    ><input
-                      #drugsfalsef="ngModel"
-                      type="radio"
-                      name="drugsFalse"
-                      value="false"
-                      class="ml-3"
-                      [(ngModel)]="form.visit.habits.drugs"
-                    />
-                    False</label
-                  >
-                </div>
-              </div>
-              <!-- Drugs description -->
-              <div
-                class="col-md-4 form-group"
-                *ngIf="form.visit.habits.drugs; else noDrugs"
-              >
-                <label>
-                  Which drugs and how often?
-                </label>
-                <input
-                  #drugdesf="ngModel"
-                  type="text"
-                  name="drugDescription"
-                  required
-                  minlength="2"
-                  class="form-control"
-                  [(ngModel)]="form.visit.habits.whichDrugs"
-                  [ngClass]="{
-                    'is-invalid': drugdesf.errors && drugdesf.touched,
-                    'is-valid': !drugdesf.errors && drugdesf.touched
-                  }"
-                />
-                <div
-                  [hidden]="!drugdesf.errors?.required"
-                  class="invalid-feedback"
-                >
-                  This field is required.
-                </div>
-              </div>
-              <ng-template #noDrugs></ng-template>
-              <!-- Vegan? -->
-              <div class="col-md-2 form-group">
-                <label>Vegan?</label>
-                <div class="form-control">
-                  <label class="raido-inline"
-                    ><input
-                      #vegantruef="ngModel"
-                      type="radio"
-                      name="veganTrue"
-                      value="true"
-                      [(ngModel)]="form.visit.habits.vegan"
-                    />
-                    True
-                  </label>
-                  <label class="raido-inline"
-                    ><input
-                      #veganfalsef="ngModel"
-                      type="radio"
-                      name="veganFalse"
-                      value="false"
-                      class="ml-3"
-                      [(ngModel)]="form.visit.habits.vegan"
-                    />
-                    False</label
-                  >
-                </div>
-              </div>
-            </div>
-            <!-- Case Story -->
-            <div class="row mx-auto">
-              <div class="col-md-10 form-group">
-                <label>Case Story</label>
-                <textarea
-                  #casef="ngModel"
-                  name="case"
-                  placeholder="How it happend?"
-                  [(ngModel)]="form.visit.caseStory"
-                  required
-                  class="form-control"
-                  [ngClass]="{
-                    'is-invalid': casef.errors && casef.touched,
-                    'is-valid': !casef.errors && casef.touched
-                  }"
-                ></textarea>
-                <div
-                  [hidden]="!casef.errors?.required"
-                  class="invalid-feedback"
-                >
-                  This field is required.
-                </div>
-              </div>
-            </div>
-            <!-- Symptoms -->
-            <div class="row mx-auto">
-              <div class="col-md-10 form-group">
-                <label>Symptoms?</label>
-                <textarea
-                  #sympf="ngModel"
-                  name="symptoms"
-                  placeholder="What symptoms does the patient exhibit?"
-                  [(ngModel)]="form.visit.symptoms"
-                  required
-                  class="form-control"
-                  [ngClass]="{
-                    'is-invalid': sympf.errors && sympf.touched,
-                    'is-valid': !sympf.errors && sympf.touched
-                  }"
-                ></textarea>
-                <div
-                  [hidden]="!sympf.errors?.required"
-                  class="invalid-feedback"
-                >
-                  This field is required.
-                </div>
-              </div>
-            </div>
-            <!-- Has this happened before? -->
-            <div class="row mx-auto">
-              <div class="col-md-3 form-group">
-                <label>Has this happend before?</label>
-                <div class="form-control">
-                  <label class="raido-inline"
-                    ><input
-                      #beforetruef="ngModel"
-                      type="radio"
-                      name="hasBeforeTrue"
-                      value="true"
-                      [(ngModel)]="form.visit.hasHappenedBefore.hasIt"
+                      formControlName="smoking"
                     />
                     Yes
                   </label>
                   <label class="raido-inline"
                     ><input
-                      #beforefalsef="ngModel"
                       type="radio"
-                      name="hasBeforeFalse"
+                      value="false"
+                      formControlName="smoking"
+                      class="ml-3"
+                    />
+                    No</label
+                  >
+                </div>
+              </div>
+              <!-- DRINKING -->
+              <div class="col-lg-3 form-group">
+                <label>Drinking?</label>
+                <div class="form-control">
+                  <span class="invalid mr-4">*</span>
+                  <label class="raido-inline"
+                    ><input
+                      type="radio"
+                      formControlName="drinking"
+                      value="true"
+                    />
+                    Yes
+                  </label>
+                  <label class="raido-inline"
+                    ><input
+                      type="radio"
+                      formControlName="drinking"
                       value="false"
                       class="ml-3"
-                      [(ngModel)]="form.visit.hasHappenedBefore.hasIt"
+                    />
+                    No</label
+                  >
+                </div>
+              </div>
+              <!-- Drugs -->
+              <div class="col-lg-3 form-group">
+                <label>Drugs?</label>
+                <div class="form-control">
+                  <span class="invalid mr-4">*</span>
+                  <label class="raido-inline"
+                    ><input type="radio" formControlName="drugs" value="true" />
+                    Yes
+                  </label>
+                  <label class="raido-inline"
+                    ><input
+                      type="radio"
+                      formControlName="drugs"
+                      value="false"
+                      class="ml-3"
+                    />
+                    No</label
+                  >
+                </div>
+              </div>
+              <!-- Drugs description -->
+              <div
+                class="col-md-3 form-group"
+                *ngIf="
+                  parentFormGroup.get('visit.medical.habits.drugs').value ===
+                    'true';
+                  else noDrugs
+                "
+              >
+                <label>
+                  Which drugs?
+                </label>
+                <input
+                  type="text"
+                  formControlName="drugsDescription"
+                  class="form-control"
+                />
+              </div>
+              <ng-template #noDrugs></ng-template>
+            </div>
+            <!-- Case Story -->
+            <div class="row mx-auto">
+              <div class="col-md-12 form-group">
+                <label><span class="invalid mr-2">*</span>Case Story</label>
+                <textarea
+                  formControlName="caseStory"
+                  placeholder="How it happend?"
+                  class="form-control"
+                ></textarea>
+                <span
+                  *ngIf="
+                    !parentFormGroup.get('visit.medical.caseStory').valid &&
+                    parentFormGroup.get('visit.medical.caseStory').touched
+                  "
+                  class="invalid"
+                >
+                  This field is required.
+                </span>
+              </div>
+            </div>
+            <!-- Symptoms -->
+            <div class="row mx-auto">
+              <div class="col-md-12 form-group">
+                <label><span class="invalid mr-2">*</span>Symptoms?</label>
+                <textarea
+                  formControlName="symptoms"
+                  placeholder="What symptoms does the patient exhibit?"
+                  class="form-control"
+                ></textarea>
+                <span
+                  *ngIf="
+                    !parentFormGroup.get('visit.medical.symptoms').valid &&
+                    parentFormGroup.get('visit.medical.symptoms').touched
+                  "
+                  class="invalid"
+                >
+                  This field is required.
+                </span>
+              </div>
+            </div>
+            <!-- Has this happened before? -->
+            <div class="row mx-auto" formGroupName="hasHappenedBefore">
+              <div class="col-md-3 form-group">
+                <label>Has this happend before?</label>
+                <div class="form-control">
+                  <span class="invalid mr-4">*</span>
+                  <label class="raido-inline"
+                    ><input type="radio" formControlName="hasIt" value="true" />
+                    Yes
+                  </label>
+
+                  <label class="raido-inline"
+                    ><input
+                      type="radio"
+                      formControlName="hasIt"
+                      value="false"
+                      class="ml-3"
                     />
                     No</label
                   >
@@ -321,59 +228,46 @@
               </div>
               <!-- Before description -->
               <div
-                class="col-md-7 form-group"
-                *ngIf="form.visit.hasHappenedBefore.hasIt; else noBefore"
+                class="col-md-9 form-group"
+                *ngIf="
+                  parentFormGroup.get('visit.medical.hasHappenedBefore.hasIt')
+                    .value === 'true';
+                  else noDrugs
+                "
               >
                 <label>
                   Description
                 </label>
                 <textarea
-                  #beforedesf="ngModel"
                   type="text"
-                  name="hasHappenedBeforeDescription"
-                  required
-                  minlength="2"
+                  formControlName="description"
                   placeholder="How bad was it and what was the treatment?"
                   class="form-control"
-                  [(ngModel)]="form.visit.hasHappenedBefore.description"
-                  [ngClass]="{
-                    'is-invalid': beforedesf.errors && beforedesf.touched,
-                    'is-valid': !beforedesf.errors && beforedesf.touched
-                  }"
                 ></textarea>
-                <div
-                  [hidden]="!beforedesf.errors?.required"
-                  class="invalid-feedback"
-                >
-                  This field is required.
-                </div>
               </div>
               <ng-template #noBefore></ng-template>
             </div>
 
             <!-- Family History -->
-            <div class="row mx-auto">
+            <div class="row mx-auto" formGroupName="history">
               <div class="col-md-3 form-group">
                 <label>Family history of disease?</label>
                 <div class="form-control">
+                  <span class="invalid mr-4">*</span>
                   <label class="raido-inline"
                     ><input
-                      #historytruef="ngModel"
                       type="radio"
-                      name="historyTrue"
+                      formControlName="isThere"
                       value="true"
-                      [(ngModel)]="form.visit.familyHistory.isThere"
                     />
                     Yes
                   </label>
                   <label class="raido-inline"
                     ><input
-                      #historyfalsef="ngModel"
                       type="radio"
-                      name="historyFalse"
+                      formControlName="isThere"
                       value="false"
                       class="ml-3"
-                      [(ngModel)]="form.visit.familyHistory.isThere"
                     />
                     No</label
                   >
@@ -381,233 +275,233 @@
               </div>
               <!-- Family history description -->
               <div
-                class="col-md-7 form-group"
-                *ngIf="form.visit.familyHistory.isThere; else noHistory"
+                class="col-md-9 form-group"
+                *ngIf="
+                  parentFormGroup.get('visit.medical.history.isThere').value ===
+                    'true';
+                  else noDrugs
+                "
               >
                 <label>
                   Description
                 </label>
                 <textarea
-                  #historydesf="ngModel"
                   type="text"
-                  name="familyHistoryDescription"
-                  required
-                  minlength="2"
+                  formControlName="description"
                   placeholder="Who was it and what disease?"
                   class="form-control"
-                  [(ngModel)]="form.visit.familyHistory.description"
-                  [ngClass]="{
-                    'is-invalid': historydesf.errors && historydesf.touched,
-                    'is-valid': !historydesf.errors && historydesf.touched
-                  }"
                 ></textarea>
-                <div
-                  [hidden]="!historydesf.errors?.required"
-                  class="invalid-feedback"
-                >
-                  This field is required.
-                </div>
               </div>
               <ng-template #noHistory></ng-template>
             </div>
             <!-- Vitals -->
-            <div class="col-9 mb-2">
-              <button
-                class="btn btn-outline-secondary"
-                (click)="isCollapsed = !isCollapsed"
-              >
-                Vitals Input
-              </button>
+            <div
+              class="container-fluid mt-3"
+              (click)="isCollapsed = !isCollapsed"
+            >
+              <div class="row mx-auto text-center vitals mb-4">
+                <h3><i class="fas fa-heartbeat"></i> Click to Input Vitals</h3>
+                <h3 class="ml-auto">
+                  <i
+                    class="fas fa-arrow-down"
+                    *ngIf="isCollapsed; else collapsed"
+                  ></i>
+                </h3>
+                <ng-template #collapsed>
+                  <h3 class="ml-auto"><i class="fas fa-arrow-up"></i></h3>
+                </ng-template>
+              </div>
             </div>
             <div [ngbCollapse]="isCollapsed">
-              <div class="card col-10">
+              <div class="card mb-4" formGroupName="vitals">
                 <div class="card-body row">
                   <div class="col-md-2 form-group">
                     <label for="pulse">
-                      Pulse/minute
+                      <span class="invalid mr-2">*</span>Pulse/min
                     </label>
                     <input
-                      #vitalpulsef="ngModel"
                       type="number"
-                      name="pulse"
-                      required
+                      formControlName="pulse"
                       min="0"
                       placeholder="60"
-                      minlength="2"
                       id="pulse"
                       class="form-control"
-                      [(ngModel)]="form.visit.vitals.pulse"
-                      [ngClass]="{
-                        'is-invalid': vitalpulsef.errors && vitalpulsef.touched,
-                        'is-valid': !vitalpulsef.errors && vitalpulsef.touched
-                      }"
                     />
-                    <div
-                      [hidden]="!vitalpulsef.errors?.required"
-                      class="invalid-feedback"
+                    <span
+                      *ngIf="
+                        !parentFormGroup.get('visit.medical.vitals.pulse')
+                          .valid &&
+                        parentFormGroup.get('visit.medical.vitals.pulse')
+                          .touched
+                      "
+                      class="invalid"
                     >
-                      This field is required.
-                    </div>
+                      Required.
+                    </span>
                   </div>
                   <!-- Blood Pressure Input -->
                   <div class="col-md-2 form-group">
                     <label for="bp">
-                      Blood Pressure
+                      <span class="invalid">*</span>Blood Pressure
                     </label>
                     <input
-                      #bpf="ngModel"
                       type="text"
-                      name="bp"
-                      required
-                      minlength="2"
+                      formControlName="bp"
                       id="bp"
                       placeholder="120/70"
                       class="form-control"
-                      [(ngModel)]="form.visit.vitals.bp"
-                      [ngClass]="{
-                        'is-invalid': bpf.errors && bpf.touched,
-                        'is-valid': !bpf.errors && bpf.touched
-                      }"
                     />
-                    <div
-                      [hidden]="!bpf.errors?.required"
-                      class="invalid-feedback"
+                    <span
+                      *ngIf="
+                        !parentFormGroup.get('visit.medical.vitals.bp').valid &&
+                        parentFormGroup.get('visit.medical.vitals.bp').touched
+                      "
+                      class="invalid"
                     >
-                      This field is required.
-                    </div>
+                      Required.
+                    </span>
                   </div>
                   <!-- Temperature Input -->
                   <div class="col-md-2 form-group">
                     <label for="temp">
-                      Temperature(°)
+                      <span class="invalid mr-1">*</span>Temperature(°)
                     </label>
                     <input
-                      #tempf="ngModel"
                       type="number"
-                      name="temp"
-                      required
+                      formControlName="temp"
                       min="0"
                       placeholder="36.5"
                       minlength="2"
                       id="temp"
                       class="form-control"
-                      [(ngModel)]="form.visit.vitals.temp"
-                      [ngClass]="{
-                        'is-invalid': tempf.errors && tempf.touched,
-                        'is-valid': !tempf.errors && tempf.touched
-                      }"
                     />
-                    <div
-                      [hidden]="!tempf.errors?.required"
-                      class="invalid-feedback"
+                    <span
+                      *ngIf="
+                        !parentFormGroup.get('visit.medical.vitals.temp')
+                          .valid &&
+                        parentFormGroup.get('visit.medical.vitals.temp').touched
+                      "
+                      class="invalid"
                     >
-                      This field is required.
-                    </div>
+                      Required.
+                    </span>
                   </div>
                   <!-- Weight Input -->
                   <div class="col-md-2 form-group">
                     <label for="weight">
-                      Weight(kg)
+                      <span class="invalid mr-1">*</span>Weight(kg)
                     </label>
                     <input
-                      #weightf="ngModel"
                       type="number"
-                      name="weight"
-                      required
+                      formControlName="weight"
                       min="0"
                       placeholder="80"
                       minlength="2"
                       id="weight"
                       class="form-control"
-                      [(ngModel)]="form.visit.vitals.weight"
-                      [ngClass]="{
-                        'is-invalid': weightf.errors && weightf.touched,
-                        'is-valid': !weightf.errors && weightf.touched
-                      }"
                     />
-                    <div
-                      [hidden]="!weightf.errors?.required"
-                      class="invalid-feedback"
+                    <span
+                      *ngIf="
+                        !parentFormGroup.get('visit.medical.vitals.weight')
+                          .valid &&
+                        parentFormGroup.get('visit.medical.vitals.weight')
+                          .touched
+                      "
+                      class="invalid"
                     >
-                      This field is required.
-                    </div>
+                      Required.
+                    </span>
                   </div>
                   <!-- Blood Sugar Input -->
                   <div class="col-md-2 form-group">
                     <label for="bsugar">
-                      Blood Sugar
+                      <span class="invalid mr-1">*</span>Blood Sugar
                     </label>
                     <input
-                      #bsugarf="ngModel"
                       type="number"
-                      name="bsugar"
-                      required
+                      formControlName="bloodSugar"
                       min="0"
                       placeholder="60"
                       minlength="0"
                       id="bsugar"
                       class="form-control"
-                      [(ngModel)]="form.visit.vitals.bloodSugar"
-                      [ngClass]="{
-                        'is-invalid': bsugarf.errors && bsugarf.touched,
-                        'is-valid': !bsugarf.errors && bsugarf.touched
-                      }"
                     />
-                    <div
-                      [hidden]="!bsugarf.errors?.required"
-                      class="invalid-feedback"
+                    <span
+                      *ngIf="
+                        !parentFormGroup.get('visit.medical.vitals.bloodSugar')
+                          .valid &&
+                        parentFormGroup.get('visit.medical.vitals.bloodSugar')
+                          .touched
+                      "
+                      class="invalid"
                     >
-                      This field is required.
-                    </div>
+                      Required.
+                    </span>
                   </div>
                   <!-- Resp Rate Input -->
                   <div class="col-md-2 form-group">
                     <label for="resp">
-                      Respiration/minute
+                      <span class="invalid mr-1">*</span>Respiration
                     </label>
                     <input
-                      #respf="ngModel"
                       type="text"
-                      name="resp"
-                      required
+                      formControlName="respRate"
                       placeholder="18"
                       min="0"
                       minlength="2"
                       id="resp"
                       class="form-control"
-                      [(ngModel)]="form.visit.vitals.respRate"
-                      [ngClass]="{
-                        'is-invalid': respf.errors && respf.touched,
-                        'is-valid': !respf.errors && respf.touched
-                      }"
                     />
-                    <div
-                      [hidden]="!respf.errors?.required"
-                      class="invalid-feedback"
+                    <span
+                      *ngIf="
+                        !parentFormGroup.get('visit.medical.vitals.respRate')
+                          .valid &&
+                        parentFormGroup.get('visit.medical.vitals.respRate')
+                          .touched
+                      "
+                      class="invalid"
                     >
-                      This field is required.
-                    </div>
+                      Required.
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="p-3 mt-3 ml-5">
-              <input
-                type="submit"
-                name="submit"
-                value="Save & Move to Treatment Plan"
-                class="btn btn-success ml-3 col-4"
-                routerLink="/add-new-patient/plan-form"
-                [disabled]="medicalForm.form.invalid"
-              />
-            </div>
-          </form>
+            <!-- <div class="p-3 mt-3 ml-5">
+            <input
+              type="submit"
+              name="submit"
+              value="Save & Move to Treatment Plan"
+              class="btn btn-success ml-3 col-4"
+            />
+          </div> -->
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-1">
-      <a routerLink="/main/add-new-patient/plan-form" class="btn navBtn ml-5"
+    <div
+      class="col-1 ml-5 mt-5 text-center"
+      *ngIf="
+        parentFormGroup.get('visit.medical.reasonOfVisit').valid &&
+        parentFormGroup.get('visit.medical.allergies').valid &&
+        parentFormGroup.get('visit.medical.state').valid &&
+        parentFormGroup.get('visit.medical.habits.smoking').valid &&
+        parentFormGroup.get('visit.medical.habits.drinking').valid &&
+        parentFormGroup.get('visit.medical.habits.drugs').valid &&
+        parentFormGroup.get('visit.medical.caseStory').valid &&
+        parentFormGroup.get('visit.medical.symptoms').valid &&
+        parentFormGroup.get('visit.medical.hasHappenedBefore.hasIt').valid &&
+        parentFormGroup.get('visit.medical.history.isThere').valid &&
+        parentFormGroup.get('visit.medical.vitals.pulse').valid &&
+        parentFormGroup.get('visit.medical.vitals.bp').valid &&
+        parentFormGroup.get('visit.medical.vitals.temp').valid &&
+        parentFormGroup.get('visit.medical.vitals.weight').valid &&
+        parentFormGroup.get('visit.medical.vitals.bloodSugar').valid &&
+        parentFormGroup.get('visit.medical.vitals.respRate').valid
+      "
+    >
+      <a class="btn navBtn mt-5" (click)="moveForward()"
         ><i class="fas fa-arrow-circle-right"></i
       ></a>
     </div>

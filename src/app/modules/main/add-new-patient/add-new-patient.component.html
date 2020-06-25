@@ -3,8 +3,32 @@
     <div class="col-2">
       <app-navigation-bar></app-navigation-bar>
     </div>
-    <div class="col-10">
-      <router-outlet></router-outlet>
+    <div class="col-1">
+      <a class="btn navBtn" (click)="changeFormStateBackward()"
+        ><i class="fas fa-arrow-circle-left"></i
+      ></a>
+    </div>
+    <div class="col-8">
+      <form [formGroup]="newPatientForm" (ngSubmit)="onSubmit()">
+        <app-general-form
+          (changedState)="changeFormStateForward($event)"
+          [parentFormGroup]="newPatientForm"
+          *ngIf="state === 'general'; else medical"
+        ></app-general-form>
+        <ng-template #medical>
+          <app-medical-form
+            (changedState)="changeFormStateForward($event)"
+            [parentFormGroup]="newPatientForm"
+            *ngIf="state === 'medical'; else plan"
+          ></app-medical-form>
+          <ng-template #plan>
+            <app-plan-form
+              [parentFormGroup]="newPatientForm"
+              *ngIf="state === 'plan'"
+            ></app-plan-form>
+          </ng-template>
+        </ng-template>
+      </form>
     </div>
   </div>
 </div>

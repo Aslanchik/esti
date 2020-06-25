@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PatientService } from '../../services/patient.service';
 
@@ -9,32 +9,12 @@ import { PatientService } from '../../services/patient.service';
   styleUrls: ['./general-form.component.scss'],
 })
 export class GeneralFormComponent {
+  @Input() parentFormGroup: FormGroup;
+  @Output() changedState: EventEmitter<string> = new EventEmitter<string>();
+
   constructor(private patientService: PatientService, private router: Router) {}
-  form = {
-    id: '',
-    fname: '',
-    lname: '',
-    age: null,
-    phone: '',
-    email: '',
-    address: '',
-    visit: {
-      admissionTime: '',
-      wayOfAdmission: '',
-    },
-  };
 
-  resetForm(form: NgForm) {
-    form.reset({
-      id: '',
-      fname: '',
-      lname: '',
-      age: null,
-      phone: '',
-      email: '',
-      address: '',
-    });
+  moveForward() {
+    this.changedState.emit('general');
   }
-
-  onSubmit() {}
 }

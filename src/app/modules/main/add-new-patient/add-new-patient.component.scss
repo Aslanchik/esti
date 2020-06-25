@@ -2,3 +2,18 @@
   margin-right: -15px;
   margin-left: -15px;
 }
+
+.btn-success {
+  background-color: #57a773;
+  &:hover {
+    background-color: #32a75b;
+  }
+}
+.navBtn {
+  font-size: 3rem;
+  color: #232323b4;
+  transition: all 0.2s ease;
+  &:hover {
+    color: #353535;
+  }
+}

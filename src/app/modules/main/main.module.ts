@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { TaskbarComponent } from './main-dashboard/taskbar/taskbar.component';
@@ -34,8 +34,8 @@ const exporting = [MainDashboardComponent, AddNewPatientComponent];
     RouterModule,
     NavigationModule,
     NgbModule,
-    FormsModule,
     MainRoutingModule,
+    ReactiveFormsModule,
   ],
   exports: [...exporting],
 })

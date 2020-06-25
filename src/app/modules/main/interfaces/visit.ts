@@ -10,7 +10,6 @@ export interface Visit {
       drugs: boolean;
       drugsDescription: string;
     };
-    diet: string;
     reasonOfVisit: string;
     caseStory: string;
     symptoms: string;

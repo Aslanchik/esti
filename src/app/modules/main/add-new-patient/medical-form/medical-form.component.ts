@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PatientService } from '../../services/patient.service';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { MedicalForm } from 'src/app/interfaces/medical-form';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-medical-form',
@@ -10,34 +9,13 @@ import { MedicalForm } from 'src/app/interfaces/medical-form';
   styleUrls: ['./medical-form.component.scss'],
 })
 export class MedicalFormComponent {
+  @Input() parentFormGroup: FormGroup;
+  @Output() changedState: EventEmitter<string> = new EventEmitter<string>();
+
   constructor(private patientService: PatientService, private router: Router) {}
   isCollapsed = true;
-  form = {
-    visit: {
-      state: '',
-      allergies: '',
-      habits: {
-        smoking: false,
-        drinking: false,
-        drugs: false,
-        whichDrugs: '',
-        vegan: false,
-      },
-      reasonOfVisit: '',
-      caseStory: '',
-      symptoms: '',
-      hasHappenedBefore: { hasIt: false, description: '' },
-      familyHistory: { isThere: false, description: '' },
-      vitals: {
-        pulse: '',
-        bp: '',
-        temp: '',
-        weight: '',
-        bloodSugar: '',
-        respRate: '',
-      },
-    },
-  };
 
-  onSubmit(MedicalForm) {}
+  moveForward() {
+    this.changedState.emit('medical');
+  }
 }
