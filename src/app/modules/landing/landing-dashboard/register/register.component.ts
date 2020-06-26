@@ -8,13 +8,7 @@ import { RegisterService } from '../../services/register.service';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  user: RegisterUser = {
-    govId: '',
-    email: '',
-    fname: '',
-    lname: '',
-    password: '',
-  };
+  user: RegisterUser;
 
   constructor(public registerSer: RegisterService) {}
 

@@ -17,6 +17,7 @@
                   id="reason"
                   class="form-control"
                   formControlName="reasonOfVisit"
+                  required
                 />
                 <span
                   *ngIf="
@@ -29,7 +30,7 @@
                 </span>
               </div>
 
-              <!--Way of Admission Input-->
+              <!--Allergies Input-->
               <div class="col-md-5 form-group">
                 <label> <span class="invalid mr-2">*</span>Allergies? </label>
                 <input
@@ -37,6 +38,8 @@
                   name="allergies"
                   class="form-control"
                   formControlName="allergies"
+                  required
+                  maxlength="255"
                 />
                 <span
                   *ngIf="
@@ -172,15 +175,28 @@
                   formControlName="caseStory"
                   placeholder="How it happend?"
                   class="form-control"
+                  maxlength="255"
+                  required
                 ></textarea>
                 <span
                   *ngIf="
-                    !parentFormGroup.get('visit.medical.caseStory').valid &&
+                    parentFormGroup.get('visit.medical.caseStory').errors
+                      ?.required &&
                     parentFormGroup.get('visit.medical.caseStory').touched
                   "
                   class="invalid"
                 >
                   This field is required.
+                </span>
+                <span
+                  *ngIf="
+                    parentFormGroup.get('visit.medical.caseStory').errors
+                      ?.minlength &&
+                    parentFormGroup.get('visit.medical.caseStory').touched
+                  "
+                  class="invalid"
+                >
+                  Must be at least 20 characters long.
                 </span>
               </div>
             </div>
@@ -192,15 +208,28 @@
                   formControlName="symptoms"
                   placeholder="What symptoms does the patient exhibit?"
                   class="form-control"
+                  maxlength="255"
+                  required
                 ></textarea>
                 <span
                   *ngIf="
-                    !parentFormGroup.get('visit.medical.symptoms').valid &&
+                    parentFormGroup.get('visit.medical.symptoms').errors
+                      ?.required &&
                     parentFormGroup.get('visit.medical.symptoms').touched
                   "
                   class="invalid"
                 >
                   This field is required.
+                </span>
+                <span
+                  *ngIf="
+                    parentFormGroup.get('visit.medical.symptoms').errors
+                      ?.minlength &&
+                    parentFormGroup.get('visit.medical.symptoms').touched
+                  "
+                  class="invalid"
+                >
+                  Must be at least 5 characters long.
                 </span>
               </div>
             </div>
@@ -320,23 +349,36 @@
                       <span class="invalid mr-2">*</span>Pulse/min
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       formControlName="pulse"
                       min="0"
                       placeholder="60"
                       id="pulse"
                       class="form-control"
+                      required
+                      max="200"
                     />
                     <span
                       *ngIf="
-                        !parentFormGroup.get('visit.medical.vitals.pulse')
-                          .valid &&
+                        parentFormGroup.get('visit.medical.vitals.pulse').errors
+                          ?.required &&
                         parentFormGroup.get('visit.medical.vitals.pulse')
                           .touched
                       "
                       class="invalid"
                     >
                       Required.
+                    </span>
+                    <span
+                      *ngIf="
+                        parentFormGroup.get('visit.medical.vitals.pulse').errors
+                          ?.max &&
+                        parentFormGroup.get('visit.medical.vitals.pulse')
+                          .touched
+                      "
+                      class="invalid"
+                    >
+                      Too high.
                     </span>
                   </div>
                   <!-- Blood Pressure Input -->
@@ -350,15 +392,28 @@
                       id="bp"
                       placeholder="120/70"
                       class="form-control"
+                      required
+                      maxlength="7"
                     />
                     <span
                       *ngIf="
-                        !parentFormGroup.get('visit.medical.vitals.bp').valid &&
+                        parentFormGroup.get('visit.medical.vitals.bp').errors
+                          ?.required &&
                         parentFormGroup.get('visit.medical.vitals.bp').touched
                       "
                       class="invalid"
                     >
                       Required.
+                    </span>
+                    <span
+                      *ngIf="
+                        parentFormGroup.get('visit.medical.vitals.bp').errors
+                          ?.maxlength &&
+                        parentFormGroup.get('visit.medical.vitals.bp').touched
+                      "
+                      class="invalid"
+                    >
+                      Too long.
                     </span>
                   </div>
                   <!-- Temperature Input -->
@@ -367,23 +422,33 @@
                       <span class="invalid mr-1">*</span>Temperature(°)
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       formControlName="temp"
                       min="0"
                       placeholder="36.5"
-                      minlength="2"
                       id="temp"
                       class="form-control"
+                      required
                     />
                     <span
                       *ngIf="
-                        !parentFormGroup.get('visit.medical.vitals.temp')
-                          .valid &&
+                        parentFormGroup.get('visit.medical.vitals.temp').errors
+                          ?.required &&
                         parentFormGroup.get('visit.medical.vitals.temp').touched
                       "
                       class="invalid"
                     >
                       Required.
+                    </span>
+                    <span
+                      *ngIf="
+                        parentFormGroup.get('visit.medical.vitals.temp').errors
+                          ?.max &&
+                        parentFormGroup.get('visit.medical.vitals.temp').touched
+                      "
+                      class="invalid"
+                    >
+                      Impossible.
                     </span>
                   </div>
                   <!-- Weight Input -->
@@ -392,24 +457,35 @@
                       <span class="invalid mr-1">*</span>Weight(kg)
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       formControlName="weight"
                       min="0"
                       placeholder="80"
-                      minlength="2"
                       id="weight"
                       class="form-control"
+                      required
                     />
                     <span
                       *ngIf="
-                        !parentFormGroup.get('visit.medical.vitals.weight')
-                          .valid &&
+                        parentFormGroup.get('visit.medical.vitals.weight')
+                          .errors?.required &&
                         parentFormGroup.get('visit.medical.vitals.weight')
                           .touched
                       "
                       class="invalid"
                     >
                       Required.
+                    </span>
+                    <span
+                      *ngIf="
+                        parentFormGroup.get('visit.medical.vitals.weight')
+                          .errors?.max &&
+                        parentFormGroup.get('visit.medical.vitals.weight')
+                          .touched
+                      "
+                      class="invalid"
+                    >
+                      Impossible.
                     </span>
                   </div>
                   <!-- Blood Sugar Input -->
@@ -418,24 +494,35 @@
                       <span class="invalid mr-1">*</span>Blood Sugar
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       formControlName="bloodSugar"
                       min="0"
-                      placeholder="60"
-                      minlength="0"
+                      placeholder="80"
                       id="bsugar"
                       class="form-control"
+                      required
                     />
                     <span
                       *ngIf="
-                        !parentFormGroup.get('visit.medical.vitals.bloodSugar')
-                          .valid &&
+                        parentFormGroup.get('visit.medical.vitals.bloodSugar')
+                          .errors?.required &&
                         parentFormGroup.get('visit.medical.vitals.bloodSugar')
                           .touched
                       "
                       class="invalid"
                     >
                       Required.
+                    </span>
+                    <span
+                      *ngIf="
+                        parentFormGroup.get('visit.medical.vitals.bloodSugar')
+                          .errors?.max &&
+                        parentFormGroup.get('visit.medical.vitals.bloodSugar')
+                          .touched
+                      "
+                      class="invalid"
+                    >
+                      Impossible.
                     </span>
                   </div>
                   <!-- Resp Rate Input -->
@@ -448,20 +535,31 @@
                       formControlName="respRate"
                       placeholder="18"
                       min="0"
-                      minlength="2"
                       id="resp"
                       class="form-control"
+                      required
                     />
                     <span
                       *ngIf="
-                        !parentFormGroup.get('visit.medical.vitals.respRate')
-                          .valid &&
+                        parentFormGroup.get('visit.medical.vitals.respRate')
+                          .errors?.required &&
                         parentFormGroup.get('visit.medical.vitals.respRate')
                           .touched
                       "
                       class="invalid"
                     >
                       Required.
+                    </span>
+                    <span
+                      *ngIf="
+                        parentFormGroup.get('visit.medical.vitals.respRate')
+                          .errors?.max &&
+                        parentFormGroup.get('visit.medical.vitals.respRate')
+                          .touched
+                      "
+                      class="invalid"
+                    >
+                      Impossible.
                     </span>
                   </div>
                 </div>

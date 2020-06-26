@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class LoginService {
-  private _loginUrl: string = 'http://localhost:3000/login';
+  private _loginUrl: string = 'http://localhost:3000/api/login';
 
   private token: string;
   private loginStatusListener = new Subject<boolean>();

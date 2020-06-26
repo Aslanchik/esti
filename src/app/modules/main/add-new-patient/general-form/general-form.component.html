@@ -3,7 +3,7 @@
     <div class="col-10 mt-4">
       <h2 class="display-4">1. General Information</h2>
       <div class="row" [formGroup]="parentFormGroup">
-        <div class="col-10 form">
+        <div class="col-12 form">
           <!--First name Input-->
           <div class="row mx-auto justify-content-start mt-3">
             <div class="col-md-6">
@@ -17,15 +17,26 @@
                 class="form-control"
                 required
                 formControlName="fname"
+                minlength="2"
+                required
               />
               <span
                 *ngIf="
-                  !parentFormGroup.get('fname').valid &&
+                  parentFormGroup.get('fname').errors?.required &&
                   parentFormGroup.get('fname').touched
                 "
                 class="invalid"
               >
                 This field is required.
+              </span>
+              <span
+                *ngIf="
+                  parentFormGroup.get('fname').errors?.minlength &&
+                  parentFormGroup.get('fname').touched
+                "
+                class="invalid"
+              >
+                Must be at least 2 characters long.
               </span>
             </div>
             <!--Last name Input-->
@@ -39,15 +50,26 @@
                 id="lname"
                 class="form-control"
                 formControlName="lname"
+                required
+                minlength="2"
               />
               <span
                 *ngIf="
-                  !parentFormGroup.get('lname').valid &&
+                  parentFormGroup.get('lname').errors?.required &&
                   parentFormGroup.get('lname').touched
                 "
                 class="invalid"
               >
                 This field is required.
+              </span>
+              <span
+                *ngIf="
+                  parentFormGroup.get('lname').errors?.minlength &&
+                  parentFormGroup.get('lname').touched
+                "
+                class="invalid"
+              >
+                Must be at least 2 characters long.
               </span>
             </div>
           </div>
@@ -58,21 +80,32 @@
                 <span class="invalid mr-2">*</span>Birth Year
               </label>
               <input
-                type="number"
-                name="birthYear"
+                type="text"
                 id="birthYear"
                 oninput="this.value = Math.abs(this.value)"
                 formControlName="birthYear"
                 class="form-control"
+                maxlength="4"
+                minlength="4"
+                required
               />
               <span
                 *ngIf="
-                  !parentFormGroup.get('birthYear').valid &&
+                  parentFormGroup.get('birthYear').errors?.required &&
                   parentFormGroup.get('birthYear').touched
                 "
                 class="invalid"
               >
                 This field is required.
+              </span>
+              <span
+                *ngIf="
+                  parentFormGroup.get('birthYear').errors?.minlength &&
+                  parentFormGroup.get('birthYear').touched
+                "
+                class="invalid"
+              >
+                Must be 4 characters long.
               </span>
             </div>
             <!-- Phone Number Input -->
@@ -82,41 +115,60 @@
               </label>
               <input
                 type="tel"
-                name="phone"
                 id="phone"
                 class="form-control"
                 formControlName="phone"
+                maxlength="10"
+                required
               />
               <span
                 *ngIf="
-                  !parentFormGroup.get('phone').valid &&
+                  parentFormGroup.get('phone').errors?.required &&
                   parentFormGroup.get('phone').touched
                 "
                 class="invalid"
               >
                 This field is required.
               </span>
+              <span
+                *ngIf="
+                  parentFormGroup.get('phone').errors?.minlength &&
+                  parentFormGroup.get('phone').touched
+                "
+                class="invalid"
+              >
+                Must be 9 characters long.
+              </span>
             </div>
             <!--ID INPUT-->
             <div class="col-md-4">
-              <label for="id">
-                ID
-              </label>
+              <label for="id"> <span class="invalid mr-2">*</span>ID </label>
               <input
-                type="number"
-                name="govId"
+                type="text"
                 id="govId"
                 class="form-control"
                 formControlName="govId"
+                required
+                minlength="9"
+                maxlength="9"
               />
               <span
                 *ngIf="
-                  !parentFormGroup.get('govId').valid &&
+                  parentFormGroup.get('govId').errors?.required &&
                   parentFormGroup.get('govId').touched
                 "
                 class="invalid"
               >
                 This field is required.
+              </span>
+              <span
+                *ngIf="
+                  parentFormGroup.get('govId').errors?.minlength &&
+                  parentFormGroup.get('govId').touched
+                "
+                class="invalid"
+              >
+                Must be 9 characters long.
               </span>
             </div>
           </div>
@@ -132,15 +184,25 @@
                 id="email"
                 class="form-control"
                 formControlName="email"
+                required
               />
               <span
                 *ngIf="
-                  !parentFormGroup.get('email').valid &&
+                  parentFormGroup.get('email').errors?.required &&
                   parentFormGroup.get('email').touched
                 "
                 class="invalid"
               >
                 This field is required.
+              </span>
+              <span
+                *ngIf="
+                  parentFormGroup.get('email').errors?.email &&
+                  parentFormGroup.get('email').touched
+                "
+                class="invalid"
+              >
+                Must be a valid E-Mail address.
               </span>
             </div>
           </div>
@@ -155,15 +217,26 @@
                 id="address"
                 class="form-control"
                 formControlName="address"
+                required
+                minlength="2"
               ></textarea>
               <span
                 *ngIf="
-                  !parentFormGroup.get('address').valid &&
+                  parentFormGroup.get('address').errors?.required &&
                   parentFormGroup.get('address').touched
                 "
                 class="invalid"
               >
                 This field is required.
+              </span>
+              <span
+                *ngIf="
+                  parentFormGroup.get('address').errors?.minlength &&
+                  parentFormGroup.get('address').touched
+                "
+                class="invalid"
+              >
+                Must be at least 2 characters long.
               </span>
             </div>
           </div>
@@ -179,6 +252,7 @@
                 id="date"
                 class="form-control"
                 formControlName="time"
+                required
               />
               <span
                 *ngIf="
@@ -201,38 +275,49 @@
                 id="way"
                 class="form-control"
                 formControlName="how"
+                required
+                minlength="2"
               />
-              <div
+              <span
                 *ngIf="
-                  !parentFormGroup.get('visit.how').valid &&
+                  parentFormGroup.get('visit.how').errors?.required &&
                   parentFormGroup.get('visit.how').touched
                 "
                 class="invalid"
               >
                 This field is required.
-              </div>
+              </span>
+              <span
+                *ngIf="
+                  parentFormGroup.get('visit.how').errors?.minlength &&
+                  parentFormGroup.get('visit.how').touched
+                "
+                class="invalid"
+              >
+                Must be at least 2 characters long.
+              </span>
             </div>
           </div>
         </div>
-        <div
-          class="col-1 ml-5 mt-5 text-center"
-          *ngIf="
-            parentFormGroup.get('fname').valid &&
-            parentFormGroup.get('lname').valid &&
-            parentFormGroup.get('phone').valid &&
-            parentFormGroup.get('birthYear').valid &&
-            parentFormGroup.get('govId').valid &&
-            parentFormGroup.get('email').valid &&
-            parentFormGroup.get('address').valid &&
-            parentFormGroup.get('visit.time').valid &&
-            parentFormGroup.get('visit.how').valid
-          "
-        >
-          <a class="btn navBtn mt-5" (click)="moveForward()"
-            ><i class="fas fa-arrow-circle-right"></i
-          ></a>
-        </div>
       </div>
+    </div>
+    <div
+      class="col-1 ml-5 mt-5 text-center"
+      *ngIf="
+        parentFormGroup.get('fname').valid &&
+        parentFormGroup.get('lname').valid &&
+        parentFormGroup.get('phone').valid &&
+        parentFormGroup.get('birthYear').valid &&
+        parentFormGroup.get('govId').valid &&
+        parentFormGroup.get('email').valid &&
+        parentFormGroup.get('address').valid &&
+        parentFormGroup.get('visit.time').valid &&
+        parentFormGroup.get('visit.how').valid
+      "
+    >
+      <a class="btn navBtn mt-5" (click)="moveForward()"
+        ><i class="fas fa-arrow-circle-right"></i
+      ></a>
     </div>
   </div>
 </div>

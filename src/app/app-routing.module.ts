@@ -19,7 +19,7 @@ const routes: Routes = [
     path: 'history',
     loadChildren: () =>
       import('./modules/history/history.module').then((m) => m.HistoryModule),
-    /* canActivate: [AuthGuard], */
+    canActivate: [AuthGuard],
   },
 ];
 

@@ -6,7 +6,7 @@ import { RegisterUser } from '../interfaces/register-user';
   providedIn: 'root',
 })
 export class RegisterService {
-  private _registerUrl: string = 'http://localhost:3000/register';
+  private _registerUrl: string = 'http://localhost:3000/api/register';
 
   message: {};
 

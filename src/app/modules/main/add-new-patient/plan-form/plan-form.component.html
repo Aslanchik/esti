@@ -33,7 +33,7 @@
           <div class="row mx-auto mt-3">
             <div class="col-md-10">
               <label for="meds">
-                <span class="invalid mr-2">*</span>Medication
+                Medication
               </label>
               <input
                 type="text"
@@ -42,17 +42,6 @@
                 id="meds"
                 class="form-control"
               />
-              <span
-                *ngIf="
-                  !parentFormGroup.get('visit.medical.treatmentPlan.medication')
-                    .valid &&
-                  parentFormGroup.get('visit.medical.treatmentPlan.medication')
-                    .touched
-                "
-                class="invalid"
-              >
-                This field is required.
-              </span>
             </div>
           </div>
           <!--Procedures Input-->
@@ -60,7 +49,7 @@
             <div class="row mx-auto mt-3">
               <div class="col-md-10">
                 <label for="procedure">
-                  <span class="invalid mr-2">*</span>Procedures
+                  Procedures
                 </label>
                 <input
                   type="text"
@@ -69,26 +58,13 @@
                   id="procedure"
                   class="form-control"
                 />
-                <span
-                  *ngIf="
-                    !parentFormGroup.get(
-                      'visit.medical.treatmentPlan.tasks.procedures'
-                    ).valid &&
-                    parentFormGroup.get(
-                      'visit.medical.treatmentPlan.tasks.procedures'
-                    ).touched
-                  "
-                  class="invalid"
-                >
-                  This field is required.
-                </span>
               </div>
             </div>
             <!--Tests Input-->
             <div class="row mx-auto mt-3">
               <div class="col-md-10">
                 <label for="tests">
-                  <span class="invalid mr-2">*</span>Tests
+                  Tests
                 </label>
                 <input
                   type="text"
@@ -97,19 +73,6 @@
                   id="tests"
                   class="form-control"
                 />
-                <span
-                  *ngIf="
-                    !parentFormGroup.get(
-                      'visit.medical.treatmentPlan.tasks.tests'
-                    ).valid &&
-                    parentFormGroup.get(
-                      'visit.medical.treatmentPlan.tasks.tests'
-                    ).touched
-                  "
-                  class="invalid"
-                >
-                  This field is required.
-                </span>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 export interface Visit {
   how: string;
   time: string;
+  attendingNurse: string;
   medical: {
     state: string;
     allergies: string;

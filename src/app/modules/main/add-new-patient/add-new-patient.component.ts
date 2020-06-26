@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, MaxLengthValidator } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from '../../landing/services/login.service';
+import { Patient } from '../interfaces/patient';
+import { PatientService } from '../services/patient.service';
 
 @Component({
   selector: 'app-add-new-patient',
@@ -24,22 +27,40 @@ export class AddNewPatientComponent implements OnInit {
       '',
       [Validators.required, Validators.minLength(9), Validators.maxLength(10)],
     ],
-    address: ['', [Validators.required, Validators.minLength(2)]],
+    address: [
+      '',
+      [Validators.required, Validators.minLength(2), Validators.maxLength(255)],
+    ],
     visit: this.fb.group({
       how: ['', [Validators.required, Validators.minLength(2)]],
       time: ['', Validators.required],
+      attendingNurse: [this.loginSer.getCurrentlyLoggedIn()],
       medical: this.fb.group({
         state: ['', Validators.required],
-        allergies: ['', Validators.required],
+        allergies: ['', [Validators.required, Validators.maxLength(255)]],
         habits: this.fb.group({
           smoking: [null, Validators.required],
           drinking: [null, Validators.required],
           drugs: [null, Validators.required],
-          drugsDescription: [''],
+          drugsDescription: ['', Validators.maxLength(255)],
         }),
-        reasonOfVisit: ['', Validators.required],
-        caseStory: ['', Validators.required],
-        symptoms: ['', Validators.required],
+        reasonOfVisit: ['', [Validators.required, Validators.maxLength(255)]],
+        caseStory: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(20),
+            Validators.maxLength(255),
+          ],
+        ],
+        symptoms: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(255),
+          ],
+        ],
         hasHappenedBefore: this.fb.group({
           hasIt: [null, Validators.required],
           description: [''],
@@ -49,21 +70,21 @@ export class AddNewPatientComponent implements OnInit {
           description: [''],
         }),
         vitals: this.fb.group({
-          pulse: [null, Validators.required],
-          bp: [null, Validators.required],
-          temp: [null, Validators.required],
-          weight: [null, Validators.required],
-          bloodSugar: [null, Validators.required],
-          respRate: [null, Validators.required],
+          pulse: [null, [Validators.required, Validators.max(300)]],
+          bp: ['', [Validators.required, Validators.maxLength(7)]],
+          temp: [null, [Validators.required, Validators.max(80)]],
+          weight: [null, [Validators.required, Validators.max(600)]],
+          bloodSugar: [null, [Validators.required, Validators.max(600)]],
+          respRate: [null, [Validators.required, Validators.max(60)]],
         }),
         treatmentPlan: this.fb.group({
-          diagnosis: ['', Validators.required],
-          medication: ['', Validators.required],
+          diagnosis: ['', [Validators.required, Validators.maxLength(255)]],
+          medication: ['', Validators.maxLength(255)],
           tasks: this.fb.group({
-            procedures: ['', Validators.required],
-            tests: ['', Validators.required],
+            procedures: ['', Validators.maxLength(255)],
+            tests: ['', Validators.maxLength(255)],
           }),
-          notes: [''],
+          notes: ['', Validators.maxLength(500)],
         }),
       }),
     }),
@@ -71,7 +92,14 @@ export class AddNewPatientComponent implements OnInit {
 
   state: string = 'general';
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  message: {};
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private loginSer: LoginService,
+    private patientSer: PatientService
+  ) {}
 
   changeFormStateForward(changedState) {
     if (changedState === 'general') this.state = 'medical';
@@ -85,7 +113,12 @@ export class AddNewPatientComponent implements OnInit {
   }
   ngOnInit(): void {}
 
-  onSubmit() {
-    console.log(this.newPatientForm.value);
+  onSubmit(value): void {
+    if (this.newPatientForm.valid) {
+      this.patientSer.addNewPatient(value);
+      this.message = this.patientSer.getMessage();
+      console.log(this.message);
+      this.router.navigate(['/main']);
+    }
   }
 }
