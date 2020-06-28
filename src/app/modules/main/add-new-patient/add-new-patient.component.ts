@@ -101,6 +101,8 @@ export class AddNewPatientComponent implements OnInit {
     private patientSer: PatientService
   ) {}
 
+  ngOnInit(): void {}
+
   changeFormStateForward(changedState) {
     if (changedState === 'general') this.state = 'medical';
     else if (changedState === 'medical') this.state = 'plan';
@@ -111,14 +113,15 @@ export class AddNewPatientComponent implements OnInit {
     else if (this.state === 'medical') this.state = 'general';
     else this.router.navigate(['/main']);
   }
-  ngOnInit(): void {}
 
   onSubmit(value): void {
     if (this.newPatientForm.valid) {
       this.patientSer.addNewPatient(value);
       this.message = this.patientSer.getMessage();
-      console.log(this.message);
       this.router.navigate(['/main']);
+      /* setTimeout(() => {
+        this.router.navigate(['/main']);
+      }, 2000); */
     }
   }
 }
