@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { TaskbarComponent } from './main-dashboard/taskbar/taskbar.component';
@@ -15,6 +15,9 @@ import { MedicalFormComponent } from './add-new-patient/medical-form/medical-for
 import { PlanFormComponent } from './add-new-patient/plan-form/plan-form.component';
 import { MainRoutingModule } from './main-routing.module';
 import { NavigationModule } from '../navigation/navigation.module';
+import { AgePipe } from './pipes/age.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
+import { SortPipe } from './pipes/sort.pipe';
 
 const exporting = [MainDashboardComponent, AddNewPatientComponent];
 
@@ -28,6 +31,9 @@ const exporting = [MainDashboardComponent, AddNewPatientComponent];
     GeneralFormComponent,
     MedicalFormComponent,
     PlanFormComponent,
+    AgePipe,
+    FilterPipe,
+    SortPipe,
   ],
   imports: [
     CommonModule,
@@ -36,6 +42,7 @@ const exporting = [MainDashboardComponent, AddNewPatientComponent];
     NgbModule,
     MainRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   exports: [...exporting],
 })

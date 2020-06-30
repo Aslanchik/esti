@@ -8,11 +8,22 @@ import { Patient } from '../../interfaces/patient';
   styleUrls: ['./patient-view.component.scss'],
 })
 export class PatientViewComponent implements OnInit {
-  patients: Patient[];
+  patients: Patient[] = [];
+  fetching: boolean = true;
+  searchText = '';
+  sortParam: string = 'state';
 
-  constructor(private patientService: PatientService) {
-    this.patients = this.patientService.getPatients();
+  constructor(private patientService: PatientService) {}
+
+  ngOnInit(): void {
+    this.getActivePatients();
   }
 
-  ngOnInit(): void {}
+  getActivePatients(): void {
+    this.patientService.getActivePatients().subscribe((patientData) => {
+      this.patients = patientData;
+    });
+
+    this.fetching = !this.fetching;
+  }
 }

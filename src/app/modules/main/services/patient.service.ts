@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Patient } from '../interfaces/patient';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PatientService {
-  private patients: Patient[] = [];
+  private patients: Patient[];
+
   private _addPatientUrl: string = 'http://localhost:3000/api/new-patient';
+  private _getActivePatientsUrl: string =
+    'http://localhost:3000/api/patients/active';
 
   private message: {};
 
@@ -20,11 +24,11 @@ export class PatientService {
     });
   }
 
-  getMessage() {
-    return this.message;
+  getActivePatients(): Observable<Patient[]> {
+    return this.http.get<Patient[]>(this._getActivePatientsUrl);
   }
 
-  getPatients(): Patient[] {
-    return this.patients;
+  getMessage() {
+    return this.message;
   }
 }

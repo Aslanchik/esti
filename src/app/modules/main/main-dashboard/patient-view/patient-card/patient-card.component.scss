@@ -1,5 +1,6 @@
 .patients {
-  height: 17vh;
+  display: block;
+
   background-color: #f0dbd87c;
   border: none;
   &:hover {
@@ -8,11 +9,13 @@
   }
 }
 .colors {
-  height: 17vh;
+  display: block;
+
   background-color: rgb(253, 245, 245);
 }
 .add {
-  height: 17vh;
+  display: block;
+
   background-color: #d1e0d39f;
   &:hover {
     background-color: #e5f0e6;

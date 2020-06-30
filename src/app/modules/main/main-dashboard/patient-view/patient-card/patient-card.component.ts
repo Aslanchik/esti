@@ -9,31 +9,47 @@ import { PatientService } from '../../../services/patient.service';
 })
 export class PatientCardComponent implements OnInit {
   patients: Patient[];
+  @Input() searchText: string;
+  @Input() sortParam: string;
 
   setPatientClass(p: Patient) {
-    /* if (p.visit.state === 'active') {
+    if (p.visit[0].medical[0].state === 'active') {
       let state = {
         patientActive: true,
       };
       return state;
-    } else if (p.visit.state === 'critical') {
+    } else if (p.visit[0].medical[0].state === 'critical') {
       let state = {
         patientCritical: true,
       };
       return state;
-    } else if (p.visit.state === 'discharged') {
+    } else if (p.visit[0].medical[0].state === 'discharged') {
       let state = {
         patientDischarged: true,
       };
       return state;
     } else {
       return false;
-    } */
+    }
   }
 
-  constructor(private patientService: PatientService) {
-    this.patients = this.patientService.getPatients();
+  constructor(private patientService: PatientService) {}
+
+  ngOnInit(): void {
+    this.getActivePatients();
   }
 
-  ngOnInit(): void {}
+  getActivePatients(): void {
+    this.patientService.getActivePatients().subscribe((patientData) => {
+      const activePatients = patientData.map((patient) => {
+        return {
+          ...patient,
+          visit: patient.visit.filter(
+            (visit) => visit.medical[0].state !== 'discharged'
+          ),
+        };
+      });
+      this.patients = activePatients;
+    });
+  }
 }
