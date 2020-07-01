@@ -15,12 +15,6 @@ export class HistoryOverviewComponent implements OnInit {
 
   constructor(private historyService: HistoryService) {}
 
-  /* getAllPatients(): void {
-    this.historyService
-      .getPatients()
-      .subscribe((patientData) => (this.patients = patientData));
-  } */
-
   getSearchedPatients(query: string): void {
     this.historyService
       .getQueryPatients(query)

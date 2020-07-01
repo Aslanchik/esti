@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoryVisit } from '../interfaces/history-visit';
+import { Visit } from '../../main/interfaces/visit';
 import { HistoryService } from '../services/history.service';
+import { Patient } from '../../main/interfaces/patient';
+import { HistoryPatient } from '../interfaces/history-patient';
 
 @Component({
   selector: 'app-history-visit',
@@ -8,13 +10,17 @@ import { HistoryService } from '../services/history.service';
   styleUrls: ['./history-visit.component.scss'],
 })
 export class HistoryVisitComponent implements OnInit {
-  visit: HistoryVisit;
+  patient: HistoryPatient;
+
   isCollapsedTreat: boolean = true;
   isCollapsedNotes: boolean = true;
 
-  constructor(private historySer: HistoryService) {
-    this.visit = historySer.getVisit();
-  }
+  constructor(private historySer: HistoryService) {}
 
-  ngOnInit(): void {}
+  getPatient() {
+    this.patient = this.historySer.getCurrentPatientVisit();
+  }
+  ngOnInit(): void {
+    this.getPatient();
+  }
 }

@@ -13,6 +13,7 @@ import { HistoryRoutingModule } from './history-routing.module';
 import { HistorySearchComponent } from './history-dashboard/history-overview/history-search/history-search.component';
 import { HistoryVisitComponent } from './history-visit/history-visit.component';
 import { YesNoPipe } from './pipes/yes-no.pipe';
+import { HistoryService } from './services/history.service';
 
 const exporting = [HistoryDashboardComponent];
 
@@ -34,6 +35,7 @@ const exporting = [HistoryDashboardComponent];
     HistoryRoutingModule,
     FormsModule,
   ],
+  providers: [HistoryService],
   exports: [...exporting],
 })
 export class HistoryModule {}

@@ -5,31 +5,39 @@
         ><i class="fas fa-arrow-circle-left"></i
       ></a>
     </div>
-    <h1 class="col-md-10 header">{{ visit.patientName | titlecase }}</h1>
+    <h1 class="col-md-10 header display-3">
+      {{ patient.currentPatient.fname | titlecase }}
+      {{ patient.currentPatient.lname | titlecase }}
+    </h1>
   </div>
   <div class="row">
     <h3 class="col-md-8 mx-auto">
-      Displaying visit from <span class="when">{{ visit.when }}</span>
+      Displaying visit from
+      <span class="when">{{ patient.currentVisit.time | date }}</span>
     </h3>
   </div>
   <div class="row mt-4">
     <div class="col-md-3">
       <label>ID</label>
-      <div class="form-control">123456789</div>
+      <div class="form-control">{{ patient.currentPatient.govId }}</div>
     </div>
     <div class="col-md-3">
       <label>How the patient arrived?</label>
-      <div class="form-control">{{ visit.how | titlecase }}</div>
+      <div class="form-control">{{ patient.currentVisit.how | titlecase }}</div>
     </div>
     <div class="col-md-3">
       <label>Attending Nurse</label>
-      <div class="form-control">{{ visit.attendingNurse }}</div>
+      <div class="form-control">
+        {{ patient.currentVisit.attendingNurse | titlecase }}
+      </div>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col-md-9">
       <label for="">Diagnosis</label>
-      <div class="form-control">{{ visit.diagnosis }}</div>
+      <div class="form-control">
+        {{ patient.currentVisit.medical[0].treatmentPlan[0].diagnosis }}
+      </div>
     </div>
   </div>
   <div class="row mt-3 ml-1">
@@ -37,25 +45,26 @@
       <ng-container ngbNavItem>
         <a ngbNavLink>Habits</a>
         <ng-template ngbNavContent>
-          <p>Smoking: {{ visit.habits.smoking | yesNo }}</p>
-          <p>Alcohol: {{ visit.habits.alcohol | yesNo }}</p>
-          <p>Drugs: {{ visit.habits.drugs | yesNo }}</p>
-        </ng-template>
-      </ng-container>
-      <ng-container ngbNavItem>
-        <a ngbNavLink>Diet</a>
-        <ng-template ngbNavContent>
-          <p *ngIf="visit.diet; else noDiet">{{ visit.diet | titlecase }}</p>
-          <ng-template #noDiet>
-            <p>No specific diet.</p>
-          </ng-template>
+          <p>
+            Smoking:
+            {{ patient.currentVisit.medical[0].habits.smoking | yesNo }}
+          </p>
+          <p>
+            Alcohol:
+            {{ patient.currentVisit.medical[0].habits.drinking | yesNo }}
+          </p>
+          <p>
+            Drugs: {{ patient.currentVisit.medical[0].habits.drugs | yesNo }}
+          </p>
         </ng-template>
       </ng-container>
       <ng-container ngbNavItem>
         <a ngbNavLink>Allergies</a>
         <ng-template ngbNavContent>
-          <p *ngIf="visit.allergies; else noAllergies">
-            {{ visit.allergies }}
+          <p
+            *ngIf="patient.currentVisit.medical[0].allergies; else noAllergies"
+          >
+            {{ patient.currentVisit.medical[0].allergies }}
           </p>
           <ng-template #noAllergies>
             <p>No known allergies.</p>
@@ -81,17 +90,39 @@
             <ng-container ngbNavItem>
               <a ngbNavLink><i class="fas fa-pills"></i> Medication</a>
               <ng-template ngbNavContent>
-                <p>Prescribed:</p>
-                <div *ngFor="let medicine of visit.medication; index as idx">
-                  {{ visit.medication[idx] }}
+                <div
+                  *ngIf="
+                    patient.currentVisit.medical[0].treatmentPlan[0].medication;
+                    else noMeds
+                  "
+                >
+                  <p>Prescribed:</p>
+                  <p>
+                    {{
+                      patient.currentVisit.medical[0].treatmentPlan[0]
+                        .medication
+                    }}
+                  </p>
                 </div>
+                <ng-template #noMeds>
+                  <p>No meds were prescribed.</p>
+                </ng-template>
               </ng-template>
             </ng-container>
             <ng-container ngbNavItem>
               <a ngbNavLink><i class="fas fa-procedures"></i> Procedures</a>
               <ng-template ngbNavContent>
-                <p *ngIf="visit.procedures; else noProcedures">
-                  {{ visit.procedures }}
+                <p
+                  *ngIf="
+                    patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
+                      .procedures;
+                    else noProcedures
+                  "
+                >
+                  {{
+                    patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
+                      .procedures
+                  }}
                 </p>
                 <ng-template #noProcedures>
                   <p>No procedures were made.</p>
@@ -101,8 +132,17 @@
             <ng-container ngbNavItem>
               <a ngbNavLink><i class="fas fa-vials"></i> Tests</a>
               <ng-template ngbNavContent>
-                <p *ngIf="visit.tests; else noTests">
-                  {{ visit.tests }}
+                <p
+                  *ngIf="
+                    patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
+                      .tests;
+                    else noTests
+                  "
+                >
+                  {{
+                    patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
+                      .tests
+                  }}
                 </p>
                 <ng-template #noTests>
                   <p>No tests were orederd.</p>
@@ -127,7 +167,7 @@
     <div [ngbCollapse]="isCollapsedNotes" class="col-md-10 mt-2">
       <div class="card">
         <div class="card-body">
-          <p>{{ visit.notes }}</p>
+          <p>{{ patient.currentVisit.medical[0].treatmentPlan[0].notes }}</p>
         </div>
       </div>
     </div>

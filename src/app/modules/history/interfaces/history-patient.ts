@@ -1,5 +1,7 @@
+import { Patient } from '../../main/interfaces/patient';
+import { Visit } from '../../main/interfaces/visit';
+
 export interface HistoryPatient {
-  patientId: string;
-  patientName: string;
-  visits?: { date: string; link: string }[];
+  currentPatient: Patient;
+  currentVisit: Visit;
 }
