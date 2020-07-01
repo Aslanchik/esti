@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { HistoryService } from '../../services/history.service';
-import { HistoryPatient } from '../../interfaces/history-patient';
+import { Patient } from 'src/app/modules/main/interfaces/patient';
 
 @Component({
   selector: 'app-history-overview',
@@ -8,9 +9,28 @@ import { HistoryPatient } from '../../interfaces/history-patient';
   styleUrls: ['./history-overview.component.scss'],
 })
 export class HistoryOverviewComponent implements OnInit {
-  patients: HistoryPatient[];
-  constructor(private historyService: HistoryService) {
-    this.patients = this.historyService.getPatients();
+  patients: Patient[] = [];
+
+  searchText: string = '';
+
+  constructor(private historyService: HistoryService) {}
+
+  /* getAllPatients(): void {
+    this.historyService
+      .getPatients()
+      .subscribe((patientData) => (this.patients = patientData));
+  } */
+
+  getSearchedPatients(query: string): void {
+    this.historyService
+      .getQueryPatients(query)
+      .subscribe((patientData) => (this.patients = patientData));
+  }
+
+  searchHistory(searchInput) {
+    if (!searchInput) this.patients = [];
+    this.searchText = searchInput;
+    this.getSearchedPatients(this.searchText);
   }
 
   ngOnInit(): void {}

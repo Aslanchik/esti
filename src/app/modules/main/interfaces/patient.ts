@@ -8,5 +8,5 @@ export interface Patient {
   birthYear?: string;
   phone?: string;
   address?: string;
-  visit?: Visit;
+  visit?: Visit[];
 }

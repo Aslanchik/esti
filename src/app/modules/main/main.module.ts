@@ -19,7 +19,7 @@ import { AgePipe } from './pipes/age.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 
-const exporting = [MainDashboardComponent, AddNewPatientComponent];
+const exporting = [MainDashboardComponent, AddNewPatientComponent, FilterPipe];
 
 @NgModule({
   declarations: [

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { HistoryService } from '../../../services/history.service';
-import { HistoryPatient } from '../../../interfaces/history-patient';
+import { Patient } from 'src/app/modules/main/interfaces/patient';
+import { Visit } from 'src/app/modules/main/interfaces/visit';
 
 @Component({
   selector: 'app-history-item',
@@ -9,9 +11,15 @@ import { HistoryPatient } from '../../../interfaces/history-patient';
 })
 export class HistoryItemComponent implements OnInit {
   isCollapsed: boolean = true;
-  @Input() patient: HistoryPatient;
+  @Input() patient: Patient;
+  visits: Visit[] = [];
 
   constructor(private historyService: HistoryService) {}
 
-  ngOnInit(): void {}
+  getPatientVisits(): void {
+    this.visits = this.patient.visit;
+  }
+  ngOnInit(): void {
+    this.getPatientVisits();
+  }
 }

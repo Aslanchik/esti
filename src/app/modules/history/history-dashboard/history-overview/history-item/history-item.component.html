@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-6" (click)="isCollapsed = !isCollapsed">
       <h6>
-        <i>{{ patient.patientId }}</i> - {{ patient.patientName }}
+        <i>{{ patient.govId }}</i> - {{ patient.fname | titlecase }}
       </h6>
     </div>
   </div>
@@ -12,10 +12,9 @@
       <div class="card-body">
         <button
           class="btn btn-outline-secondary ml-3"
-          *ngFor="let visit of patient.visits; index as idx"
-          [routerLink]="visit.link"
+          *ngFor="let visit of visits; index as idx"
         >
-          {{ patient.visits[idx].date }}
+          {{ patient.visit[idx].time | date }}
         </button>
       </div>
     </div>

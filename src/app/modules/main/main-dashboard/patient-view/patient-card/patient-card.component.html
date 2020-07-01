@@ -20,15 +20,19 @@
   >
     <div class="card patients" [ngClass]="setPatientClass(patient)">
       <div class="card-body">
-        <h4 class="card-title">{{ patient.fname }} {{ patient.lname }}</h4>
+        <h4 class="card-title">
+          {{ patient.fname | titlecase }} {{ patient.lname | titlecase }}
+        </h4>
         <h6 class="card-text">
           <i>Diagnosis:</i>
-          {{ patient.visit[0].medical[0].treatmentPlan[0].diagnosis }}
+          {{
+            patient.visit[0].medical[0].treatmentPlan[0].diagnosis | titlecase
+          }}
         </h6>
         <p class="card-text mt-3 mb-0">Id: {{ patient.govId }}</p>
         <p class="card-text mb-0">Age: {{ patient.birthYear | age }}</p>
         <p class="card-text mb-0">
-          Attending Nurse: {{ patient.visit[0].attendingNurse }}
+          Attending Nurse: {{ patient.visit[0].attendingNurse | titlecase }}
         </p>
       </div>
     </div>

@@ -1,17 +1,19 @@
 <div class="row mt-4 mx-auto">
-  <div class="input-group input-group-lg col-md-10">
-    <div class="input-group-prepend">
-      <span class="input-group-text"
-        ><i class="fas fa-file-medical-alt"></i
-      ></span>
-    </div>
+  <div class="input-group input-group-lg col-md-11">
     <input
       type="text"
       class="form-control"
       placeholder="Search patient history"
+      [(ngModel)]="searchText"
     />
     <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button">Search</button>
+      <button
+        class="btn btn-outline-secondary"
+        type="button"
+        (click)="onSearch()"
+      >
+        Search
+      </button>
     </div>
   </div>
 </div>

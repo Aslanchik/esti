@@ -1,5 +1,4 @@
 export interface Visit {
-  [x: string]: any;
   how: string;
   time: string;
   attendingNurse: string;

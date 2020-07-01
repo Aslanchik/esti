@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 import { HistoryDashboardComponent } from './history-dashboard/history-dashboard.component';
 import { HistoryOverviewComponent } from './history-dashboard/history-overview/history-overview.component';
@@ -31,6 +32,7 @@ const exporting = [HistoryDashboardComponent];
     NgbModule,
     NavigationModule,
     HistoryRoutingModule,
+    FormsModule,
   ],
   exports: [...exporting],
 })

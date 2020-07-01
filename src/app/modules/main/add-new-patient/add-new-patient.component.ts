@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, MaxLengthValidator } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { LoginService } from '../../landing/services/login.service';
 import { Patient } from '../interfaces/patient';
 import { PatientService } from '../services/patient.service';

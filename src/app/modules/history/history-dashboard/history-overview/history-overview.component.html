@@ -4,19 +4,26 @@
       <i class="fas fa-book-medical"></i> Patient History
     </h2>
     <div class="col-12">
-      <app-history-search></app-history-search>
+      <app-history-search
+        (searchInput)="searchHistory($event)"
+      ></app-history-search>
     </div>
     <div class="col-12">
       <ul class="nav flex-column pt-3">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-12">
-              <li>
+            <div class="col-md-11">
+              <li *ngIf="patients.length; else noPatients">
                 <app-history-item
-                  *ngFor="let patient of patients"
+                  *ngFor="let patient of patients | filterPatients: searchText"
                   [patient]="patient"
                 ></app-history-item>
               </li>
+              <ng-template #noPatients>
+                <div class="ml-3">
+                  Try searching by First/Last name..
+                </div>
+              </ng-template>
             </div>
           </div>
         </div>
