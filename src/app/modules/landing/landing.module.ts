@@ -9,6 +9,7 @@ import { LoginComponent } from './landing-dashboard/login/login.component';
 import { RegisterComponent } from './landing-dashboard/register/register.component';
 import { LandingRoutingModule } from './landing-routing.module';
 import { LoginService } from './services/login.service';
+import { RegisterService } from './services/register.service';
 
 const exporting = [LandingDashboardComponent];
 
@@ -22,6 +23,6 @@ const exporting = [LandingDashboardComponent];
     HttpClientModule,
   ],
   exports: [...exporting],
-  providers: [LoginService],
+  providers: [LoginService, RegisterService],
 })
 export class LandingModule {}
