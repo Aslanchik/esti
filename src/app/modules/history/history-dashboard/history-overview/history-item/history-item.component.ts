@@ -19,7 +19,7 @@ export class HistoryItemComponent implements OnInit {
   constructor(private historyService: HistoryService, private router: Router) {}
 
   getVisits(): void {
-    this.visits = this.patient.visit;
+    this.visits = [...this.patient.visit];
   }
 
   viewVisit(visit, patient) {
