@@ -23,6 +23,5 @@ export class RegisterComponent implements OnInit {
 
   onSubmit({ value, valid }: { value: RegisterUser; valid: boolean }): void {
     this.registerSer.registerStaff(value);
-    this.router.navigate(['/login']);
   }
 }
