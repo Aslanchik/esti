@@ -1,6 +1,3 @@
-body {
-  background-color: #f2f2f2 !important;
-}
 .parent {
   background: url("https://cdn.pixabay.com/photo/2015/07/10/20/54/stethoscope-840125_960_720.jpg");
   background-size: 70%;
@@ -14,7 +11,7 @@ body {
 }
 
 .child {
-  max-width: 400px;
+  max-width: 300px;
 }
 .child > button {
   height: 60px;

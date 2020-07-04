@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, MaxLengthValidator } from '@angular/forms';
 import { Router } from '@angular/router';
-import * as moment from 'moment';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from '../../landing/services/login.service';
 import { Patient } from '../interfaces/patient';
 import { PatientService } from '../services/patient.service';
@@ -91,6 +91,7 @@ export class AddNewPatientComponent implements OnInit {
     }),
   });
 
+  progressValue: string = '0';
   state: string = 'general';
 
   message: {};
@@ -104,9 +105,26 @@ export class AddNewPatientComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  onValidForm(): void {
+    this.newPatientForm.valueChanges.subscribe((item) => {
+      this.updateProgressBar();
+    });
+  }
+
+  updateProgressBar() {
+    if (this.progressValue === '0') this.progressValue = '33';
+    else if (this.progressValue === '33') this.progressValue = '66';
+    else if (this.progressValue === '66') this.progressValue = '100';
+  }
+
   changeFormStateForward(changedState) {
-    if (changedState === 'general') this.state = 'medical';
-    else if (changedState === 'medical') this.state = 'plan';
+    if (changedState === 'general') {
+      this.state = 'medical';
+      this.updateProgressBar();
+    } else if (changedState === 'medical') {
+      this.state = 'plan';
+      this.updateProgressBar();
+    }
   }
 
   changeFormStateBackward() {

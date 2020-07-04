@@ -1,18 +1,18 @@
 <ul class="nav flex-column pt-2">
-  <a routerLink="/main" class="logoNav ml-2">
-    <h1 class="ml-5 mb-3">ES <i class="fas fa-stethoscope"></i> TI</h1>
+  <a routerLink="/main" class="logoNav navbar-brand mx-auto">
+    <h1 class="mb-3">ES <i class="fas fa-stethoscope"></i> TI</h1>
   </a>
-  <div class="logged ml-4 mb-3">
+  <div class="logged mx-auto mb-3" *ngIf="loggedInStaff">
     Welcome back -
     <span class="loggedIn"> {{ loggedInStaff | titlecase }} </span>
   </div>
-  <li *ngFor="let item of navItems" class="mt-2 ml-1">
+  <li *ngFor="let item of navItems" class="mt-2">
     <a routerLinkActive="active" [routerLink]="item.link" class="nav-link">
       <i class="{{ item.icon }}"></i>
       <span class="ml-3">{{ item.title | titlecase }}</span>
     </a>
   </li>
-  <li class="ml-1 mt-2">
+  <li class="mt-2">
     <a class="nav-link" (click)="onLogout()" routerLink>
       <i class="fas fa-sign-out-alt"></i>
       <span class="ml-3">Log Out</span>

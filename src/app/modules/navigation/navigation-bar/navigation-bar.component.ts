@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class NavigationBarComponent implements OnInit {
   navItems: NavItem[] = [
     {
-      title: 'add new patient',
+      title: 'new patient',
       icon: 'fas fa-user-plus',
       link: '/main/add-new-patient',
     },

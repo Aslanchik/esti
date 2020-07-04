@@ -4,10 +4,30 @@
       <app-navigation-bar></app-navigation-bar>
     </div>
     <div class="col-1">
-      <a class="btn navBtn" (click)="changeFormStateBackward()"
-        ><i class="fas fa-arrow-circle-left"></i
-      ></a>
+      <div class="row">
+        <div class="col-12">
+          <a class="btn navBtn ml-3" (click)="changeFormStateBackward()"
+            ><i class="fas fa-arrow-circle-left"></i
+          ></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p>
+            <ngb-progressbar
+              [showValue]="true"
+              type="secondary"
+              [striped]="true"
+              [animated]="true"
+              height="2rem"
+              [value]="progressValue"
+              [max]="100"
+            ></ngb-progressbar>
+          </p>
+        </div>
+      </div>
     </div>
+
     <div class="col-8">
       <form
         [formGroup]="newPatientForm"

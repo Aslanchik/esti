@@ -13,13 +13,13 @@ const routes: Routes = [
     path: 'main',
     loadChildren: () =>
       import('./modules/main/main.module').then((m) => m.MainModule),
-    canActivate: [AuthGuard],
+    /* canActivate: [AuthGuard], */
   },
   {
     path: 'history',
     loadChildren: () =>
       import('./modules/history/history.module').then((m) => m.HistoryModule),
-    canActivate: [AuthGuard],
+    /* canActivate: [AuthGuard], */
   },
 ];
 
