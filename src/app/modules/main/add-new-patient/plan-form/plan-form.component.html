@@ -29,54 +29,139 @@
               </span>
             </div>
           </div>
+
           <!--Treatment Medication Input-->
           <div class="row mx-auto mt-3">
-            <div class="col-md-10">
-              <label for="meds">
-                Medication
-              </label>
-              <input
-                type="text"
-                formControlName="medication"
-                placeholder="If no medication required leave blank"
-                id="meds"
-                class="form-control"
-              />
+            <div class="col-10" formArrayName="medication">
+              <div class="row flex-column mx-auto">
+                <label for="meds">
+                  Medication
+                </label>
+                <div
+                  class="input-group"
+                  *ngFor="let med of medication.controls; index as i"
+                >
+                  <input
+                    type="text"
+                    [formControlName]="i"
+                    placeholder="If no medication required leave blank"
+                    id="meds"
+                    class="form-control mb-2"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      type="button"
+                      class="btn btn-danger mb-2"
+                      (click)="deleteMedication(i)"
+                    >
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-success col-3"
+                  (click)="addMedication()"
+                >
+                  <i class="fas fa-plus"></i>
+                  <b> Medication</b>
+                </button>
+                <!-- <div *ngFor="let med of medication.controls; let idx = index">
+                {{ med }}
+              </div> -->
+              </div>
             </div>
           </div>
+
           <!--Procedures Input-->
           <div formGroupName="tasks">
             <div class="row mx-auto mt-3">
-              <div class="col-md-10">
-                <label for="procedure">
-                  Procedures
-                </label>
-                <input
-                  type="text"
-                  formControlName="procedures"
-                  placeholder="If no procedure needed leave blank"
-                  id="procedure"
-                  class="form-control"
-                />
+              <div class="col-10" formArrayName="procedures">
+                <div class="row flex-column mx-auto">
+                  <label for="procedures">
+                    Procedures
+                  </label>
+                  <div
+                    class="input-group"
+                    *ngFor="let procedure of procedures.controls; index as i"
+                  >
+                    <input
+                      type="text"
+                      [formControlName]="i"
+                      placeholder="If no procedures required leave blank"
+                      id="procedures"
+                      class="form-control mb-2"
+                    />
+                    <div class="input-group-append">
+                      <button
+                        type="button"
+                        class="btn btn-danger mb-2"
+                        (click)="deleteProcedure(i)"
+                      >
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-success col-3"
+                    (click)="addProcedure()"
+                  >
+                    <i class="fas fa-plus"></i>
+                    <b> Procedure</b>
+                  </button>
+                  <!-- <div *ngFor="let med of medication.controls; let idx = index">
+                              {{ med }}
+                            </div> -->
+                </div>
               </div>
             </div>
+
             <!--Tests Input-->
             <div class="row mx-auto mt-3">
-              <div class="col-md-10">
-                <label for="tests">
-                  Tests
-                </label>
-                <input
-                  type="text"
-                  formControlName="tests"
-                  placeholder="If no tests needed leave blank"
-                  id="tests"
-                  class="form-control"
-                />
+              <div class="col-10" formArrayName="tests">
+                <div class="row flex-column mx-auto">
+                  <label for="tests">
+                    Tests
+                  </label>
+                  <div
+                    class="input-group"
+                    *ngFor="let test of tests.controls; index as i"
+                  >
+                    <input
+                      type="text"
+                      [formControlName]="i"
+                      placeholder="If no tests required leave blank"
+                      id="tests"
+                      class="form-control mb-2"
+                    />
+                    <div class="input-group-append">
+                      <button
+                        type="button"
+                        class="btn btn-danger mb-2"
+                        (click)="deleteTest(i)"
+                      >
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-success col-3"
+                    (click)="addTest()"
+                  >
+                    <i class="fas fa-plus"></i>
+                    <b> Test</b>
+                  </button>
+                  <!-- <div *ngFor="let med of medication.controls; let idx = index">
+                              {{ med }}
+                            </div> -->
+                </div>
               </div>
             </div>
           </div>
-          <!--Tests Input-->
+
+          <!--Notes Input-->
           <div class="row mx-auto mt-3">
             <div class="col-md-10">
               <label for="notes">

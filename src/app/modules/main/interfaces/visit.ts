@@ -32,10 +32,10 @@ export interface Visit {
     };
     treatmentPlan: {
       diagnosis: string;
-      medication: string;
+      medication: string[];
       tasks: {
-        procedures: string;
-        tests: string;
+        procedures: string[];
+        tests: string[];
       };
       notes: string;
     };

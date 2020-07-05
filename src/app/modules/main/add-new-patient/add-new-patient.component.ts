@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, MaxLengthValidator } from '@angular/forms';
+import { FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from '../../landing/services/login.service';
@@ -80,10 +80,10 @@ export class AddNewPatientComponent implements OnInit {
         }),
         treatmentPlan: this.fb.group({
           diagnosis: ['', [Validators.required, Validators.maxLength(255)]],
-          medication: ['', Validators.maxLength(255)],
+          medication: this.fb.array([]),
           tasks: this.fb.group({
-            procedures: ['', Validators.maxLength(255)],
-            tests: ['', Validators.maxLength(255)],
+            procedures: this.fb.array([]),
+            tests: this.fb.array([]),
           }),
           notes: ['', Validators.maxLength(500)],
         }),
