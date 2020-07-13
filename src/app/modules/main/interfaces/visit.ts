@@ -9,18 +9,18 @@ export interface Visit {
       smoking: boolean;
       drinking: boolean;
       drugs: boolean;
-      drugsDescription: string;
+      drugsDescription?: string;
     };
     reasonOfVisit: string;
     caseStory: string;
     symptoms: string;
     hasHappenedBefore: {
       hasIt: boolean;
-      description: string;
+      description?: string;
     };
     history: {
       isThere: boolean;
-      description: string;
+      description?: string;
     };
     vitals: {
       pulse: number;
@@ -32,12 +32,12 @@ export interface Visit {
     };
     treatmentPlan: {
       diagnosis: string;
-      medication: string[];
-      tasks: {
-        procedures: string[];
-        tests: string[];
+      medication?: string[];
+      tasks?: {
+        procedures?: [{ title?: string; isComplete?: boolean }];
+        tests?: [{ title?: string; isComplete?: boolean }];
       };
-      notes: string;
+      notes?: string;
     };
   };
 }

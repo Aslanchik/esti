@@ -82,26 +82,32 @@
                     Procedures
                   </label>
                   <div
-                    class="input-group"
                     *ngFor="let procedure of procedures.controls; index as i"
                   >
-                    <input
-                      type="text"
-                      [formControlName]="i"
-                      placeholder="If no procedures required leave blank"
-                      id="procedures"
-                      class="form-control mb-2"
-                    />
-                    <div class="input-group-append">
-                      <button
-                        type="button"
-                        class="btn btn-danger mb-2"
-                        (click)="deleteProcedure(i)"
-                      >
-                        <i class="fas fa-times"></i>
-                      </button>
+                    <div class="input-group" [formGroupName]="i">
+                      <input
+                        type="text"
+                        formControlName="title"
+                        placeholder="If no procedures required leave blank"
+                        id="procedures"
+                        class="form-control mb-2"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          type="button"
+                          class="btn btn-danger mb-2"
+                          (click)="deleteProcedure(i)"
+                        >
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
                     </div>
+
+                    <!-- <div *ngFor="let med of medication.controls; let idx = index">
+                              {{ med }}
+                            </div> -->
                   </div>
+
                   <button
                     type="button"
                     class="btn btn-success col-3"
@@ -110,9 +116,6 @@
                     <i class="fas fa-plus"></i>
                     <b> Procedure</b>
                   </button>
-                  <!-- <div *ngFor="let med of medication.controls; let idx = index">
-                              {{ med }}
-                            </div> -->
                 </div>
               </div>
             </div>
@@ -124,26 +127,29 @@
                   <label for="tests">
                     Tests
                   </label>
-                  <div
-                    class="input-group"
-                    *ngFor="let test of tests.controls; index as i"
-                  >
-                    <input
-                      type="text"
-                      [formControlName]="i"
-                      placeholder="If no tests required leave blank"
-                      id="tests"
-                      class="form-control mb-2"
-                    />
-                    <div class="input-group-append">
-                      <button
-                        type="button"
-                        class="btn btn-danger mb-2"
-                        (click)="deleteTest(i)"
-                      >
-                        <i class="fas fa-times"></i>
-                      </button>
+                  <div *ngFor="let test of tests.controls; index as i">
+                    <div class="input-group" [formGroupName]="i">
+                      <input
+                        type="text"
+                        formControlName="title"
+                        placeholder="If no tests required leave blank"
+                        id="tests"
+                        class="form-control mb-2"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          type="button"
+                          class="btn btn-danger mb-2"
+                          (click)="deleteTest(i)"
+                        >
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
                     </div>
+
+                    <!-- <div *ngFor="let med of medication.controls; let idx = index">
+                              {{ med }}
+                            </div> -->
                   </div>
                   <button
                     type="button"
@@ -153,9 +159,6 @@
                     <i class="fas fa-plus"></i>
                     <b> Test</b>
                   </button>
-                  <!-- <div *ngFor="let med of medication.controls; let idx = index">
-                              {{ med }}
-                            </div> -->
                 </div>
               </div>
             </div>

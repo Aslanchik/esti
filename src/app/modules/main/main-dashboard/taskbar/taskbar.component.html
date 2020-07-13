@@ -1,15 +1,26 @@
-<ul class="nav flex-column pt-3">
-  <h3 class="mb-5 ml-4"><i class="fas fa-procedures"></i> Task View</h3>
-  <div class="container-fluid">
+<ul class="nav flex-column pt-3 overflow-auto">
+  <div>
+    <h3 class="mb-4 ml-3 col-12"><i class="fas fa-tasks"></i> Task View</h3>
+  </div>
+  <div class="container">
     <div class="row">
       <div class="col-12">
-        <li>
+        <li *ngIf="tasks">
           <app-task-item
-            *ngFor="let task of tasks"
-            [task]="task"
             (deleteTask)="deleteTask($event)"
+            [tasks]="tasks"
           ></app-task-item>
         </li>
+
+        <div class="loader" *ngIf="fetching">
+          Loading...
+        </div>
+
+        <div class="mx-auto" *ngIf="!tasks.length && !fetching">
+          <p>
+            No tasks yet..
+          </p>
+        </div>
       </div>
     </div>
   </div>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from '../../landing/services/login.service';
 import { Patient } from '../interfaces/patient';
 import { PatientService } from '../services/patient.service';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-add-new-patient',
@@ -92,7 +93,7 @@ export class AddNewPatientComponent implements OnInit {
   });
 
   progressValue: string = '0';
-  state: string = 'general';
+  state: string = 'plan';
 
   message: {};
 
@@ -133,8 +134,14 @@ export class AddNewPatientComponent implements OnInit {
     else this.router.navigate(['/main']);
   }
 
+  toLowerCaseVal(val) {
+    val.fname = val.fname.toLowerCase();
+    val.lname = val.lname.toLowerCase();
+  }
+
   onSubmit(value): void {
     if (this.newPatientForm.valid) {
+      this.toLowerCaseVal(value);
       this.patientSer.addNewPatient(value);
       this.message = this.patientSer.getMessage();
       this.router.navigate(['/main']);

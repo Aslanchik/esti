@@ -97,12 +97,14 @@
                   "
                 >
                   <p>Prescribed:</p>
-                  <p>
-                    {{
-                      patient.currentVisit.medical[0].treatmentPlan[0]
-                        .medication
-                    }}
-                  </p>
+                  <ul
+                    *ngFor="
+                      let meds of patient.currentVisit.medical[0]
+                        .treatmentPlan[0].medication
+                    "
+                  >
+                    <li>{{ meds }}</li>
+                  </ul>
                 </div>
                 <ng-template #noMeds>
                   <p>No meds were prescribed.</p>
@@ -112,18 +114,22 @@
             <ng-container ngbNavItem>
               <a ngbNavLink><i class="fas fa-procedures"></i> Procedures</a>
               <ng-template ngbNavContent>
-                <p
+                <div
                   *ngIf="
                     patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
                       .procedures;
                     else noProcedures
                   "
                 >
-                  {{
-                    patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
-                      .procedures
-                  }}
-                </p>
+                  <ul
+                    *ngFor="
+                      let procedure of patient.currentVisit.medical[0]
+                        .treatmentPlan[0].tasks[0].procedures
+                    "
+                  >
+                    <li>{{ procedure }}</li>
+                  </ul>
+                </div>
                 <ng-template #noProcedures>
                   <p>No procedures were made.</p>
                 </ng-template>
@@ -132,18 +138,22 @@
             <ng-container ngbNavItem>
               <a ngbNavLink><i class="fas fa-vials"></i> Tests</a>
               <ng-template ngbNavContent>
-                <p
+                <div
                   *ngIf="
                     patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
                       .tests;
                     else noTests
                   "
                 >
-                  {{
-                    patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
-                      .tests
-                  }}
-                </p>
+                  <ul
+                    *ngFor="
+                      let test of patient.currentVisit.medical[0]
+                        .treatmentPlan[0].tasks[0].tests
+                    "
+                  >
+                    <li>{{ test }}</li>
+                  </ul>
+                </div>
                 <ng-template #noTests>
                   <p>No tests were orederd.</p>
                 </ng-template>

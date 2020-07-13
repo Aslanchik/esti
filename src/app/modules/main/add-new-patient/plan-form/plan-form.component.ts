@@ -1,13 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { PatientService } from '../../services/patient.service';
 import { Router } from '@angular/router';
-import {
-  FormGroup,
-  FormArray,
-  Validators,
-  FormBuilder,
-  FormControl,
-} from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-plan-form',
@@ -41,21 +35,20 @@ export class PlanFormComponent implements OnInit {
 
   addMedication() {
     this.medication.push(new FormControl());
-    console.log(this.medication);
   }
   deleteMedication(i) {
     this.medication.removeAt(i);
   }
 
   addProcedure() {
-    this.procedures.push(new FormControl());
+    this.procedures.push(this.fb.group({ title: '', isComplete: false }));
   }
   deleteProcedure(i) {
     this.procedures.removeAt(i);
   }
 
   addTest() {
-    this.tests.push(new FormControl());
+    this.tests.push(this.fb.group({ title: '', isComplete: false }));
   }
   deleteTest(i) {
     this.tests.removeAt(i);

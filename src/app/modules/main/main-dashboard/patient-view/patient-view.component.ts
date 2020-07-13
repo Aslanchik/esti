@@ -13,17 +13,16 @@ export class PatientViewComponent implements OnInit {
   searchText = '';
   sortParam: string = 'state';
 
-  constructor(private patientService: PatientService) {}
-
-  ngOnInit(): void {
+  constructor(private patientService: PatientService) {
     this.getActivePatients();
   }
+
+  ngOnInit(): void {}
 
   getActivePatients(): void {
     this.patientService.getActivePatients().subscribe((patientData) => {
       this.patients = patientData;
     });
-
     this.fetching = !this.fetching;
   }
 }

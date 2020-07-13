@@ -1,5 +1,5 @@
 .fa-check-circle {
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #0e951b;
 }
 .fa-times-circle {
@@ -17,14 +17,15 @@
 
 .isComplete {
   background: #d1e0d3 !important;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   &:hover {
     background: #e5f0e6 !important;
   }
 }
 
 .card-body {
-  color: #423545;
+  color: #5e4b63;
+  font-size: 0.9rem;
 }
 
 .task {
@@ -35,4 +36,20 @@
     background-color: #fcece9b7;
     cursor: pointer;
   }
+}
+.patient-info {
+  color: #419660;
+}
+.nurse-info {
+  font-size: 0.8rem;
+}
+.title {
+  color: #302333;
+  font-weight: bold;
+}
+.fa-procedures {
+  color: #3023337c;
+}
+.fa-vials {
+  color: #3023337c;
 }
