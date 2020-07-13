@@ -1,12 +1,16 @@
 ul {
   height: 100vh;
   margin-right: -30px;
+  overflow-x: hidden !important;
+  background-color: #faf4f3;
 }
 
 h3 {
   color: #423545;
 }
-
+.taskHeader {
+  background-color: #faf4f3;
+}
 .loader {
   color: #b392ac;
   font-size: 90px;

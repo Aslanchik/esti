@@ -8,7 +8,7 @@ import { PatientService } from '../../../services/patient.service';
   styleUrls: ['./patient-card.component.scss'],
 })
 export class PatientCardComponent implements OnInit {
-  patients: Patient[];
+  patients: Patient[] = [];
   @Input() searchText: string;
   @Input() sortParam: string;
 

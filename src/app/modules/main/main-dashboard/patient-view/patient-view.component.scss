@@ -16,6 +16,22 @@
   color: #57a773;
   font-size: 3rem;
 }
+
+.critical {
+  background-color: #de5468;
+}
+.active {
+  background-color: #f8c45a;
+}
+.discharged {
+  background-color: #8bbe9d;
+}
+
+.colors {
+  border: 2px #faf4f3 solid;
+  background-color: rgb(85, 85, 85);
+}
+
 .loader {
   color: #b392ac;
   font-size: 90px;

@@ -1,15 +1,4 @@
-<div class="row">
-  <div class="col-4 mb-4">
-    <div class="card colors text-center">
-      <div class="card-body">
-        <div class="row flex-column mt-2 mx-auto">
-          <div class="col-12 critical mb-2">Critical</div>
-          <div class="col-12 active mb-2">Active</div>
-          <div class="col-12 discharged">Discharged</div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="row" *ngIf="patients.length">
   <div
     class="col-4 mb-4"
     *ngFor="

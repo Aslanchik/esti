@@ -1,6 +1,6 @@
 <div class="container-fluid">
-  <div class="row mt-3 ml-2">
-    <div class="mb-4 mt-2 input-group col-12">
+  <div class="row flex-column mt-3 sticky-top">
+    <div class="mt-2 mb-2 input-group col-12">
       <input
         type="search"
         placeholder="Search"
@@ -17,33 +17,30 @@
         </div>
       </div>
     </div>
+    <div class="col-8 mx-auto">
+      <div class="row text-center colors">
+        <div class="col-4 critical">Critical</div>
+        <div class="col-4 active">Active</div>
+        <div class="col-4 discharged">Discharged</div>
+      </div>
+    </div>
   </div>
-  <div class="row">
-    <div class="col-12">
+  <div class="row overflow-hidden">
+    <div class="col-12 mt-5">
       <div class="loader" *ngIf="fetching">
         Loading...
       </div>
-      <div *ngIf="patients.length && !fetching; else noPatients">
+      <div *ngIf="!patients.length && !fetching">
+        <p class="noPatients display-4 ml-3">
+          There are no active patients..
+        </p>
+      </div>
+      <div *ngIf="patients.length && !fetching">
         <app-patient-card
           [sortParam]="sortParam"
           [searchText]="searchText"
         ></app-patient-card>
       </div>
-      <ng-template #noPatients>
-        <div *ngIf="!patients.length && !fetching">
-          <p class="noPatients display-4">
-            <i class="fas fa-broom"></i> There are no active patients..
-          </p>
-          <div class="col-4 mb-4 mt-5">
-            <div class="card add" routerLink="/main/add-new-patient">
-              <div class="card-body">
-                <i class="fas fa-user-plus ml-5 mt-3 mb-2"></i>
-                <h5 class="ml-4">Add new patient</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
     </div>
   </div>
 </div>
