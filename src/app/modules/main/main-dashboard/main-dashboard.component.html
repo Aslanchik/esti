@@ -4,10 +4,10 @@
       <app-navigation-bar></app-navigation-bar>
     </div>
     <div class="col-7">
-      <app-patient-view></app-patient-view>
+      <app-patient-view [activePatients]="activePatients"></app-patient-view>
     </div>
     <div class="col-3">
-      <app-taskbar></app-taskbar>
+      <app-taskbar [activePatients]="activePatients"></app-taskbar>
     </div>
   </div>
 </div>

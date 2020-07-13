@@ -378,7 +378,18 @@
                       "
                       class="invalid"
                     >
-                      Too high.
+                      Too High.
+                    </span>
+                    <span
+                      *ngIf="
+                        parentFormGroup.get('visit.medical.vitals.pulse').errors
+                          ?.pattern &&
+                        parentFormGroup.get('visit.medical.vitals.pulse')
+                          .touched
+                      "
+                      class="invalid"
+                    >
+                      Invalid Input.
                     </span>
                   </div>
                   <!-- Blood Pressure Input -->
@@ -408,12 +419,12 @@
                     <span
                       *ngIf="
                         parentFormGroup.get('visit.medical.vitals.bp').errors
-                          ?.maxlength &&
+                          ?.pattern &&
                         parentFormGroup.get('visit.medical.vitals.bp').touched
                       "
                       class="invalid"
                     >
-                      Too long.
+                      Invalid Input.
                     </span>
                   </div>
                   <!-- Temperature Input -->
@@ -443,12 +454,12 @@
                     <span
                       *ngIf="
                         parentFormGroup.get('visit.medical.vitals.temp').errors
-                          ?.max &&
+                          ?.pattern &&
                         parentFormGroup.get('visit.medical.vitals.temp').touched
                       "
                       class="invalid"
                     >
-                      Impossible.
+                      Invalid Input.
                     </span>
                   </div>
                   <!-- Weight Input -->
@@ -485,7 +496,18 @@
                       "
                       class="invalid"
                     >
-                      Impossible.
+                      Too High.
+                    </span>
+                    <span
+                      *ngIf="
+                        parentFormGroup.get('visit.medical.vitals.weight')
+                          .errors?.pattern &&
+                        parentFormGroup.get('visit.medical.vitals.weight')
+                          .touched
+                      "
+                      class="invalid"
+                    >
+                      Invalid Input.
                     </span>
                   </div>
                   <!-- Blood Sugar Input -->
@@ -522,7 +544,18 @@
                       "
                       class="invalid"
                     >
-                      Impossible.
+                      Too High.
+                    </span>
+                    <span
+                      *ngIf="
+                        parentFormGroup.get('visit.medical.vitals.bloodSugar')
+                          .errors?.pattern &&
+                        parentFormGroup.get('visit.medical.vitals.bloodSugar')
+                          .touched
+                      "
+                      class="invalid"
+                    >
+                      Invalid Input.
                     </span>
                   </div>
                   <!-- Resp Rate Input -->
@@ -534,7 +567,7 @@
                       type="text"
                       formControlName="respRate"
                       placeholder="18"
-                      min="0"
+                      min="2"
                       id="resp"
                       class="form-control"
                       required
@@ -559,7 +592,18 @@
                       "
                       class="invalid"
                     >
-                      Impossible.
+                      Too High.
+                    </span>
+                    <span
+                      *ngIf="
+                        parentFormGroup.get('visit.medical.vitals.respRate')
+                          .errors?.pattern &&
+                        parentFormGroup.get('visit.medical.vitals.respRate')
+                          .touched
+                      "
+                      class="invalid"
+                    >
+                      Invalid Input.
                     </span>
                   </div>
                 </div>

@@ -72,12 +72,54 @@ export class AddNewPatientComponent implements OnInit {
           description: [''],
         }),
         vitals: this.fb.group({
-          pulse: [null, [Validators.required, Validators.max(300)]],
-          bp: ['', [Validators.required, Validators.maxLength(7)]],
-          temp: [null, [Validators.required, Validators.max(80)]],
-          weight: [null, [Validators.required, Validators.max(600)]],
-          bloodSugar: [null, [Validators.required, Validators.max(600)]],
-          respRate: [null, [Validators.required, Validators.max(60)]],
+          pulse: [
+            null,
+            [
+              Validators.required,
+              Validators.max(200),
+              Validators.pattern('^(0|[1-9][0-9]*)$'),
+            ],
+          ],
+          bp: [
+            '',
+            [
+              Validators.required,
+              Validators.pattern(`^[0-9]{1,3}\/[0-9]{1,3}$`),
+            ],
+          ],
+          temp: [
+            null,
+            [
+              Validators.required,
+              Validators.pattern('^([3-4][0-9]|[3-4][0-9][.][0-9])$'),
+            ],
+          ],
+          weight: [
+            null,
+            [
+              Validators.required,
+              Validators.min(0),
+              Validators.max(600),
+              Validators.pattern('^(0|[1-9][0-9]*)$'),
+            ],
+          ],
+          bloodSugar: [
+            null,
+            [
+              Validators.required,
+              Validators.max(600),
+              Validators.min(0),
+              Validators.pattern('^(0|[1-9][0-9]*)$'),
+            ],
+          ],
+          respRate: [
+            null,
+            [
+              Validators.required,
+              Validators.max(60),
+              Validators.pattern('^(0|[1-9][0-9]*)$'),
+            ],
+          ],
         }),
         treatmentPlan: this.fb.group({
           diagnosis: ['', [Validators.required, Validators.maxLength(255)]],
@@ -93,7 +135,7 @@ export class AddNewPatientComponent implements OnInit {
   });
 
   progressValue: string = '0';
-  state: string = 'plan';
+  state: string = 'general';
 
   message: {};
 
@@ -144,10 +186,6 @@ export class AddNewPatientComponent implements OnInit {
       this.toLowerCaseVal(value);
       this.patientSer.addNewPatient(value);
       this.message = this.patientSer.getMessage();
-      this.router.navigate(['/main']);
-      /* setTimeout(() => {
-        this.router.navigate(['/main']);
-      }, 2000); */
     }
   }
 }

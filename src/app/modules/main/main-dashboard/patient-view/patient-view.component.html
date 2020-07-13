@@ -25,18 +25,11 @@
       </div>
     </div>
   </div>
-  <div class="row overflow-hidden">
+  <div class="row">
     <div class="col-12 mt-5">
-      <div class="loader" *ngIf="fetching">
-        Loading...
-      </div>
-      <div *ngIf="!patients.length && !fetching">
-        <p class="noPatients display-4 ml-3">
-          There are no active patients..
-        </p>
-      </div>
-      <div *ngIf="patients.length && !fetching">
+      <div *ngIf="patients.length">
         <app-patient-card
+          [activePatients]="activePatients"
           [sortParam]="sortParam"
           [searchText]="searchText"
         ></app-patient-card>

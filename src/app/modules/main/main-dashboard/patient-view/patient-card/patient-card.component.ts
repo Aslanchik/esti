@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Patient } from '../../../interfaces/patient';
 import { PatientService } from '../../../services/patient.service';
 
@@ -7,10 +7,12 @@ import { PatientService } from '../../../services/patient.service';
   templateUrl: './patient-card.component.html',
   styleUrls: ['./patient-card.component.scss'],
 })
-export class PatientCardComponent implements OnInit {
+export class PatientCardComponent implements OnInit, OnChanges {
   patients: Patient[] = [];
+  @Input() activePatients: Patient[];
   @Input() searchText: string;
   @Input() sortParam: string;
+  fetching: boolean = true;
 
   setPatientClass(p: Patient) {
     if (p.visit[0].medical[0].state === 'active') {
@@ -35,21 +37,16 @@ export class PatientCardComponent implements OnInit {
 
   constructor(private patientService: PatientService) {}
 
-  ngOnInit(): void {
-    this.getActivePatients();
+  ngOnInit(): void {}
+
+  ngOnChanges() {
+    if (this.activePatients) {
+      this.renderActivePatients();
+    }
   }
 
-  getActivePatients(): void {
-    this.patientService.getActivePatients().subscribe((patientData) => {
-      const activePatients = patientData.map((patient) => {
-        return {
-          ...patient,
-          visit: patient.visit.filter(
-            (visit) => visit.medical[0].state !== 'discharged'
-          ),
-        };
-      });
-      this.patients = activePatients;
-    });
+  renderActivePatients(): void {
+    this.patients = this.activePatients;
+    this.fetching = !this.fetching;
   }
 }

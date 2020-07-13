@@ -13,6 +13,7 @@ export class MedicalFormComponent {
   @Output() changedState: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private patientService: PatientService, private router: Router) {}
+
   isCollapsed = true;
 
   moveForward() {

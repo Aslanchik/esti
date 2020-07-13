@@ -1,3 +1,9 @@
+<div class="loader mx-auto" *ngIf="fetching"></div>
+<div *ngIf="!patients.length && !fetching">
+  <p class="noPatients display-4 ml-3">
+    There are no active patients..
+  </p>
+</div>
 <div class="row" *ngIf="patients.length">
   <div
     class="col-4 mb-4"
