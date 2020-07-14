@@ -22,6 +22,7 @@ export class HistoryService {
 
   declareCurrentPatientVisit(patientData: HistoryPatient): void {
     this.patient = patientData;
+    console.log(this.patient);
   }
 
   getCurrentPatientVisit() {

@@ -92,7 +92,8 @@
               <ng-template ngbNavContent>
                 <div
                   *ngIf="
-                    patient.currentVisit.medical[0].treatmentPlan[0].medication;
+                    patient.currentVisit.medical[0].treatmentPlan[0].medication
+                      .length;
                     else noMeds
                   "
                 >
@@ -127,7 +128,7 @@
                         .treatmentPlan[0].tasks[0].procedures
                     "
                   >
-                    <li>{{ procedure }}</li>
+                    <li>{{ procedure.title }}</li>
                   </ul>
                 </div>
                 <ng-template #noProcedures>
@@ -151,7 +152,7 @@
                         .treatmentPlan[0].tasks[0].tests
                     "
                   >
-                    <li>{{ test }}</li>
+                    <li>{{ test.title }}</li>
                   </ul>
                 </div>
                 <ng-template #noTests>

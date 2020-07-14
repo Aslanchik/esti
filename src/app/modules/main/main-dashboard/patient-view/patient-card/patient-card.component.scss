@@ -1,6 +1,5 @@
 .patients {
   display: block;
-
   background-color: #f0dbd87c;
   border: none;
   &:hover {
@@ -11,7 +10,8 @@
 
 .add {
   display: block;
-
+  height: 11rem;
+  border: none;
   background-color: #d1e0d39f;
   &:hover {
     background-color: #e5f0e6;
