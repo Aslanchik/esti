@@ -10,6 +10,8 @@ import { LandingModule } from './modules/landing/landing.module';
 import { MainModule } from './modules/main/main.module';
 import { HistoryModule } from './modules/history/history.module';
 import { Interceptor } from './modules/landing/services/auth-interceptor';
+import { HistoryService } from './modules/history/services/history.service';
+import { PatientService } from './modules/main/services/patient.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +27,8 @@ import { Interceptor } from './modules/landing/services/auth-interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
+    HistoryService,
+    PatientService,
   ],
   bootstrap: [AppComponent],
 })

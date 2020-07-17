@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Patient } from '../../../interfaces/patient';
 import { PatientService } from '../../../services/patient.service';
+import { HistoryService } from 'src/app/modules/history/services/history.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patient-card',
@@ -35,7 +37,11 @@ export class PatientCardComponent implements OnInit, OnChanges {
     }
   }
 
-  constructor(private patientService: PatientService) {}
+  constructor(
+    private patientService: PatientService,
+    private historyService: HistoryService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -45,8 +51,18 @@ export class PatientCardComponent implements OnInit, OnChanges {
     }
   }
 
+  viewVisit(p: Patient) {
+    const patientData = {
+      currentPatient: p,
+      currentVisit: p.visit[0],
+    };
+    this.historyService.declareCurrentPatientVisit(patientData);
+  }
+
   renderActivePatients(): void {
+    if (this.patients.length !== this.activePatients.length) {
+      this.fetching = !this.fetching;
+    }
     this.patients = this.activePatients;
-    this.fetching = !this.fetching;
   }
 }

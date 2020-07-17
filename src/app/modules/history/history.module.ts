@@ -35,7 +35,6 @@ const exporting = [HistoryDashboardComponent];
     HistoryRoutingModule,
     FormsModule,
   ],
-  providers: [HistoryService],
   exports: [...exporting],
 })
 export class HistoryModule {}

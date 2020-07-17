@@ -4,13 +4,20 @@
   border: none;
   &:hover {
     background-color: #fcece9b7;
+  }
+}
+
+.fa-notes-medical {
+  font-size: 2rem;
+  color: #232323;
+  &:hover {
     cursor: pointer;
+    color: #333333;
   }
 }
 
 .add {
   display: block;
-  height: 11rem;
   border: none;
   background-color: #d1e0d39f;
   &:hover {
@@ -18,6 +25,7 @@
     cursor: pointer;
   }
 }
+
 .fa-user-plus {
   color: #57a773;
   font-size: 3rem;
@@ -36,7 +44,7 @@
   background-color: #de5468;
 
   &:hover {
-    background-color: #de5469e1;
+    background-color: #ee5c72;
   }
 }
 .patientActive {

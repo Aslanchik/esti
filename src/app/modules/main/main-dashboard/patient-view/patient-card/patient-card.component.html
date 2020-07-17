@@ -17,6 +17,11 @@
       <div class="card-body">
         <h4 class="card-title">
           {{ patient.fname | titlecase }} {{ patient.lname | titlecase }}
+          <i
+            class="fas fa-notes-medical float-right"
+            title="View Visit"
+            (click)="viewVisit(patient)"
+          ></i>
         </h4>
         <h6 class="card-text">
           <i>Diagnosis:</i>
@@ -25,14 +30,13 @@
           }}
         </h6>
         <p class="card-text mt-3 mb-0">Id: {{ patient.govId }}</p>
-        <p class="card-text mb-0">Age: {{ patient.birthYear | age }}</p>
         <p class="card-text mb-0">
           Attending Nurse: {{ patient.visit[0].attendingNurse | titlecase }}
         </p>
       </div>
     </div>
   </div>
-  <div class="col-4 mt-2">
+  <div class="col-4 m-auto">
     <div class="card add" routerLink="/main/add-new-patient">
       <div class="card-body">
         <i class="fas fa-user-plus ml-5 mt-3 mb-2"></i>

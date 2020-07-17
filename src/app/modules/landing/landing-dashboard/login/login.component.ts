@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { LoginUser } from '../../interfaces/login-user';
 import { LoginService } from '../../services/login.service';
 import { Subscription } from 'rxjs';
@@ -19,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   isLoggedIn = false;
 
-  constructor(public loginSer: LoginService) {}
+  constructor(public loginSer: LoginService, private router: Router) {}
 
   ngOnInit(): void {}
 

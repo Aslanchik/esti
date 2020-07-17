@@ -13,6 +13,8 @@ export class PatientService {
     'http://localhost:3000/api/patients/active';
   private _updateCompleteTaskUrl: string =
     'http://localhost:3000/api/patients/updateCompletedTask';
+  private _updateStateUrl: string =
+    'http://localhost:3000/api/patients/updateState';
 
   private message: {};
 
@@ -24,6 +26,10 @@ export class PatientService {
       this.message = response;
       window.location.replace('/main');
     });
+  }
+
+  changeVisitState(stateData) {
+    return this.http.patch(this._updateStateUrl, stateData);
   }
 
   getActivePatients(): Observable<Patient[]> {

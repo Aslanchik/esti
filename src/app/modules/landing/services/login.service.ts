@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoginUser } from '../interfaces/login-user';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/utils/toast.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,11 @@ export class LoginService {
   private currentlyLoggedIn = '';
   private tokenTimer: NodeJS.Timer;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toast: ToastService
+  ) {}
 
   getToken() {
     return this.token;
@@ -89,6 +94,7 @@ export class LoginService {
           this.saveAuthData(token, response.fullName, expirationDate);
 
           this.router.navigate(['/main']);
+          this.toast.successToast(`Welcome back, ${response.fullName}!`);
         }
       });
     return;

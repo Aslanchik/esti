@@ -18,6 +18,7 @@ import { NavigationModule } from '../navigation/navigation.module';
 import { AgePipe } from './pipes/age.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
+import { HistoryService } from '../history/services/history.service';
 
 const exporting = [MainDashboardComponent, AddNewPatientComponent, FilterPipe];
 

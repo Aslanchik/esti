@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { HistoryVisit } from '../interfaces/history-visit';
 import { Patient } from '../../main/interfaces/patient';
@@ -22,7 +22,7 @@ export class HistoryService {
 
   declareCurrentPatientVisit(patientData: HistoryPatient): void {
     this.patient = patientData;
-    console.log(this.patient);
+    this.router.navigate(['/history/visit']);
   }
 
   getCurrentPatientVisit() {

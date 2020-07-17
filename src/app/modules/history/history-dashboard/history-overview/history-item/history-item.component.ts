@@ -28,7 +28,6 @@ export class HistoryItemComponent implements OnInit {
       currentVisit: visit,
     };
     this.historyService.declareCurrentPatientVisit(patientData);
-    this.router.navigate(['/history/visit']);
   }
 
   ngOnInit(): void {
