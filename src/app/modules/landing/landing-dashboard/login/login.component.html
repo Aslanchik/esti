@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-12">
-    <h3 class="mb-4">Login</h3>
+    <h3 class="mb-4">Sign In</h3>
     <form
       #loginForm="ngForm"
       (ngSubmit)="onSubmit(loginForm)"
@@ -13,11 +13,12 @@
           <input
             placeholder="ID"
             #idf="ngModel"
-            type="text"
+            type="tel"
             name="govId"
             required
             minlength="9"
             maxlength="9"
+            pattern="^[0-9]*$"
             [(ngModel)]="user.govId"
             class="form-control"
             [ngClass]="{
@@ -29,7 +30,10 @@
             This field is required.
           </div>
           <div [hidden]="!idf.errors?.minlength" class="invalid-feedback">
-            Invalid Id.
+            Must contain 9 numbers.
+          </div>
+          <div [hidden]="!idf.errors?.pattern" class="invalid-feedback">
+            Must contain numbers only.
           </div>
         </div>
       </div>
@@ -62,10 +66,10 @@
         type="submit"
         name="submit"
         value="Submit"
-        class="btn btn-secondary ml-3 mb-3"
+        class="btn btn-dark ml-3 mb-3"
         [disabled]="loginForm.form.invalid"
       />
-      <a routerLink="/register" class="btn btn-outline-secondary ml-3 mb-3"
+      <a routerLink="/register" class="btn btn-outline-dark ml-3 mb-3"
         >Not a user? Register</a
       >
     </form>

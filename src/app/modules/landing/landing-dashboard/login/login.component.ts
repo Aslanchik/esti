@@ -35,5 +35,6 @@ export class LoginComponent implements OnInit {
       this.loginSer.loginStaff(value);
       this.checkLogIn();
     }
+    this.user = { govId: '', password: '' };
   }
 }

@@ -40,12 +40,13 @@
 .add {
   display: block;
   border: none;
-  background-color: #daffdd;
+  background-color: #cef7d2;
   box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
     1px 3px 8px rgba(39, 44, 49, 0.03);
   transition: all 0.5s ease;
   &:hover {
-    background-color: #cef7d2;
+    background-color: #daffdd;
+
     cursor: pointer;
     transform: translate3D(0, -1px, 0) scale(1.1);
     box-shadow: 8px 28px 50px rgba(39, 44, 49, 0.07),

@@ -15,7 +15,7 @@
 }
 .child > button {
   height: 60px;
-  width: 150px;
+  width: 200px;
 }
 
 .dark {
@@ -38,4 +38,32 @@
 }
 #btn_dark_close {
   margin-top: 0;
+}
+
+i {
+  font-size: 2rem;
+}
+#login_dark {
+  background-color: #232323;
+  &:hover {
+    transform: translate3D(0, -1px, 0) scale(1);
+    background-color: #323232;
+    box-shadow: 8px 28px 50px rgba(39, 44, 49, 0.07),
+      1px 6px 12px rgba(39, 44, 49, 0.04);
+    transition: all 0.4s ease;
+  }
+}
+#register_dark {
+  background-color: #f2f2f2;
+  &:hover {
+    transform: translate3D(0, -1px, 0) scale(1);
+    background-color: #f7f7f7;
+    box-shadow: 8px 28px 50px rgba(39, 44, 49, 0.07),
+      1px 6px 12px rgba(39, 44, 49, 0.04);
+    transition: all 0.4s ease;
+  }
+}
+.btnText {
+  font-size: 1.2rem;
+  font-style: italic;
 }

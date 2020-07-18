@@ -39,7 +39,7 @@ export class AddNewPatientComponent implements OnInit {
       attendingNurse: [this.loginSer.getCurrentlyLoggedIn()],
       medical: this.fb.group({
         state: ['', Validators.required],
-        allergies: ['', [Validators.required, Validators.maxLength(255)]],
+        allergies: ['None', [Validators.required, Validators.maxLength(255)]],
         habits: this.fb.group({
           smoking: [null, Validators.required],
           drinking: [null, Validators.required],
@@ -185,7 +185,6 @@ export class AddNewPatientComponent implements OnInit {
     if (this.newPatientForm.valid) {
       this.toLowerCaseVal(value);
       this.patientSer.addNewPatient(value);
-      this.message = this.patientSer.getMessage();
     }
   }
 }

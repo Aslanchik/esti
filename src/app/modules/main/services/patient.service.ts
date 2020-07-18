@@ -3,6 +3,7 @@ import { Patient } from '../interfaces/patient';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TaskItem } from '../interfaces/taskItem';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,30 @@ export class PatientService {
   addNewPatient(value) {
     const patient: Patient = value;
     this.http.post(this._addPatientUrl, patient).subscribe((response) => {
-      this.message = response;
-      window.location.replace('/main');
+      let timerInterval;
+      Swal.fire({
+        title: 'New Patient Admitted Succsessfully!',
+        icon: 'success',
+        html: 'I will automatically close in <b></b> milliseconds.',
+        timer: 2000,
+        timerProgressBar: true,
+        onBeforeOpen: () => {
+          Swal.showLoading();
+          timerInterval = setInterval(() => {
+            const content = Swal.getContent();
+            if (content) {
+              const b = content.querySelector('b');
+              if (b) {
+                b.innerHTML = Swal.getTimerLeft().toString();
+              }
+            }
+          }, 100);
+        },
+        onClose: () => {
+          clearInterval(timerInterval);
+          window.location.replace('/main');
+        },
+      });
     });
   }
 

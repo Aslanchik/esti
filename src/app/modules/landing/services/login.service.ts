@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoginUser } from '../interfaces/login-user';
 import { Router } from '@angular/router';
 import { SwalService } from 'src/app/utils/swal.service';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root',
@@ -71,33 +72,43 @@ export class LoginService {
 
   loginStaff(value) {
     const user: LoginUser = value;
+
     this.http
       .post<{ token: string; expiresIn: number; fullName: string }>(
         this._loginUrl,
         user
       )
-      .subscribe((response) => {
-        this.currentlyLoggedIn = response.fullName;
-        const token = response.token;
-        this.token = token;
-        if (token) {
-          const expiresInDuration = response.expiresIn;
-          this.setAuthTimer(expiresInDuration);
-          this.isLoggedIn = true;
-          this.loginStatusListener.next(true);
+      .subscribe(
+        (response) => {
+          this.currentlyLoggedIn = response.fullName;
+          const token = response.token;
+          this.token = token;
+          if (token) {
+            const expiresInDuration = response.expiresIn;
+            this.setAuthTimer(expiresInDuration);
+            this.isLoggedIn = true;
+            this.loginStatusListener.next(true);
 
-          const now = new Date();
-          const expirationDate = new Date(
-            now.getTime() + expiresInDuration * 1000
-          );
+            const now = new Date();
+            const expirationDate = new Date(
+              now.getTime() + expiresInDuration * 1000
+            );
 
-          this.saveAuthData(token, response.fullName, expirationDate);
+            this.saveAuthData(token, response.fullName, expirationDate);
 
-          this.router.navigate(['/main']);
-          this.swal.successToast(`Welcome back, ${response.fullName}!`);
+            this.router.navigate(['/main']);
+            this.swal.successToast(`Welcome back, ${response.fullName}!`);
+          }
+        },
+        (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Sign In was Unsuccessfull!',
+            text: 'ID or Password were incorrect.',
+            confirmButtonText: 'Try Again',
+          });
         }
-      });
-    return;
+      );
   }
 
   private getAuthData() {
