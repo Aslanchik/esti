@@ -15,13 +15,20 @@
   >
     <div class="card patients" [ngClass]="setPatientClass(patient)">
       <div class="card-body">
-        <h4 class="card-title">
-          {{ patient.fname | titlecase }} {{ patient.lname | titlecase }}
+        <div class="edit row flex-column float-right">
           <i
-            class="fas fa-notes-medical float-right"
+            class="fas fa-user-edit"
+            title="Change State"
+            (click)="changeState(patient)"
+          ></i>
+          <i
+            class="fas fa-notes-medical mt-2"
             title="View Visit"
             (click)="viewVisit(patient)"
           ></i>
+        </div>
+        <h4 class="card-title" title="View Visit" (click)="viewVisit(patient)">
+          {{ patient.fname | titlecase }} {{ patient.lname | titlecase }}
         </h4>
         <h6 class="card-text">
           <i>Diagnosis:</i>
@@ -36,7 +43,7 @@
       </div>
     </div>
   </div>
-  <div class="col-4 m-auto">
+  <div class="col-4">
     <div class="card add" routerLink="/main/add-new-patient">
       <div class="card-body">
         <i class="fas fa-user-plus ml-5 mt-3 mb-2"></i>

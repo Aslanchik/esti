@@ -1,28 +1,56 @@
-.patients {
-  display: block;
-  background-color: #f0dbd87c;
-  border: none;
-  &:hover {
-    background-color: #fcece9b7;
+.edit {
+  i {
+    &.fa-user-edit {
+      font-size: 1.5rem;
+    }
+    &.fa-notes-medical {
+      font-size: 2rem;
+    }
+    color: #232323;
+
+    &:hover {
+      cursor: pointer;
+      color: #333333;
+    }
   }
 }
 
-.fa-notes-medical {
-  font-size: 2rem;
-  color: #232323;
+.patients {
+  background-color: #f0dbd87c;
+  border: none;
+  box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
+    1px 3px 8px rgba(39, 44, 49, 0.03);
+  transition: all 0.5s ease;
+
+  &:hover {
+    transform: translate3D(0, -1px, 0) scale(1.1);
+    background-color: #fcece9b7;
+    box-shadow: 8px 28px 50px rgba(39, 44, 49, 0.07),
+      1px 6px 12px rgba(39, 44, 49, 0.04);
+    transition: all 0.4s ease;
+  }
+}
+
+.card-title {
   &:hover {
     cursor: pointer;
-    color: #333333;
   }
 }
 
 .add {
   display: block;
   border: none;
-  background-color: #d1e0d39f;
+  background-color: #daffdd;
+  box-shadow: 8px 14px 38px rgba(39, 44, 49, 0.06),
+    1px 3px 8px rgba(39, 44, 49, 0.03);
+  transition: all 0.5s ease;
   &:hover {
-    background-color: #e5f0e6;
+    background-color: #cef7d2;
     cursor: pointer;
+    transform: translate3D(0, -1px, 0) scale(1.1);
+    box-shadow: 8px 28px 50px rgba(39, 44, 49, 0.07),
+      1px 6px 12px rgba(39, 44, 49, 0.04);
+    transition: all 0.4s ease;
   }
 }
 

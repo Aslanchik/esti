@@ -3,6 +3,8 @@ import { Patient } from '../../../interfaces/patient';
 import { PatientService } from '../../../services/patient.service';
 import { HistoryService } from 'src/app/modules/history/services/history.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { SwalService } from 'src/app/utils/swal.service';
 
 @Component({
   selector: 'app-patient-card',
@@ -40,7 +42,8 @@ export class PatientCardComponent implements OnInit, OnChanges {
   constructor(
     private patientService: PatientService,
     private historyService: HistoryService,
-    private router: Router
+    private router: Router,
+    private swal: SwalService
   ) {}
 
   ngOnInit(): void {}
@@ -49,6 +52,60 @@ export class PatientCardComponent implements OnInit, OnChanges {
     if (this.activePatients) {
       this.renderActivePatients();
     }
+  }
+
+  async changeState(p: Patient) {
+    const { value: state } = await Swal.fire({
+      title: 'Change Patient State',
+      input: 'select',
+      inputOptions: {
+        active: 'Active',
+        critical: 'Critical',
+        discharged: 'Discharged',
+      },
+      inputValidator: (state) => {
+        if (!state) {
+          return 'You have to choose something!';
+        }
+      },
+      inputPlaceholder: 'States',
+      confirmButtonText: `Confirm`,
+      confirmButtonColor: '#57a773',
+      showCancelButton: true,
+      cancelButtonColor: '#de5468',
+    });
+
+    if (state) {
+      Swal.fire({
+        title: `Confirm State Change`,
+        text: `Are you sure you want to update the patient's state to be ${state}?`,
+        icon: 'warning',
+        confirmButtonText: `Confirm`,
+        confirmButtonColor: '#57a773',
+        showCancelButton: true,
+        cancelButtonColor: '#de5468',
+      }).then((result) => {
+        if (result.value) {
+          const stateData = this.mapForStateChange(p, state);
+          this.handleStateChange(stateData);
+          this.swal.successToast(`State Changed Successfully!`);
+        }
+      });
+    }
+  }
+
+  handleStateChange(stateData) {
+    this.patientService.changeVisitState(stateData).subscribe(() => {
+      window.location.replace('/main');
+    });
+  }
+
+  mapForStateChange(patient, state) {
+    return {
+      govId: patient.govId,
+      visitId: patient.visit[0]._id,
+      newState: state,
+    };
   }
 
   viewVisit(p: Patient) {

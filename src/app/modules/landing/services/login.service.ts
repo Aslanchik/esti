@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoginUser } from '../interfaces/login-user';
 import { Router } from '@angular/router';
-import { ToastService } from 'src/app/utils/toast.service';
+import { SwalService } from 'src/app/utils/swal.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,7 @@ export class LoginService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private toast: ToastService
+    private swal: SwalService
   ) {}
 
   getToken() {
@@ -94,7 +94,7 @@ export class LoginService {
           this.saveAuthData(token, response.fullName, expirationDate);
 
           this.router.navigate(['/main']);
-          this.toast.successToast(`Welcome back, ${response.fullName}!`);
+          this.swal.successToast(`Welcome back, ${response.fullName}!`);
         }
       });
     return;

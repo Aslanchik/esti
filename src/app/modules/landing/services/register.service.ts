@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RegisterUser } from '../interfaces/register-user';
 import { Router } from '@angular/router';
-import { ToastService } from 'src/app/utils/toast.service';
+import { SwalService } from 'src/app/utils/swal.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,14 +13,14 @@ export class RegisterService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private toast: ToastService
+    private swal: SwalService
   ) {}
 
   registerStaff(value) {
     const user: RegisterUser = value;
     this.http.post(this._registerUrl, user).subscribe((response) => {
       this.router.navigate(['/main']);
-      this.toast.successToast(
+      this.swal.successToast(
         `New Staff Successfully Registered, Welcome ${user.fname} ${user.lname}!`
       );
     });

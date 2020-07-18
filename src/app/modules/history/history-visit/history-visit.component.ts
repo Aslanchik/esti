@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Location, TitleCasePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 
@@ -25,8 +25,8 @@ export class HistoryVisitComponent implements OnInit {
     private _location: Location
   ) {}
 
-  setStateClass() {
-    const { state } = this.patient.currentVisit.medical[0];
+  setStateClass(patient) {
+    const { state } = patient.currentVisit.medical[0];
     if (state === 'active') return { active: true };
     else if (state === 'critical') return { critical: true };
     else return { discharged: true };
@@ -103,6 +103,27 @@ export class HistoryVisitComponent implements OnInit {
     }
   }
 
+  dischargePatient(patient) {
+    const {
+      currentPatient: { fname, lname },
+    } = patient;
+    Swal.fire({
+      icon: 'warning',
+      title: `Discharge Patient`,
+      text: `Are you sure you want to discharge ${fname} ${lname}?`,
+      confirmButtonText: `Yes, Discharge ${fname}`,
+      confirmButtonColor: '#57a773',
+      showCancelButton: true,
+      cancelButtonColor: '#de5468',
+    }).then((result) => {
+      if (result.value) {
+        const state = 'discharged';
+        const stateData = this.mapForStateChange(patient.currentPatient, state);
+        this.handleStateChange(stateData);
+      }
+    });
+  }
+
   mapForStateChange(patient, state) {
     return {
       govId: patient.govId,
@@ -115,6 +136,7 @@ export class HistoryVisitComponent implements OnInit {
     this.patient = this.historySer.getCurrentPatientVisit();
     this.fetching = !this.fetching;
   }
+
   goBack() {
     this._location.back();
   }

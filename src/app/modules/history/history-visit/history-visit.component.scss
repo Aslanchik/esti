@@ -6,6 +6,16 @@
     color: #353535;
   }
 }
+
+.dischargeBtn {
+  font-size: 4rem;
+  color: #3fb167;
+  &:hover {
+    color: #39c56a;
+    cursor: pointer;
+  }
+}
+
 .header {
   font-size: 3.3rem;
   color: #423545;
