@@ -1,28 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+
 import { RegisterUser } from '../interfaces/register-user';
-import { Router } from '@angular/router';
-import { SwalService } from 'src/app/utils/swal.service';
+import { LoginService } from './login.service';
+import { LoginUser } from '../interfaces/login-user';
 @Injectable({
   providedIn: 'root',
 })
 export class RegisterService {
   private _registerUrl: string = 'http://localhost:3000/api/register';
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private swal: SwalService
-  ) {}
+  constructor(private http: HttpClient, private loginService: LoginService) {}
+
+  mapToLogin(govId, password) {
+    return {
+      govId: govId,
+      password: password,
+    };
+  }
 
   registerStaff(value) {
     const user: RegisterUser = value;
+    const loginUser: LoginUser = this.mapToLogin(user.govId, user.password);
     this.http.post(this._registerUrl, user).subscribe((response) => {
-      this.router.navigate(['/main']);
-      this.swal.successToast(
-        `New Staff Successfully Registered, Welcome ${user.fname} ${user.lname}!`
-      );
+      this.loginService.loginStaff(loginUser);
     });
   }
 }

@@ -1,11 +1,11 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-landing-dashboard',
   templateUrl: './landing-dashboard.component.html',
   styleUrls: ['./landing-dashboard.component.scss'],
 })
-export class LandingDashboardComponent implements OnInit {
+export class LandingDashboardComponent {
   dNone: boolean = true;
 
   constructor() {}
@@ -21,6 +21,4 @@ export class LandingDashboardComponent implements OnInit {
   closeDark() {
     this.dNone = true;
   }
-
-  ngOnInit() {}
 }

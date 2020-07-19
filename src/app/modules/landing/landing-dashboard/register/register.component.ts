@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
 import { RegisterUser } from '../../interfaces/register-user';
 import { RegisterService } from '../../services/register.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   user: RegisterUser = {
     govId: '',
     fname: '',
@@ -17,11 +17,11 @@ export class RegisterComponent implements OnInit {
     password: '',
   };
 
-  constructor(public registerSer: RegisterService, private router: Router) {}
-
-  ngOnInit(): void {}
+  constructor(public registerSer: RegisterService) {}
 
   onSubmit({ value, valid }: { value: RegisterUser; valid: boolean }): void {
-    this.registerSer.registerStaff(value);
+    if (valid) {
+      this.registerSer.registerStaff(value);
+    }
   }
 }

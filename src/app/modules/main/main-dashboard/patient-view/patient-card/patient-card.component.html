@@ -30,13 +30,14 @@
         <h4 class="card-title" title="View Visit" (click)="viewVisit(patient)">
           {{ patient.fname | titlecase }} {{ patient.lname | titlecase }}
         </h4>
-        <h6 class="card-text">
+        <i class="card-text">{{ patient.govId }}</i>
+        <h6 class="card-text mt-1">
           <i>Diagnosis:</i>
           {{
             patient.visit[0].medical[0].treatmentPlan[0].diagnosis | titlecase
           }}
         </h6>
-        <p class="card-text mt-3 mb-0">Id: {{ patient.govId }}</p>
+
         <p class="card-text mb-0">
           Attending Nurse: {{ patient.visit[0].attendingNurse | titlecase }}
         </p>

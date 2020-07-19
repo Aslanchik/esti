@@ -3,7 +3,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HistoryService } from '../../../services/history.service';
 import { Patient } from 'src/app/modules/main/interfaces/patient';
 import { Visit } from 'src/app/modules/main/interfaces/visit';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-history-item',
@@ -16,7 +15,7 @@ export class HistoryItemComponent implements OnInit {
 
   visits: Visit[] = [];
 
-  constructor(private historyService: HistoryService, private router: Router) {}
+  constructor(private historyService: HistoryService) {}
 
   getVisits(): void {
     this.visits = [...this.patient.visit];

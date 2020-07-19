@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-
-import { HistoryVisit } from '../interfaces/history-visit';
-import { Patient } from '../../main/interfaces/patient';
-import { Visit } from '../../main/interfaces/visit';
-import { HistoryPatient } from '../interfaces/history-patient';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+
+import { Patient } from '../../main/interfaces/patient';
+import { HistoryPatient } from '../interfaces/history-patient';
 
 @Injectable({
   providedIn: 'root',

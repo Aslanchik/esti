@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { HistoryService } from '../../services/history.service';
 import { Patient } from 'src/app/modules/main/interfaces/patient';
@@ -8,7 +8,7 @@ import { Patient } from 'src/app/modules/main/interfaces/patient';
   templateUrl: './history-overview.component.html',
   styleUrls: ['./history-overview.component.scss'],
 })
-export class HistoryOverviewComponent implements OnInit {
+export class HistoryOverviewComponent {
   patients: Patient[] = [];
 
   searchText: string = '';
@@ -26,6 +26,4 @@ export class HistoryOverviewComponent implements OnInit {
     this.searchText = searchInput;
     this.getSearchedPatients(this.searchText);
   }
-
-  ngOnInit(): void {}
 }

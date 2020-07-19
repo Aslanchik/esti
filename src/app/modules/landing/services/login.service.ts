@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LoginUser } from '../interfaces/login-user';
 import { Router } from '@angular/router';
@@ -97,7 +97,7 @@ export class LoginService {
             this.saveAuthData(token, response.fullName, expirationDate);
 
             this.router.navigate(['/main']);
-            this.swal.successToast(`Welcome back, ${response.fullName}!`);
+            this.swal.successToast(`Welcome, ${response.fullName}!`);
           }
         },
         (err) => {
@@ -122,6 +122,7 @@ export class LoginService {
       expirationDate: new Date(expirationDate),
     };
   }
+
   private saveAuthData(token: string, name: string, expirationDate: Date) {
     localStorage.setItem('token', token);
     localStorage.setItem('name', name);

@@ -1,26 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { LoginUser } from '../../interfaces/login-user';
 import { LoginService } from '../../services/login.service';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   user: LoginUser = {
     govId: '',
     password: '',
   };
+
   private loginListenerSubs: Subscription;
 
   isLoggedIn = false;
 
-  constructor(public loginSer: LoginService, private router: Router) {}
-
-  ngOnInit(): void {}
+  constructor(public loginSer: LoginService) {}
 
   checkLogIn() {
     this.loginListenerSubs = this.loginSer

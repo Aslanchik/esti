@@ -1,6 +1,7 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-import { Location, TitleCasePipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 import { HistoryService } from '../services/history.service';
 import { HistoryPatient } from '../interfaces/history-patient';
@@ -22,7 +23,8 @@ export class HistoryVisitComponent implements OnInit {
   constructor(
     private historySer: HistoryService,
     private patientSer: PatientService,
-    private _location: Location
+    private _location: Location,
+    private router: Router
   ) {}
 
   setStateClass(patient) {
@@ -134,6 +136,9 @@ export class HistoryVisitComponent implements OnInit {
 
   getPatient() {
     this.patient = this.historySer.getCurrentPatientVisit();
+    if (!this.patient) {
+      this.router.navigate(['/main']);
+    }
     this.fetching = !this.fetching;
   }
 
