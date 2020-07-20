@@ -2,14 +2,16 @@ ul {
   height: 100vh;
   margin-right: -30px;
   overflow-x: hidden !important;
-  background-color: #faf4f3;
+  background-color: #ffffff;
+  background-image: linear-gradient(315deg, #ffffff 0%, #ebd4e649 74%);
 }
 
 h3 {
   color: #423545;
 }
 .taskHeader {
-  background-color: #faf4f3;
+  background-color: #ffffffa1;
+  background-image: linear-gradient(315deg, #ffffff83 0%, #ebd4e649 74%);
 }
 .loader {
   color: #b392ac;

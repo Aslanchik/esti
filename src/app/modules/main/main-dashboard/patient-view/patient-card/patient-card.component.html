@@ -6,7 +6,7 @@
 </div>
 <div class="row" *ngIf="patients.length">
   <div
-    class="col-4 mb-4"
+    class="col-xl-4 col-lg-6 mb-3"
     *ngFor="
       let patient of patients
         | filterPatients: searchText
@@ -44,7 +44,7 @@
       </div>
     </div>
   </div>
-  <div class="col-4">
+  <div class="col-xl-4 col-lg-6">
     <div class="card add" routerLink="/main/add-new-patient">
       <div class="card-body">
         <i class="fas fa-user-plus ml-5 mt-3 mb-2"></i>

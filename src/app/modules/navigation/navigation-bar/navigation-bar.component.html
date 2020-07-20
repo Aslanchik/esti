@@ -4,7 +4,7 @@
       <h1 class="mb-3">ES <i class="fas fa-stethoscope"></i> TI</h1>
     </a>
     <div class="logged mx-auto mb-3" *ngIf="loggedInStaff">
-      Active Nurse -
+      <span class="loggedInTitle">Active Nurse -</span>
       <span class="loggedIn"> {{ loggedInStaff | titlecase }} </span>
     </div>
     <li *ngFor="let item of navItems" class="mt-2 ml-2">
@@ -54,7 +54,7 @@
         <i class="fas fa-sign-out-alt"></i>
       </a>
     </li>
-    <div class="fixed-bottom row flex-column ml-3">
+    <div class="row flex-column personalGroup mb-2">
       <a
         href="https://github.com/Aslanchik/esti"
         target="_blank"
