@@ -67,3 +67,38 @@
 .fa-vials {
   color: #3023337c;
 }
+
+@media screen and (max-width: 992px) {
+  .title {
+    font-size: 1.2rem;
+  }
+  .patient-info {
+    font-size: 1rem;
+  }
+  .nurse-info {
+    font-size: 0.8rem;
+  }
+  .fa-procedures {
+    font-size: 1rem;
+  }
+  .fa-vials {
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 1.2rem;
+  }
+  .patient-info {
+    font-size: 1rem;
+  }
+  .nurse-info {
+    display: none;
+  }
+  .fa-procedures {
+    font-size: 1rem;
+  }
+  .fa-vials {
+    font-size: 1rem;
+  }
+}

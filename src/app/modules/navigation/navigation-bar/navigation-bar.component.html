@@ -3,17 +3,18 @@
     <a routerLink="/main" class="logoNav navbar-brand mx-auto">
       <h1 class="mb-3">ES <i class="fas fa-stethoscope"></i> TI</h1>
     </a>
+
     <div class="logged mx-auto mb-3" *ngIf="loggedInStaff">
       <span class="loggedInTitle">Active Nurse -</span>
       <span class="loggedIn"> {{ loggedInStaff | titlecase }} </span>
     </div>
-    <li *ngFor="let item of navItems" class="mt-2 ml-2">
+    <li *ngFor="let item of navItems" class="mt-2 ml-3">
       <a routerLinkActive="active" [routerLink]="item.link" class="nav-link">
         <i class="{{ item.icon }}"></i>
         <span class="ml-3">{{ item.title | titlecase }}</span>
       </a>
     </li>
-    <li class="mt-2 ml-2">
+    <li class="mt-2 ml-3">
       <a class="nav-link" (click)="onLogout()" routerLink>
         <i class="fas fa-sign-out-alt"></i>
         <span class="ml-3">Log Out</span>

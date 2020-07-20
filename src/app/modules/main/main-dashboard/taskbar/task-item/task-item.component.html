@@ -3,8 +3,8 @@
   [ngClass]="setClasses(t)"
   *ngFor="let t of tasks; index as i"
 >
-  <div class="row justify-content-between">
-    <div class="col-10" (click)="collapse(t)">
+  <div class="row justify-content-between fullTaskView">
+    <div class="col-lg-9 col-md-9 col-sm-7" (click)="collapse(t)">
       <h5>
         <i *ngIf="t.task.type === 'procedure'" class="fas fa-procedures"></i>
         <i *ngIf="t.task.type === 'test'" class="fas fa-vials"></i>
@@ -22,10 +22,13 @@
         >
       </p>
     </div>
-    <div class="col-2 mt-4" *ngIf="!t.task.isComplete">
+    <div class="col-lg-3 col-md-3 col-sm-5 mt-4" *ngIf="!t.task.isComplete">
       <i class="fas fa-check-circle" (click)="markComplete(t)"></i>
     </div>
-    <div class="row flex-column col-2 mt-3 mr-1" *ngIf="t.task.isComplete">
+    <div
+      class="row flex-column col-lg-2 col-md-3 col-sm-3 mt-3"
+      *ngIf="t.task.isComplete"
+    >
       <i class="fas fa-times-circle mb-2" (click)="onDelete(t)"></i
       ><i class="fas fa-undo-alt" (click)="undo(t)"></i>
     </div>
