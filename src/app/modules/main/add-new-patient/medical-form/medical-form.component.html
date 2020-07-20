@@ -7,7 +7,7 @@
           <div formGroupName="medical">
             <div class="row mx-auto">
               <!--Reason of visit Input-->
-              <div class="col-md-4 form-group">
+              <div class="col-lg-4 col-11 form-group">
                 <label for="reason">
                   <span class="invalid mr-2">*</span>Reason for visit?
                 </label>
@@ -31,7 +31,7 @@
               </div>
 
               <!--Allergies Input-->
-              <div class="col-md-5 form-group">
+              <div class="col-lg-3 col-11 form-group">
                 <label> <span class="invalid mr-2">*</span>Allergies? </label>
                 <input
                   type="text"
@@ -52,7 +52,7 @@
                 </span>
               </div>
               <!-- State -->
-              <div class="col-md-3 form-group">
+              <div class="col-md-5 col-11 form-group">
                 <label><span class="invalid mr-2">*</span>State?</label>
                 <div class="form-control text-center state">
                   <label class="raido-inline"
@@ -80,10 +80,10 @@
             <!-- Habits -->
             <div class="row mx-auto" formGroupName="habits">
               <!-- Smoking -->
-              <div class="col-lg-3 form-group">
+              <div class="col-lg-4 col-4 form-group">
                 <label>Smoking?</label>
                 <div class="form-control">
-                  <span class="invalid mr-4">*</span>
+                  <span class="invalid mr-1">*</span>
                   <label class="raido-inline"
                     ><input
                       type="radio"
@@ -97,17 +97,17 @@
                       type="radio"
                       value="false"
                       formControlName="smoking"
-                      class="ml-3"
+                      class="ml-1"
                     />
                     No</label
                   >
                 </div>
               </div>
               <!-- DRINKING -->
-              <div class="col-lg-3 form-group">
+              <div class="col-lg-4 col-4 form-group">
                 <label>Drinking?</label>
                 <div class="form-control">
-                  <span class="invalid mr-4">*</span>
+                  <span class="invalid mr-1">*</span>
                   <label class="raido-inline"
                     ><input
                       type="radio"
@@ -121,17 +121,17 @@
                       type="radio"
                       formControlName="drinking"
                       value="false"
-                      class="ml-3"
+                      class="ml-1"
                     />
                     No</label
                   >
                 </div>
               </div>
               <!-- Drugs -->
-              <div class="col-lg-3 form-group">
+              <div class="col-lg-4 col-4 form-group">
                 <label>Drugs?</label>
                 <div class="form-control">
-                  <span class="invalid mr-4">*</span>
+                  <span class="invalid mr-1">*</span>
                   <label class="raido-inline"
                     ><input type="radio" formControlName="drugs" value="true" />
                     Yes
@@ -141,7 +141,7 @@
                       type="radio"
                       formControlName="drugs"
                       value="false"
-                      class="ml-3"
+                      class="ml-1"
                     />
                     No</label
                   >
@@ -149,15 +149,14 @@
               </div>
               <!-- Drugs description -->
               <div
-                class="col-md-3 form-group"
+                class="col-md-12 form-group"
                 *ngIf="
                   parentFormGroup.get('visit.medical.habits.drugs').value ===
-                    'true';
-                  else noDrugs
+                  'true'
                 "
               >
                 <label>
-                  Which drugs?
+                  Drug Description
                 </label>
                 <input
                   type="text"
@@ -165,7 +164,6 @@
                   class="form-control"
                 />
               </div>
-              <ng-template #noDrugs></ng-template>
             </div>
             <!-- Case Story -->
             <div class="row mx-auto">
@@ -235,10 +233,10 @@
             </div>
             <!-- Has this happened before? -->
             <div class="row mx-auto" formGroupName="hasHappenedBefore">
-              <div class="col-md-3 form-group">
+              <div class="col-md-4 col-lg-3 form-group">
                 <label>Has this happend before?</label>
                 <div class="form-control">
-                  <span class="invalid mr-4">*</span>
+                  <span class="invalid mr-2">*</span>
                   <label class="raido-inline"
                     ><input type="radio" formControlName="hasIt" value="true" />
                     Yes
@@ -249,7 +247,7 @@
                       type="radio"
                       formControlName="hasIt"
                       value="false"
-                      class="ml-3"
+                      class="ml-1"
                     />
                     No</label
                   >
@@ -257,11 +255,10 @@
               </div>
               <!-- Before description -->
               <div
-                class="col-md-9 form-group"
+                class="col-md-4 form-group"
                 *ngIf="
                   parentFormGroup.get('visit.medical.hasHappenedBefore.hasIt')
-                    .value === 'true';
-                  else noDrugs
+                    .value === 'true'
                 "
               >
                 <label>
@@ -274,15 +271,14 @@
                   class="form-control"
                 ></textarea>
               </div>
-              <ng-template #noBefore></ng-template>
             </div>
 
             <!-- Family History -->
             <div class="row mx-auto" formGroupName="history">
-              <div class="col-md-3 form-group">
+              <div class="col-md-4 col-lg-3 form-group">
                 <label>Family history of disease?</label>
                 <div class="form-control">
-                  <span class="invalid mr-4">*</span>
+                  <span class="invalid mr-2">*</span>
                   <label class="raido-inline"
                     ><input
                       type="radio"
@@ -296,7 +292,7 @@
                       type="radio"
                       formControlName="isThere"
                       value="false"
-                      class="ml-3"
+                      class="ml-1"
                     />
                     No</label
                   >
@@ -304,11 +300,10 @@
               </div>
               <!-- Family history description -->
               <div
-                class="col-md-9 form-group"
+                class="col-md-4 form-group"
                 *ngIf="
                   parentFormGroup.get('visit.medical.history.isThere').value ===
-                    'true';
-                  else noDrugs
+                  'true'
                 "
               >
                 <label>
@@ -321,7 +316,6 @@
                   class="form-control"
                 ></textarea>
               </div>
-              <ng-template #noHistory></ng-template>
             </div>
             <!-- Vitals -->
             <div
@@ -344,7 +338,7 @@
             <div [ngbCollapse]="isCollapsed">
               <div class="card mb-4" formGroupName="vitals">
                 <div class="card-body row">
-                  <div class="col-md-2 form-group">
+                  <div class="col-xl-3 col-lg-4 col-md-6 form-group">
                     <label for="pulse">
                       <span class="invalid mr-2">*</span>Pulse/min
                     </label>
@@ -393,7 +387,7 @@
                     </span>
                   </div>
                   <!-- Blood Pressure Input -->
-                  <div class="col-md-2 form-group">
+                  <div class="col-xl-3 col-lg-4 col-md-6 form-group">
                     <label for="bp">
                       <span class="invalid">*</span>Blood Pressure
                     </label>
@@ -428,7 +422,7 @@
                     </span>
                   </div>
                   <!-- Temperature Input -->
-                  <div class="col-md-2 form-group">
+                  <div class="col-xl-3 col-lg-4 col-md-6 form-group">
                     <label for="temp">
                       <span class="invalid mr-1">*</span>Temperature(°)
                     </label>
@@ -463,7 +457,7 @@
                     </span>
                   </div>
                   <!-- Weight Input -->
-                  <div class="col-md-2 form-group">
+                  <div class="col-xl-3 col-lg-4 col-md-6 form-group">
                     <label for="weight">
                       <span class="invalid mr-1">*</span>Weight(kg)
                     </label>
@@ -511,7 +505,7 @@
                     </span>
                   </div>
                   <!-- Blood Sugar Input -->
-                  <div class="col-md-2 form-group">
+                  <div class="col-xl-3 col-lg-4 col-md-6 form-group">
                     <label for="bsugar">
                       <span class="invalid mr-1">*</span>Blood Sugar
                     </label>
@@ -559,7 +553,7 @@
                     </span>
                   </div>
                   <!-- Resp Rate Input -->
-                  <div class="col-md-2 form-group">
+                  <div class="col-xl-3 col-lg-4 col-md-6 form-group">
                     <label for="resp">
                       <span class="invalid mr-1">*</span>Respiration
                     </label>
@@ -623,7 +617,7 @@
       </div>
     </div>
     <div
-      class="col-1 ml-5 mt-5 text-center"
+      class="col-1 mt-5 text-center"
       *ngIf="
         parentFormGroup.get('visit.medical.reasonOfVisit').valid &&
         parentFormGroup.get('visit.medical.allergies').valid &&

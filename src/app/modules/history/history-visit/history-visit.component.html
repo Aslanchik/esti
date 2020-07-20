@@ -31,11 +31,11 @@
   </div>
 
   <div class="row mt-4">
-    <div class="col-md-2">
+    <div class="col-md-5 col-lg-2">
       <label>ID</label>
       <div class="form-control">{{ patient.currentPatient.govId }}</div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-5 col-lg-3 mr-1">
       <label>State </label>
       <div>
         <div class="input-group">
@@ -55,11 +55,12 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3">
+    <br />
+    <div class="col-md-5 col-lg-3">
       <label>How the patient arrived?</label>
       <div class="form-control">{{ patient.currentVisit.how | titlecase }}</div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-5 col-lg-3">
       <label>Attending Nurse</label>
       <div class="form-control">
         {{ patient.currentVisit.attendingNurse | titlecase }}

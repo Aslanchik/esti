@@ -18,3 +18,13 @@
     color: #353535;
   }
 }
+.progressBar {
+  display: fixed;
+  bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .navDiv {
+    display: none;
+  }
+}

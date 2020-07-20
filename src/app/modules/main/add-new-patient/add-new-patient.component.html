@@ -1,22 +1,21 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-2">
+    <div class="col-md-1 col-lg-2 col-sm-1">
       <app-navigation-bar></app-navigation-bar>
     </div>
-    <div class="col-1">
-      <div class="row">
+
+    <div class="col-md-1 navDiv">
+      <div class="row flex-column">
         <div class="col-12">
-          <a class="btn navBtn ml-3" (click)="changeFormStateBackward()"
+          <a class="btn navBtn" (click)="changeFormStateBackward()"
             ><i class="fas fa-arrow-circle-left"></i
           ></a>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
+        <div class="col-12 ml-3 progressBar">
           <p>
             <ngb-progressbar
               [showValue]="true"
-              type="secondary"
+              type="success"
               [striped]="true"
               [animated]="true"
               height="2rem"
@@ -28,7 +27,7 @@
       </div>
     </div>
 
-    <div class="col-8">
+    <div class="col-md-10 col-lg-9 col-sm-11">
       <form
         [formGroup]="newPatientForm"
         (ngSubmit)="onSubmit(newPatientForm.value)"
@@ -54,9 +53,4 @@
       </form>
     </div>
   </div>
-  <!-- <div class="row" *ngIf="state === ''">
-    <div class="col-12">
-      <h6 class="display-4">{{ message | json }}</h6>
-    </div>
-  </div> -->
 </div>

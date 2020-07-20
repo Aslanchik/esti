@@ -32,7 +32,7 @@
 
           <!--Treatment Medication Input-->
           <div class="row mx-auto mt-3">
-            <div class="col-10" formArrayName="medication">
+            <div class="col-11" formArrayName="medication">
               <div class="row flex-column mx-auto">
                 <label for="meds">
                   Medication
@@ -64,7 +64,7 @@
                   (click)="addMedication()"
                 >
                   <i class="fas fa-plus"></i>
-                  <b> Medication</b>
+                  <b class="btnTitles"> Medication</b>
                 </button>
               </div>
             </div>
@@ -73,7 +73,7 @@
           <!--Procedures Input-->
           <div formGroupName="tasks">
             <div class="row mx-auto mt-3">
-              <div class="col-10" formArrayName="procedures">
+              <div class="col-11" formArrayName="procedures">
                 <div class="row flex-column mx-auto">
                   <label for="procedures">
                     Procedures
@@ -107,7 +107,7 @@
                     (click)="addProcedure()"
                   >
                     <i class="fas fa-plus"></i>
-                    <b> Procedure</b>
+                    <b class="btnTitles"> Procedure</b>
                   </button>
                 </div>
               </div>
@@ -115,7 +115,7 @@
 
             <!--Tests Input-->
             <div class="row mx-auto mt-3">
-              <div class="col-10" formArrayName="tests">
+              <div class="col-11" formArrayName="tests">
                 <div class="row flex-column mx-auto">
                   <label for="tests">
                     Tests
@@ -146,7 +146,7 @@
                     (click)="addTest()"
                   >
                     <i class="fas fa-plus"></i>
-                    <b> Test</b>
+                    <b class="btnTitles"> Test</b>
                   </button>
                 </div>
               </div>
@@ -173,7 +173,7 @@
       </div>
     </div>
     <div class="col-1 mt-5" *ngIf="parentFormGroup.valid">
-      <button class="btn submitBtn mt-5">
+      <button class="btn submitBtn mt-5" title="Save New Patient">
         <i class="fas fa-check-circle"></i>
       </button>
     </div>
