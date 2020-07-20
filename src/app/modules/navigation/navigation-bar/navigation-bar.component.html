@@ -1,37 +1,72 @@
 <ul class="nav flex-column pt-2">
-  <a routerLink="/main" class="logoNav navbar-brand mx-auto">
-    <h1 class="mb-3">ES <i class="fas fa-stethoscope"></i> TI</h1>
-  </a>
-  <div class="logged mx-auto mb-3" *ngIf="loggedInStaff">
-    Active Nurse -
-    <span class="loggedIn"> {{ loggedInStaff | titlecase }} </span>
-  </div>
-  <li *ngFor="let item of navItems" class="mt-2">
-    <a routerLinkActive="active" [routerLink]="item.link" class="nav-link">
-      <i class="{{ item.icon }}"></i>
-      <span class="ml-3">{{ item.title | titlecase }}</span>
+  <div class="row flex-column fullNav">
+    <a routerLink="/main" class="logoNav navbar-brand mx-auto">
+      <h1 class="mb-3">ES <i class="fas fa-stethoscope"></i> TI</h1>
     </a>
-  </li>
-  <li class="mt-2">
-    <a class="nav-link" (click)="onLogout()" routerLink>
-      <i class="fas fa-sign-out-alt"></i>
-      <span class="ml-3">Log Out</span>
-    </a>
-  </li>
-  <div class="personal-links">
-    <div class="row mx-auto">
-      <div class="col-12">
-        <a href="https://github.com/Aslanchik/esti" target="_blank"
-          ><i class="fab fa-github"></i
-        ></a>
-        <a
-          class="ml-2"
-          href="https://www.linkedin.com/in/aslan-badalov"
-          target="_blank"
-          ><i class="fab fa-linkedin"></i
-        ></a>
+    <div class="logged mx-auto mb-3" *ngIf="loggedInStaff">
+      Active Nurse -
+      <span class="loggedIn"> {{ loggedInStaff | titlecase }} </span>
+    </div>
+    <li *ngFor="let item of navItems" class="mt-2 ml-2">
+      <a routerLinkActive="active" [routerLink]="item.link" class="nav-link">
+        <i class="{{ item.icon }}"></i>
+        <span class="ml-3">{{ item.title | titlecase }}</span>
+      </a>
+    </li>
+    <li class="mt-2 ml-2">
+      <a class="nav-link" (click)="onLogout()" routerLink>
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="ml-3">Log Out</span>
+      </a>
+    </li>
+    <div class="personal-links ml-3">
+      <div class="row mx-auto">
+        <div class="col-12">
+          <a href="https://github.com/Aslanchik/esti" target="_blank"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            class="ml-2"
+            href="https://www.linkedin.com/in/aslan-badalov"
+            target="_blank"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+        </div>
+        <i class="checkout mb-2 ml-2">Check out the code!</i>
       </div>
-      <i class="checkout mb-2 ml-2">Check out the code!</i>
+    </div>
+  </div>
+  <div class="miniNav row flex-column">
+    <a routerLink="/main" class="logoMiniNav mx-auto mb-2" title="Home">
+      <i class="fas fa-stethoscope"></i>
+    </a>
+    <li
+      *ngFor="let item of navItems"
+      class="mt-2 ml-3"
+      title="{{ item.title | titlecase }}"
+    >
+      <a routerLinkActive="active" [routerLink]="item.link" class="nav-link">
+        <i class="{{ item.icon }}"></i>
+      </a>
+    </li>
+    <li class="mt-2 ml-3" title="Log Out">
+      <a class="nav-link" (click)="onLogout()" routerLink>
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
+    </li>
+    <div class="fixed-bottom row flex-column ml-3">
+      <a
+        href="https://github.com/Aslanchik/esti"
+        target="_blank"
+        class="personalMiniLinks"
+        ><i class="fab fa-github"></i
+      ></a>
+      <a
+        href="https://www.linkedin.com/in/aslan-badalov"
+        target="_blank"
+        class="personalMiniLinks"
+        ><i class="fab fa-linkedin"></i
+      ></a>
     </div>
   </div>
 </ul>

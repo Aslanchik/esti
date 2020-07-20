@@ -1,6 +1,10 @@
 ul {
   height: 100vh;
+  width: 15rem;
   background-color: #232323;
+  position: fixed;
+  overflow-x: hidden;
+  transition: 0.2s ease-in;
 }
 
 .active {
@@ -36,8 +40,21 @@ li:hover {
   text-decoration: none;
 }
 
+.logoMiniNav {
+  font-size: 2.5rem;
+  padding-bottom: 10px;
+  border-bottom: 1px #ebd3d6 solid;
+}
+.fa-stethoscope {
+  color: #f9c5d1;
+}
+
 .logged {
   color: #f2f2f2;
+}
+
+.personalMiniLinks {
+  font-size: 1.8rem;
 }
 
 .personal-links {
@@ -59,4 +76,28 @@ li:hover {
 }
 .checkout {
   font-size: 1rem;
+}
+
+@media screen and (max-width: 1450px) {
+  ul {
+    width: 4rem;
+  }
+  .fullNav {
+    display: none;
+  }
+  .miniNav {
+    display: fixed;
+  }
+  .nav-link {
+    font-size: 1.4rem;
+    &:hover {
+      font-size: 1.45rem;
+    }
+  }
+}
+
+@media screen and (min-width: 1450px) {
+  .miniNav {
+    display: none;
+  }
 }
