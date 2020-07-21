@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row" [formGroup]="parentFormGroup">
-    <div class="col-10 mt-4" formGroupName="visit">
+    <div class="col-10 col-md-9 mt-4" formGroupName="visit">
       <h2 class="display-4">3. Treatment Plan</h2>
       <div class="row" formGroupName="medical">
         <div class="col-12 form" formGroupName="treatmentPlan">
@@ -172,7 +172,7 @@
         </div>
       </div>
     </div>
-    <div class="col-1 mt-5" *ngIf="parentFormGroup.valid">
+    <div class="col-1 col-md-1 mt-5" *ngIf="parentFormGroup.valid">
       <button class="btn submitBtn mt-5" title="Save New Patient">
         <i class="fas fa-check-circle"></i>
       </button>
