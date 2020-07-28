@@ -1,18 +1,18 @@
 <div class="loader mx-auto" *ngIf="fetching"></div>
 <div class="container-fluid m-0" *ngIf="!fetching">
   <div class="row mt-4">
-    <div class="col-md-1 pl-0">
+    <div class="col-md-1 col-sm-1 pl-0">
       <a (click)="goBack()" class="btn navBtn"
         ><i class="fas fa-arrow-circle-left"></i
       ></a>
     </div>
 
-    <h1 class="col-md-7 header display-3">
+    <h1 class="col-md-7 col-sm-11 header display-3">
       {{ patient.currentPatient.fname | titlecase }}
       {{ patient.currentPatient.lname | titlecase }}
     </h1>
     <div
-      class="row col-md-3 flex-column mt-1"
+      class="row col-md-2 col-sm-5 flex-column mt-1"
       *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
     >
       <i
@@ -21,6 +21,17 @@
         (click)="dischargePatient(patient)"
       ></i>
       <i class="dischargeText">Discharge Patient</i>
+    </div>
+    <div
+      class="row col-md-2 col-sm-5 flex-column mt-1"
+      *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
+    >
+      <i
+        class="deleteVisitBtn fas fa-user-slash"
+        title="Discharge Patient"
+        (click)="deleteVisit(patient)"
+      ></i>
+      <i class="dischargeText">Delete Visit</i>
     </div>
   </div>
   <div class="row">
@@ -88,6 +99,14 @@
           <ng-template #noAllergies>
             <p>No known allergies.</p>
           </ng-template>
+        </ng-template>
+      </ng-container>
+      <ng-container ngbNavItem>
+        <a ngbNavLink>Case Story</a>
+        <ng-template ngbNavContent>
+          <p>
+            {{ patient.currentVisit.medical[0].caseStory }}
+          </p>
         </ng-template>
       </ng-container>
       <ng-container ngbNavItem>

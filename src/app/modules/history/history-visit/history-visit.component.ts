@@ -63,6 +63,35 @@ export class HistoryVisitComponent implements OnInit {
     });
   }
 
+  handleDelete(visit) {
+    this.patientSer.deleteVisit(visit).subscribe(() => {
+      let timerInterval;
+      Swal.fire({
+        title: 'Visit Successfully Deleted!',
+        icon: 'success',
+        html: 'I will automatically close in <b></b> milliseconds.',
+        timer: 2000,
+        timerProgressBar: true,
+        onBeforeOpen: () => {
+          Swal.showLoading();
+          timerInterval = setInterval(() => {
+            const content = Swal.getContent();
+            if (content) {
+              const b = content.querySelector('b');
+              if (b) {
+                b.innerHTML = Swal.getTimerLeft().toString();
+              }
+            }
+          }, 100);
+        },
+        onClose: () => {
+          clearInterval(timerInterval);
+        },
+      });
+      window.location.replace('/main');
+    });
+  }
+
   async changeState() {
     const { value: state } = await Swal.fire({
       title: 'Change Patient State',
@@ -122,6 +151,30 @@ export class HistoryVisitComponent implements OnInit {
         const state = 'discharged';
         const stateData = this.mapForStateChange(patient.currentPatient, state);
         this.handleStateChange(stateData);
+      }
+    });
+  }
+
+  deleteVisit(patient) {
+    Swal.fire({
+      icon: 'warning',
+      title: `Delete This Visit?`,
+      text: `Are you sure you would like to delete this visit?`,
+      confirmButtonText: `Delete Visit`,
+      confirmButtonColor: '#57a773',
+      showCancelButton: true,
+      cancelButtonColor: '#de5468',
+    }).then((result) => {
+      if (result.value) {
+        const {
+          currentPatient: { govId },
+          currentVisit: { _id },
+        } = patient;
+        const visitToDelete = {
+          govId: govId,
+          visitId: _id,
+        };
+        this.handleDelete(visitToDelete);
       }
     });
   }
