@@ -24,4 +24,31 @@ export class SwalService {
       title: `${title}`,
     });
   }
+
+  successSwal(title) {
+    let timerInterval;
+    Swal.fire({
+      title: `${title}`,
+      icon: 'success',
+      html: 'I will automatically close in <b></b> milliseconds.',
+      timer: 2000,
+      timerProgressBar: true,
+      onBeforeOpen: () => {
+        Swal.showLoading();
+        timerInterval = setInterval(() => {
+          const content = Swal.getContent();
+          if (content) {
+            const b = content.querySelector('b');
+            if (b) {
+              b.innerHTML = Swal.getTimerLeft().toString();
+            }
+          }
+        }, 100);
+      },
+      onClose: () => {
+        clearInterval(timerInterval);
+        window.location.replace('/main');
+      },
+    });
+  }
 }

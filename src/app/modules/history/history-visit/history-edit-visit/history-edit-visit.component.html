@@ -40,202 +40,211 @@
       <span class="when">{{ patient.currentVisit.time | date }}</span>
     </h3>
   </div>
-
-  <div class="row mt-4">
-    <div class="col-md-5 col-lg-2">
-      <label>ID</label>
-      <div class="form-control">{{ patient.currentPatient.govId }}</div>
-    </div>
-    <div class="col-md-5 col-lg-3 mr-1">
-      <label>State </label>
-      <div>
-        <div class="input-group">
-          <div class="form-control" [ngClass]="setStateClass(patient)">
-            <span class="stateText">{{
-              patient.currentVisit.medical[0].state | titlecase
-            }}</span>
-          </div>
-          <div
-            class="input-group-append"
-            *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
-          >
-            <button class="btn btn-dark" (click)="changeState()">
-              <i class="fas fa-user-edit" title="Change State"></i>
-            </button>
+  <form
+    [formGroup]="editPatientForm"
+    (ngSubmit)="onSubmit(editPatientForm.value)"
+  >
+    <div class="row mt-4">
+      <div class="col-md-5 col-lg-2">
+        <label>ID</label>
+        <div class="form-control">{{ patient.currentPatient.govId }}</div>
+      </div>
+      <div class="col-md-5 col-lg-3 mr-1">
+        <label>State </label>
+        <div>
+          <div class="input-group">
+            <div class="form-control" [ngClass]="setStateClass(patient)">
+              <span class="stateText">{{
+                patient.currentVisit.medical[0].state | titlecase
+              }}</span>
+            </div>
+            <div
+              class="input-group-append"
+              *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
+            >
+              <button class="btn btn-dark" (click)="changeState()">
+                <i class="fas fa-user-edit" title="Change State"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <br />
-    <div class="col-md-5 col-lg-3">
-      <label>How the patient arrived?</label>
-      <div class="form-control">{{ patient.currentVisit.how | titlecase }}</div>
-    </div>
-    <div class="col-md-5 col-lg-3">
-      <label>Attending Nurse</label>
-      <div class="form-control">
-        {{ patient.currentVisit.attendingNurse | titlecase }}
+      <br />
+      <div class="col-md-5 col-lg-3">
+        <label>How the patient arrived?</label>
+        <div class="form-control">
+          {{ patient.currentVisit.how | titlecase }}
+        </div>
+      </div>
+      <div class="col-md-5 col-lg-3">
+        <label>Attending Nurse</label>
+        <div class="form-control">
+          {{ patient.currentVisit.attendingNurse | titlecase }}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-md-10">
-      <label for="">Diagnosis</label>
-      <div class="form-control">
-        {{ patient.currentVisit.medical[0].treatmentPlan[0].diagnosis }}
+    <div class="row mt-3">
+      <div class="col-md-10">
+        <label for="">Diagnosis</label>
+        <div class="form-control">
+          {{ patient.currentVisit.medical[0].treatmentPlan[0].diagnosis }}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-3 ml-1">
-    <nav ngbNav #habits="ngbNav" class="nav-tabs col-md-6">
-      <ng-container ngbNavItem>
-        <a ngbNavLink>Allergies</a>
-        <ng-template ngbNavContent>
-          <p
-            *ngIf="patient.currentVisit.medical[0].allergies; else noAllergies"
-          >
-            {{ patient.currentVisit.medical[0].allergies }}
-          </p>
-          <ng-template #noAllergies>
-            <p>No known allergies.</p>
+    <div class="row mt-3 ml-1">
+      <nav ngbNav #habits="ngbNav" class="nav-tabs col-md-6">
+        <ng-container ngbNavItem>
+          <a ngbNavLink>Allergies</a>
+          <ng-template ngbNavContent>
+            <p
+              *ngIf="
+                patient.currentVisit.medical[0].allergies;
+                else noAllergies
+              "
+            >
+              {{ patient.currentVisit.medical[0].allergies }}
+            </p>
+            <ng-template #noAllergies>
+              <p>No known allergies.</p>
+            </ng-template>
           </ng-template>
-        </ng-template>
-      </ng-container>
-      <ng-container ngbNavItem>
-        <a ngbNavLink>Case Story</a>
-        <ng-template ngbNavContent>
-          <p>
-            {{ patient.currentVisit.medical[0].caseStory }}
-          </p>
-        </ng-template>
-      </ng-container>
-      <ng-container ngbNavItem>
-        <a ngbNavLink>Habits</a>
-        <ng-template ngbNavContent>
-          <p>
-            Smoking:
-            {{ patient.currentVisit.medical[0].habits.smoking | yesNo }}
-          </p>
-          <p>
-            Alcohol:
-            {{ patient.currentVisit.medical[0].habits.drinking | yesNo }}
-          </p>
-          <p>
-            Drugs: {{ patient.currentVisit.medical[0].habits.drugs | yesNo }}
-          </p>
-        </ng-template>
-      </ng-container>
-    </nav>
+        </ng-container>
+        <ng-container ngbNavItem>
+          <a ngbNavLink>Case Story</a>
+          <ng-template ngbNavContent>
+            <p>
+              {{ patient.currentVisit.medical[0].caseStory }}
+            </p>
+          </ng-template>
+        </ng-container>
+        <ng-container ngbNavItem>
+          <a ngbNavLink>Habits</a>
+          <ng-template ngbNavContent>
+            <p>
+              Smoking:
+              {{ patient.currentVisit.medical[0].habits.smoking | yesNo }}
+            </p>
+            <p>
+              Alcohol:
+              {{ patient.currentVisit.medical[0].habits.drinking | yesNo }}
+            </p>
+            <p>
+              Drugs: {{ patient.currentVisit.medical[0].habits.drugs | yesNo }}
+            </p>
+          </ng-template>
+        </ng-container>
+      </nav>
 
-    <div [ngbNavOutlet]="habits" class="content mt-2 col-md-9"></div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-md-6">
-      <button
-        class="btn btn-outline-secondary collapseBtn"
-        (click)="isCollapsedTreat = !isCollapsedTreat"
-      >
-        Treatment Information ⏷
-      </button>
+      <div [ngbNavOutlet]="habits" class="content mt-2 col-md-9"></div>
     </div>
-    <div [ngbCollapse]="isCollapsedTreat" class="col-md-10 mt-2">
-      <div class="card">
-        <div class="card-body row">
-          <nav ngbNav #treatment="ngbNav" class="nav-tabs col-md-8">
-            <ng-container ngbNavItem>
-              <a ngbNavLink><i class="fas fa-pills"></i> Medication</a>
-              <ng-template ngbNavContent>
-                <div
-                  *ngIf="
-                    patient.currentVisit.medical[0].treatmentPlan[0].medication
-                      .length;
-                    else noMeds
-                  "
-                >
-                  <p>Prescribed:</p>
-                  <ul
-                    *ngFor="
-                      let meds of patient.currentVisit.medical[0]
-                        .treatmentPlan[0].medication
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <button
+          class="btn btn-outline-secondary collapseBtn"
+          (click)="isCollapsedTreat = !isCollapsedTreat"
+        >
+          Treatment Information ⏷
+        </button>
+      </div>
+      <div [ngbCollapse]="isCollapsedTreat" class="col-md-10 mt-2">
+        <div class="card">
+          <div class="card-body row">
+            <nav ngbNav #treatment="ngbNav" class="nav-tabs col-md-8">
+              <ng-container ngbNavItem>
+                <a ngbNavLink><i class="fas fa-pills"></i> Medication</a>
+                <ng-template ngbNavContent>
+                  <div
+                    *ngIf="
+                      patient.currentVisit.medical[0].treatmentPlan[0]
+                        .medication.length;
+                      else noMeds
                     "
                   >
-                    <li>{{ meds }}</li>
-                  </ul>
-                </div>
-                <ng-template #noMeds>
-                  <p>No meds were prescribed.</p>
+                    <p>Prescribed:</p>
+                    <ul
+                      *ngFor="
+                        let meds of patient.currentVisit.medical[0]
+                          .treatmentPlan[0].medication
+                      "
+                    >
+                      <li>{{ meds }}</li>
+                    </ul>
+                  </div>
+                  <ng-template #noMeds>
+                    <p>No meds were prescribed.</p>
+                  </ng-template>
                 </ng-template>
-              </ng-template>
-            </ng-container>
-            <ng-container ngbNavItem>
-              <a ngbNavLink><i class="fas fa-procedures"></i> Procedures</a>
-              <ng-template ngbNavContent>
-                <div
-                  *ngIf="
-                    patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
-                      .procedures;
-                    else noProcedures
-                  "
-                >
-                  <ul
-                    *ngFor="
-                      let procedure of patient.currentVisit.medical[0]
-                        .treatmentPlan[0].tasks[0].procedures
+              </ng-container>
+              <ng-container ngbNavItem>
+                <a ngbNavLink><i class="fas fa-procedures"></i> Procedures</a>
+                <ng-template ngbNavContent>
+                  <div
+                    *ngIf="
+                      patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
+                        .procedures;
+                      else noProcedures
                     "
                   >
-                    <li>{{ procedure.title }}</li>
-                  </ul>
-                </div>
-                <ng-template #noProcedures>
-                  <p>No procedures were made.</p>
+                    <ul
+                      *ngFor="
+                        let procedure of patient.currentVisit.medical[0]
+                          .treatmentPlan[0].tasks[0].procedures
+                      "
+                    >
+                      <li>{{ procedure.title }}</li>
+                    </ul>
+                  </div>
+                  <ng-template #noProcedures>
+                    <p>No procedures were made.</p>
+                  </ng-template>
                 </ng-template>
-              </ng-template>
-            </ng-container>
-            <ng-container ngbNavItem>
-              <a ngbNavLink><i class="fas fa-vials"></i> Tests</a>
-              <ng-template ngbNavContent>
-                <div
-                  *ngIf="
-                    patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
-                      .tests;
-                    else noTests
-                  "
-                >
-                  <ul
-                    *ngFor="
-                      let test of patient.currentVisit.medical[0]
-                        .treatmentPlan[0].tasks[0].tests
+              </ng-container>
+              <ng-container ngbNavItem>
+                <a ngbNavLink><i class="fas fa-vials"></i> Tests</a>
+                <ng-template ngbNavContent>
+                  <div
+                    *ngIf="
+                      patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
+                        .tests;
+                      else noTests
                     "
                   >
-                    <li>{{ test.title }}</li>
-                  </ul>
-                </div>
-                <ng-template #noTests>
-                  <p>No tests were orederd.</p>
+                    <ul
+                      *ngFor="
+                        let test of patient.currentVisit.medical[0]
+                          .treatmentPlan[0].tasks[0].tests
+                      "
+                    >
+                      <li>{{ test.title }}</li>
+                    </ul>
+                  </div>
+                  <ng-template #noTests>
+                    <p>No tests were orederd.</p>
+                  </ng-template>
                 </ng-template>
-              </ng-template>
-            </ng-container>
-          </nav>
-          <div [ngbNavOutlet]="treatment" class="mt-2 col-md-9"></div>
+              </ng-container>
+            </nav>
+            <div [ngbNavOutlet]="treatment" class="mt-2 col-md-9"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-2 mb-5">
-    <div class="col-md-6">
-      <button
-        class="btn btn-outline-secondary collapseBtn"
-        (click)="isCollapsedNotes = !isCollapsedNotes"
-      >
-        Additional Notes ⏷
-      </button>
-    </div>
-    <div [ngbCollapse]="isCollapsedNotes" class="col-md-10 mt-2">
-      <div class="card">
-        <div class="card-body">
-          <p>{{ patient.currentVisit.medical[0].treatmentPlan[0].notes }}</p>
+    <div class="row mt-2 mb-5">
+      <div class="col-md-6">
+        <button
+          class="btn btn-outline-secondary collapseBtn"
+          (click)="isCollapsedNotes = !isCollapsedNotes"
+        >
+          Additional Notes ⏷
+        </button>
+      </div>
+      <div [ngbCollapse]="isCollapsedNotes" class="col-md-10 mt-2">
+        <div class="card">
+          <div class="card-body">
+            <p>{{ patient.currentVisit.medical[0].treatmentPlan[0].notes }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>

@@ -35,6 +35,7 @@ export class HistoryVisitComponent implements OnInit {
   }
 
   editVisit(patient) {
+    console.log(patient);
     this.historySer.declareCurrentPatientVisit(patient);
     this.router.navigate(['/history/visit/edit']);
   }

@@ -7,6 +7,7 @@ import {
   Validators,
   FormArray,
   FormControl,
+  FormGroup,
 } from '@angular/forms';
 
 import { HistoryService } from '../../services/history.service';
@@ -27,35 +28,17 @@ export class HistoryEditVisitComponent implements OnInit {
   isCollapsedNotes: boolean = true;
 
   editPatientForm = this.fb.group({
-    state: [this.patient.currentVisit.medical.state, Validators.required],
-    allergies: [
-      this.patient.currentVisit.medical.allergies,
-      [Validators.required, Validators.maxLength(255)],
-    ],
+    state: ['', Validators.required],
+    allergies: ['None', [Validators.required, Validators.maxLength(255)]],
     habits: this.fb.group({
-      smoking: [
-        this.patient.currentVisit.medical.habits.smoking,
-        Validators.required,
-      ],
-      drinking: [
-        this.patient.currentVisit.medical.habits.drinking,
-        Validators.required,
-      ],
-      drugs: [
-        this.patient.currentVisit.medical.habits.drugs,
-        Validators.required,
-      ],
-      drugsDescription: [
-        this.patient.currentVisit.medical.habits.drugsDescription,
-        Validators.maxLength(255),
-      ],
+      smoking: [null, Validators.required],
+      drinking: [null, Validators.required],
+      drugs: [null, Validators.required],
+      drugsDescription: ['', Validators.maxLength(255)],
     }),
-    reasonOfVisit: [
-      this.patient.currentVisit.medical.reasonOfVisit,
-      [Validators.required, Validators.maxLength(255)],
-    ],
+    reasonOfVisit: ['', [Validators.required, Validators.maxLength(255)]],
     caseStory: [
-      this.patient.currentVisit.medical.caseStory,
+      '',
       [
         Validators.required,
         Validators.minLength(20),
@@ -63,28 +46,20 @@ export class HistoryEditVisitComponent implements OnInit {
       ],
     ],
     symptoms: [
-      this.patient.currentVisit.medical.symptoms,
+      '',
       [Validators.required, Validators.minLength(5), Validators.maxLength(255)],
     ],
     hasHappenedBefore: this.fb.group({
-      hasIt: [
-        this.patient.currentVisit.medical.hasHappenedBefore.hasIt,
-        Validators.required,
-      ],
-      description: [
-        this.patient.currentVisit.medical.hasHappenedBefore.description,
-      ],
+      hasIt: ['', Validators.required],
+      description: [''],
     }),
     history: this.fb.group({
-      isThere: [
-        this.patient.currentVisit.medical.history.isThere,
-        Validators.required,
-      ],
-      description: [this.patient.currentVisit.medical.history.description],
+      isThere: ['', Validators.required],
+      description: [''],
     }),
     vitals: this.fb.group({
       pulse: [
-        this.patient.currentVisit.medical.vitals.pulse,
+        '',
         [
           Validators.required,
           Validators.max(200),
@@ -92,18 +67,18 @@ export class HistoryEditVisitComponent implements OnInit {
         ],
       ],
       bp: [
-        this.patient.currentVisit.medical.vitals.bp,
+        '',
         [Validators.required, Validators.pattern(`^[0-9]{1,3}\/[0-9]{1,3}$`)],
       ],
       temp: [
-        this.patient.currentVisit.medical.vitals.temp,
+        '',
         [
           Validators.required,
           Validators.pattern('^([3-4][0-9]|[3-4][0-9][.][0-9])$'),
         ],
       ],
       weight: [
-        this.patient.currentVisit.medical.vitals.temp,
+        '',
         [
           Validators.required,
           Validators.min(0),
@@ -112,7 +87,7 @@ export class HistoryEditVisitComponent implements OnInit {
         ],
       ],
       bloodSugar: [
-        this.patient.currentVisit.medical.vitals.bloodSugar,
+        '',
         [
           Validators.required,
           Validators.max(600),
@@ -121,7 +96,7 @@ export class HistoryEditVisitComponent implements OnInit {
         ],
       ],
       respRate: [
-        this.patient.currentVisit.medical.vitals.respRate,
+        '',
         [
           Validators.required,
           Validators.max(60),
@@ -130,25 +105,13 @@ export class HistoryEditVisitComponent implements OnInit {
       ],
     }),
     treatmentPlan: this.fb.group({
-      diagnosis: [
-        this.patient.currentVisit.medical.treatmentPlan.diagnosis,
-        [Validators.required, Validators.maxLength(255)],
-      ],
-      medication: this.fb.array([
-        this.patient.currentVisit.medical.treatmentPlan.medication,
-      ]),
+      diagnosis: ['', [Validators.required, Validators.maxLength(255)]],
+      medication: this.fb.array([]),
       tasks: this.fb.group({
-        procedures: this.fb.array([
-          this.patient.currentVisit.medical.treatmentPlan.tasks.procedures,
-        ]),
-        tests: this.fb.array([
-          this.patient.currentVisit.medical.treatmentPlan.tasks.tests,
-        ]),
+        procedures: this.fb.array([]),
+        tests: this.fb.array([]),
       }),
-      notes: [
-        this.patient.currentVisit.medical.treatmentPlan.notes,
-        Validators.maxLength(500),
-      ],
+      notes: ['', Validators.maxLength(500)],
     }),
   });
 
@@ -172,28 +135,34 @@ export class HistoryEditVisitComponent implements OnInit {
     return this.editPatientForm.get('treatmentPlan.tasks.tests') as FormArray;
   }
 
-  addMedication() {
+  addMedication(): void {
     this.medication.push(new FormControl());
   }
 
-  deleteMedication(i) {
+  deleteMedication(i): void {
     this.medication.removeAt(i);
   }
 
-  addProcedure() {
+  addProcedure(): void {
     this.procedures.push(this.fb.group({ title: '', isComplete: false }));
   }
 
-  deleteProcedure(i) {
+  deleteProcedure(i): void {
     this.procedures.removeAt(i);
   }
 
-  addTest() {
+  addTest(): void {
     this.tests.push(this.fb.group({ title: '', isComplete: false }));
   }
 
-  deleteTest(i) {
+  deleteTest(i): void {
     this.tests.removeAt(i);
+  }
+
+  onSubmit(value): void {
+    if (this.editPatientForm.valid) {
+      this.patientSer.editVisit(value);
+    }
   }
 
   setStateClass(patient) {
@@ -361,7 +330,67 @@ export class HistoryEditVisitComponent implements OnInit {
     if (!this.patient) {
       this.router.navigate(['/main']);
     }
+    this.assignDefaultValues(this.patient);
     this.fetching = !this.fetching;
+  }
+
+  assignDefaultValues(patient) {
+    console.log(patient);
+    const {
+      currentVisit: {
+        medical: [
+          {
+            state,
+            allergies,
+            habits: [{ smoking, drinking, drugs, drugsDescription }],
+            reasonOfVisit,
+            caseStory,
+            symptoms,
+            hasHappenedBefore: [{ hasIt, description: beforeDesc }],
+            history: [{ isThere, description: historyDesc }],
+            vitals: [{ pulse, bp, temp, bloodSugar, respRate, weight }],
+            treatmentPlan: [
+              {
+                diagnosis,
+                medication,
+                tasks: [{ procedures, tests }],
+                notes,
+              },
+            ],
+          },
+        ],
+      },
+    } = patient;
+
+    this.editPatientForm.patchValue({
+      state: state,
+      allergies: allergies,
+      habits: {
+        smoking: smoking,
+        drinking: drinking,
+        drugs: drugs,
+        drugsDescription: drugsDescription,
+      },
+      reasonOfVisit: reasonOfVisit,
+      caseStory: caseStory,
+      symptoms: symptoms,
+      hasHappenedBefore: { hasIt: hasIt, description: beforeDesc },
+      history: { isThere: isThere, description: historyDesc },
+      vitals: {
+        pulse: pulse,
+        bp: bp,
+        temp: temp,
+        bloodSugar: bloodSugar,
+        respRate: respRate,
+        weight: weight,
+      },
+      treatmentPlan: {
+        diagnosis: diagnosis,
+        medication: medication,
+        tasks: { procedures: procedures, tests: tests },
+        notes: notes,
+      },
+    });
   }
 
   goBack() {

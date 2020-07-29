@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Patient } from '../interfaces/patient';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+import { Patient } from '../interfaces/patient';
 import { TaskItem } from '../interfaces/taskItem';
-import Swal from 'sweetalert2';
+import { SwalService } from 'src/app/utils/swal.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,35 +21,18 @@ export class PatientService {
 
   private message: {};
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private swal: SwalService) {}
 
   addNewPatient(value) {
     const patient: Patient = value;
     this.http.post(this._addPatientUrl, patient).subscribe((response) => {
-      let timerInterval;
-      Swal.fire({
-        title: 'New Patient Admitted Succsessfully!',
-        icon: 'success',
-        html: 'I will automatically close in <b></b> milliseconds.',
-        timer: 2000,
-        timerProgressBar: true,
-        onBeforeOpen: () => {
-          Swal.showLoading();
-          timerInterval = setInterval(() => {
-            const content = Swal.getContent();
-            if (content) {
-              const b = content.querySelector('b');
-              if (b) {
-                b.innerHTML = Swal.getTimerLeft().toString();
-              }
-            }
-          }, 100);
-        },
-        onClose: () => {
-          clearInterval(timerInterval);
-          window.location.replace('/main');
-        },
-      });
+      this.swal.successSwal('New Patient Admitted Successfully!');
+    });
+  }
+
+  editVisit(data) {
+    this.http.post(this._editVisitUrl, data).subscribe((resp) => {
+      this.swal.successSwal('Changes Saved Successfully!');
     });
   }
 

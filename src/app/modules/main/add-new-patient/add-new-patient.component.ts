@@ -148,12 +148,6 @@ export class AddNewPatientComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onValidForm(): void {
-    this.newPatientForm.valueChanges.subscribe((item) => {
-      this.updateProgressBar();
-    });
-  }
-
   updateProgressBar() {
     if (this.progressValue === '0') this.progressValue = '33';
     else if (this.progressValue === '33') this.progressValue = '66';
@@ -183,6 +177,7 @@ export class AddNewPatientComponent implements OnInit {
 
   onSubmit(value): void {
     if (this.newPatientForm.valid) {
+      this.updateProgressBar();
       this.toLowerCaseVal(value);
       this.patientSer.addNewPatient(value);
     }
