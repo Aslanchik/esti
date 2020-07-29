@@ -17,6 +17,8 @@ export class PatientService {
     'http://localhost:3000/api/patients/updateCompletedTask';
   private _updateStateUrl: string =
     'http://localhost:3000/api/patients/updateState';
+  private _editVisitUrl: string =
+    'http://localhost:3000/api/patients/editVisit';
   private _deleteUrl: string = 'http://localhost:3000/api/patients/delete';
 
   private message: {};
@@ -25,7 +27,7 @@ export class PatientService {
 
   addNewPatient(value) {
     const patient: Patient = value;
-    this.http.post(this._addPatientUrl, patient).subscribe((response) => {
+    this.http.post(this._addPatientUrl, patient).subscribe((resp) => {
       this.swal.successSwal('New Patient Admitted Successfully!');
     });
   }

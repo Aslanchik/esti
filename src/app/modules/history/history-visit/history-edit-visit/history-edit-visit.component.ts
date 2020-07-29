@@ -13,6 +13,7 @@ import {
 import { HistoryService } from '../../services/history.service';
 import { HistoryPatient } from '../../interfaces/history-patient';
 import { PatientService } from '../../../main/services/patient.service';
+import { SwalService } from 'src/app/utils/swal.service';
 
 @Component({
   selector: 'app-history-edit-visit',
@@ -120,7 +121,8 @@ export class HistoryEditVisitComponent implements OnInit {
     private patientSer: PatientService,
     private _location: Location,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private swal: SwalService
   ) {}
 
   get medication(): FormArray {
@@ -143,25 +145,28 @@ export class HistoryEditVisitComponent implements OnInit {
     this.medication.removeAt(i);
   }
 
-  addProcedure(): void {
-    this.procedures.push(this.fb.group({ title: '', isComplete: false }));
+  addProcedure(item = ''): void {
+    this.procedures.push(this.fb.group({ title: item, isComplete: false }));
   }
 
   deleteProcedure(i): void {
     this.procedures.removeAt(i);
   }
 
-  addTest(): void {
-    this.tests.push(this.fb.group({ title: '', isComplete: false }));
+  addTest(item = ''): void {
+    this.tests.push(this.fb.group({ title: item, isComplete: false }));
   }
 
   deleteTest(i): void {
     this.tests.removeAt(i);
   }
 
+  // FIGURE OUT HOW TO MAKE THIS WORk
+
   onSubmit(value): void {
     if (this.editPatientForm.valid) {
-      this.patientSer.editVisit(value);
+      console.log(value);
+      /* this.patientSer.editVisit(value); */
     }
   }
 
@@ -172,104 +177,18 @@ export class HistoryEditVisitComponent implements OnInit {
     else return { discharged: true };
   }
 
-  handleStateChange(stateData) {
+  handleDischarge(stateData) {
     this.patientSer.changeVisitState(stateData).subscribe(() => {
-      let timerInterval;
-      Swal.fire({
-        title: 'State Successfully Changed!',
-        icon: 'success',
-        html: 'I will automatically close in <b></b> milliseconds.',
-        timer: 2000,
-        timerProgressBar: true,
-        onBeforeOpen: () => {
-          Swal.showLoading();
-          timerInterval = setInterval(() => {
-            const content = Swal.getContent();
-            if (content) {
-              const b = content.querySelector('b');
-              if (b) {
-                b.innerHTML = Swal.getTimerLeft().toString();
-              }
-            }
-          }, 100);
-        },
-        onClose: () => {
-          clearInterval(timerInterval);
-        },
-      });
+      this.swal.successSwal('Patient Successfully Discharged!');
       window.location.replace('/main');
     });
   }
 
   handleDelete(visit) {
     this.patientSer.deleteVisit(visit).subscribe(() => {
-      let timerInterval;
-      Swal.fire({
-        title: 'Visit Successfully Deleted!',
-        icon: 'success',
-        html: 'I will automatically close in <b></b> milliseconds.',
-        timer: 2000,
-        timerProgressBar: true,
-        onBeforeOpen: () => {
-          Swal.showLoading();
-          timerInterval = setInterval(() => {
-            const content = Swal.getContent();
-            if (content) {
-              const b = content.querySelector('b');
-              if (b) {
-                b.innerHTML = Swal.getTimerLeft().toString();
-              }
-            }
-          }, 100);
-        },
-        onClose: () => {
-          clearInterval(timerInterval);
-        },
-      });
+      this.swal.successSwal('Visit Deleted Successfully!');
       window.location.replace('/main');
     });
-  }
-
-  async changeState() {
-    const { value: state } = await Swal.fire({
-      title: 'Change Patient State',
-      input: 'select',
-      inputOptions: {
-        active: 'Active',
-        critical: 'Critical',
-        discharged: 'Discharged',
-      },
-      inputValidator: (state) => {
-        if (!state) {
-          return 'You have to choose something!';
-        }
-      },
-      inputPlaceholder: 'States',
-      confirmButtonText: `Confirm`,
-      confirmButtonColor: '#57a773',
-      showCancelButton: true,
-      cancelButtonColor: '#de5468',
-    });
-
-    if (state) {
-      Swal.fire({
-        title: `Confirm State Change`,
-        text: `Are you sure you want to update the patient's state to be ${state}?`,
-        icon: 'warning',
-        confirmButtonText: `Confirm`,
-        confirmButtonColor: '#57a773',
-        showCancelButton: true,
-        cancelButtonColor: '#de5468',
-      }).then((result) => {
-        if (result.value) {
-          const stateData = this.mapForStateChange(
-            this.patient.currentPatient,
-            state
-          );
-          this.handleStateChange(stateData);
-        }
-      });
-    }
   }
 
   dischargePatient(patient) {
@@ -288,7 +207,7 @@ export class HistoryEditVisitComponent implements OnInit {
       if (result.value) {
         const state = 'discharged';
         const stateData = this.mapForStateChange(patient.currentPatient, state);
-        this.handleStateChange(stateData);
+        this.handleDischarge(stateData);
       }
     });
   }
@@ -335,7 +254,6 @@ export class HistoryEditVisitComponent implements OnInit {
   }
 
   assignDefaultValues(patient) {
-    console.log(patient);
     const {
       currentVisit: {
         medical: [
@@ -362,6 +280,14 @@ export class HistoryEditVisitComponent implements OnInit {
       },
     } = patient;
 
+    procedures.map((procedure) => {
+      this.addProcedure(procedure.title);
+    });
+
+    tests.map((test) => {
+      this.addProcedure(test.title);
+    });
+
     this.editPatientForm.patchValue({
       state: state,
       allergies: allergies,
@@ -387,7 +313,6 @@ export class HistoryEditVisitComponent implements OnInit {
       treatmentPlan: {
         diagnosis: diagnosis,
         medication: medication,
-        tasks: { procedures: procedures, tests: tests },
         notes: notes,
       },
     });

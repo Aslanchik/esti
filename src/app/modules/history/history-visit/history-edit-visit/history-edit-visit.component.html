@@ -1,49 +1,71 @@
+<!-- SPINNER -->
 <div class="loader mx-auto" *ngIf="fetching"></div>
+<!-- COMPONENT -->
 <div class="container-fluid m-0" *ngIf="!fetching">
-  <div class="row mt-4">
-    <div class="col-md-1 col-sm-1 pl-0">
-      <a (click)="goBack()" class="btn navBtn"
-        ><i class="fas fa-arrow-circle-left"></i
-      ></a>
-    </div>
-
-    <h1 class="col-md-7 col-sm-11 header display-3">
-      {{ patient.currentPatient.fname | titlecase }}
-      {{ patient.currentPatient.lname | titlecase }}
-    </h1>
-    <div
-      class="row col-md-2 col-sm-5 flex-column mt-1"
-      *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
-    >
-      <i
-        class="dischargeBtn fas fa-vote-yea ml-3"
-        title="Discharge Patient"
-        (click)="dischargePatient(patient)"
-      ></i>
-      <i class="dischargeText">Discharge Patient</i>
-    </div>
-    <div
-      class="row col-md-2 col-sm-5 flex-column mt-1"
-      *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
-    >
-      <i
-        class="deleteVisitBtn fas fa-user-slash"
-        title="Discharge Patient"
-        (click)="deleteVisit(patient)"
-      ></i>
-      <i class="dischargeText">Delete Visit</i>
-    </div>
-  </div>
-  <div class="row">
-    <h3 class="col-md-8 mx-auto">
-      Displaying visit from
-      <span class="when">{{ patient.currentVisit.time | date }}</span>
-    </h3>
-  </div>
   <form
     [formGroup]="editPatientForm"
     (ngSubmit)="onSubmit(editPatientForm.value)"
   >
+    <div class="row mt-4">
+      <!-- NAVLINK TO BACK -->
+      <div class="col-md-1 col-sm-1 pl-0">
+        <a (click)="goBack()" class="btn navBtn"
+          ><i class="fas fa-arrow-circle-left"></i
+        ></a>
+      </div>
+      <!-- HEADER -->
+      <h1 class="col-md-5 col-sm-11 header display-3">
+        {{ patient.currentPatient.fname | titlecase }}
+        {{ patient.currentPatient.lname | titlecase }}
+      </h1>
+      <!-- SAVE CHANGES BUTTON -->
+      <div
+        class="row col-md-2 col-sm-4 flex-column mt-1"
+        *ngIf="
+          patient.currentVisit.medical[0].state !== 'discharged' &&
+          editPatientForm.valid
+        "
+      >
+        <button
+          class="btn saveBtn fas fa-vote-yea"
+          title="Save Changes"
+        ></button>
+        <i class="dischargeText text-center">Save Changes</i>
+      </div>
+      <!-- DISCHARGE PATIENT BUTTON -->
+      <div
+        class="row col-md-2 col-sm-4 flex-column mt-1"
+        *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
+      >
+        <button
+          class="btn dischargeBtn fas fa-eject"
+          title="Discharge Patient"
+          (click)="dischargePatient(patient)"
+        ></button>
+        <i class="dischargeText text-center">Discharge</i>
+      </div>
+      <!-- DELETE VISIT BUTTON -->
+      <div
+        class="row col-md-2 col-sm-4 flex-column mt-1"
+        *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
+      >
+        <button
+          class="btn deleteVisitBtn fas fa-user-slash"
+          title="Delete Visit"
+          (click)="deleteVisit(patient)"
+        ></button>
+        <i class="dischargeText text-center">Delete Visit</i>
+      </div>
+    </div>
+    <!-- SUBHEADER -->
+    <div class="row">
+      <h3 class="col-md-8 mx-auto">
+        Displaying visit from
+        <span class="when">{{ patient.currentVisit.time | date }}</span>
+      </h3>
+    </div>
+    <!-- EDIT FORM -->
+
     <div class="row mt-4">
       <div class="col-md-5 col-lg-2">
         <label>ID</label>
@@ -58,13 +80,24 @@
                 patient.currentVisit.medical[0].state | titlecase
               }}</span>
             </div>
-            <div
-              class="input-group-append"
-              *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
-            >
-              <button class="btn btn-dark" (click)="changeState()">
-                <i class="fas fa-user-edit" title="Change State"></i>
+            <div ngbDropdown class="input-group-append">
+              <button class="btn btn-dark" id="sortDropdown" ngbDropdownToggle>
+                Edit
               </button>
+              <div ngbDropdownMenu aria-labelledby="sortDropdown">
+                <button
+                  ngbDropdownItem
+                  (click)="editPatientForm.get('state').setValue('critical')"
+                >
+                  Critical
+                </button>
+                <button
+                  ngbDropdownItem
+                  (click)="editPatientForm.get('state').setValue('active')"
+                >
+                  Active
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -83,12 +116,24 @@
         </div>
       </div>
     </div>
-    <div class="row mt-3">
+    <div class="row mt-3" formGroupName="treatmentPlan">
       <div class="col-md-10">
         <label for="">Diagnosis</label>
-        <div class="form-control">
-          {{ patient.currentVisit.medical[0].treatmentPlan[0].diagnosis }}
-        </div>
+        <input
+          type="text"
+          formControlName="diagnosis"
+          id="diag"
+          class="form-control"
+        />
+        <span
+          *ngIf="
+            !editPatientForm.get('treatmentPlan.diagnosis').valid &&
+            editPatientForm.get('treatmentPlan.diagnosis').touched
+          "
+          class="invalid"
+        >
+          This field is required.
+        </span>
       </div>
     </div>
     <div class="row mt-3 ml-1">
@@ -96,14 +141,31 @@
         <ng-container ngbNavItem>
           <a ngbNavLink>Allergies</a>
           <ng-template ngbNavContent>
-            <p
+            <div
+              class="col-lg-3 col-11 form-group"
               *ngIf="
                 patient.currentVisit.medical[0].allergies;
                 else noAllergies
               "
             >
-              {{ patient.currentVisit.medical[0].allergies }}
-            </p>
+              <input
+                type="text"
+                name="allergies"
+                class="form-control"
+                formControlName="allergies"
+                required
+                maxlength="255"
+              />
+              <span
+                *ngIf="
+                  !editPatientForm.get('allergies').valid &&
+                  editPatientForm.get('allergies').touched
+                "
+                class="invalid"
+              >
+                This field is required.
+              </span>
+            </div>
             <ng-template #noAllergies>
               <p>No known allergies.</p>
             </ng-template>
@@ -112,29 +174,115 @@
         <ng-container ngbNavItem>
           <a ngbNavLink>Case Story</a>
           <ng-template ngbNavContent>
-            <p>
-              {{ patient.currentVisit.medical[0].caseStory }}
-            </p>
+            <div class="row mx-auto">
+              <div class="col-md-12 form-group">
+                <textarea
+                  formControlName="caseStory"
+                  class="form-control"
+                  maxlength="255"
+                  required
+                ></textarea>
+                <span
+                  *ngIf="
+                    editPatientForm.get('caseStory').errors?.required &&
+                    editPatientForm.get('caseStory').touched
+                  "
+                  class="invalid"
+                >
+                  This field is required.
+                </span>
+                <span
+                  *ngIf="
+                    editPatientForm.get('caseStory').errors?.minlength &&
+                    editPatientForm.get('caseStory').touched
+                  "
+                  class="invalid"
+                >
+                  Must be at least 20 characters long.
+                </span>
+              </div>
+            </div>
           </ng-template>
         </ng-container>
         <ng-container ngbNavItem>
           <a ngbNavLink>Habits</a>
           <ng-template ngbNavContent>
-            <p>
-              Smoking:
-              {{ patient.currentVisit.medical[0].habits.smoking | yesNo }}
-            </p>
-            <p>
-              Alcohol:
-              {{ patient.currentVisit.medical[0].habits.drinking | yesNo }}
-            </p>
-            <p>
-              Drugs: {{ patient.currentVisit.medical[0].habits.drugs | yesNo }}
-            </p>
+            <div class="container" formGroupName="habits">
+              <div class="row flex-column">
+                <!-- SMOKING -->
+                <div class="col-lg-4 col-4 form-group">
+                  <label>Smoking?</label>
+                  <div class="form-control">
+                    <label class="raido-inline"
+                      ><input
+                        type="radio"
+                        value="true"
+                        formControlName="smoking"
+                      />
+                      Yes
+                    </label>
+                    <label class="raido-inline"
+                      ><input
+                        type="radio"
+                        value="false"
+                        formControlName="smoking"
+                        class="ml-1"
+                      />
+                      No</label
+                    >
+                  </div>
+                </div>
+                <!-- DRINKING -->
+                <div class="col-lg-4 col-4 form-group">
+                  <label>Drinking?</label>
+                  <div class="form-control">
+                    <label class="raido-inline"
+                      ><input
+                        type="radio"
+                        formControlName="drinking"
+                        value="true"
+                      />
+                      Yes
+                    </label>
+                    <label class="raido-inline"
+                      ><input
+                        type="radio"
+                        formControlName="drinking"
+                        value="false"
+                        class="ml-1"
+                      />
+                      No</label
+                    >
+                  </div>
+                </div>
+                <!-- DRUGS -->
+                <div class="col-lg-4 col-4 form-group">
+                  <label>Drugs?</label>
+                  <div class="form-control">
+                    <label class="raido-inline"
+                      ><input
+                        type="radio"
+                        formControlName="drugs"
+                        value="true"
+                      />
+                      Yes
+                    </label>
+                    <label class="raido-inline"
+                      ><input
+                        type="radio"
+                        formControlName="drugs"
+                        value="false"
+                        class="ml-1"
+                      />
+                      No</label
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
           </ng-template>
         </ng-container>
       </nav>
-
       <div [ngbNavOutlet]="habits" class="content mt-2 col-md-9"></div>
     </div>
     <div class="row mt-4">
@@ -147,80 +295,130 @@
         </button>
       </div>
       <div [ngbCollapse]="isCollapsedTreat" class="col-md-10 mt-2">
-        <div class="card">
+        <div class="card" formGroupName="treatmentPlan">
           <div class="card-body row">
             <nav ngbNav #treatment="ngbNav" class="nav-tabs col-md-8">
               <ng-container ngbNavItem>
                 <a ngbNavLink><i class="fas fa-pills"></i> Medication</a>
                 <ng-template ngbNavContent>
-                  <div
-                    *ngIf="
-                      patient.currentVisit.medical[0].treatmentPlan[0]
-                        .medication.length;
-                      else noMeds
-                    "
-                  >
-                    <p>Prescribed:</p>
-                    <ul
-                      *ngFor="
-                        let meds of patient.currentVisit.medical[0]
-                          .treatmentPlan[0].medication
-                      "
-                    >
-                      <li>{{ meds }}</li>
-                    </ul>
+                  <div class="row mx-auto mt-3">
+                    <div class="col-11" formArrayName="medication">
+                      <div class="row flex-column mx-auto">
+                        <div
+                          class="input-group"
+                          *ngFor="let med of medication.controls; index as i"
+                        >
+                          <input
+                            type="text"
+                            [formControlName]="i"
+                            id="meds"
+                            class="form-control mb-2"
+                          />
+                          <div class="input-group-append">
+                            <button
+                              type="button"
+                              class="btn btn-danger mb-2"
+                              (click)="deleteMedication(i)"
+                            >
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-success col-3"
+                          (click)="addMedication()"
+                        >
+                          <i class="fas fa-plus"></i>
+                          <b class="btnTitles"> Medication</b>
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <ng-template #noMeds>
-                    <p>No meds were prescribed.</p>
-                  </ng-template>
                 </ng-template>
               </ng-container>
               <ng-container ngbNavItem>
                 <a ngbNavLink><i class="fas fa-procedures"></i> Procedures</a>
                 <ng-template ngbNavContent>
-                  <div
-                    *ngIf="
-                      patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
-                        .procedures;
-                      else noProcedures
-                    "
-                  >
-                    <ul
-                      *ngFor="
-                        let procedure of patient.currentVisit.medical[0]
-                          .treatmentPlan[0].tasks[0].procedures
-                      "
-                    >
-                      <li>{{ procedure.title }}</li>
-                    </ul>
+                  <div class="row mx-auto mt-3" formGroupName="tasks">
+                    <div class="col-11" formArrayName="procedures">
+                      <div class="row flex-column mx-auto">
+                        <div
+                          *ngFor="
+                            let procedure of procedures.controls;
+                            index as i
+                          "
+                        >
+                          <div class="input-group" [formGroupName]="i">
+                            <input
+                              type="text"
+                              formControlName="title"
+                              placeholder="If no procedures required leave blank"
+                              id="procedures"
+                              class="form-control mb-2"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                type="button"
+                                class="btn btn-danger mb-2"
+                                (click)="deleteProcedure(i)"
+                              >
+                                <i class="fas fa-times"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <button
+                          type="button"
+                          class="btn btn-success col-3"
+                          (click)="addProcedure()"
+                        >
+                          <i class="fas fa-plus"></i>
+                          <b class="btnTitles"> Procedure</b>
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <ng-template #noProcedures>
-                    <p>No procedures were made.</p>
-                  </ng-template>
                 </ng-template>
               </ng-container>
               <ng-container ngbNavItem>
                 <a ngbNavLink><i class="fas fa-vials"></i> Tests</a>
                 <ng-template ngbNavContent>
-                  <div
-                    *ngIf="
-                      patient.currentVisit.medical[0].treatmentPlan[0].tasks[0]
-                        .tests;
-                      else noTests
-                    "
-                  >
-                    <ul
-                      *ngFor="
-                        let test of patient.currentVisit.medical[0]
-                          .treatmentPlan[0].tasks[0].tests
-                      "
-                    >
-                      <li>{{ test.title }}</li>
-                    </ul>
+                  <div class="row mx-auto mt-3" formGroupName="tasks">
+                    <div class="col-11" formArrayName="tests">
+                      <div class="row flex-column mx-auto">
+                        <div *ngFor="let test of tests.controls; index as i">
+                          <div class="input-group" [formGroupName]="i">
+                            <input
+                              type="text"
+                              formControlName="title"
+                              placeholder="If no tests required leave blank"
+                              id="tests"
+                              class="form-control mb-2"
+                            />
+                            <div class="input-group-append">
+                              <button
+                                type="button"
+                                class="btn btn-danger mb-2"
+                                (click)="deleteTest(i)"
+                              >
+                                <i class="fas fa-times"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-success col-3"
+                          (click)="addTest()"
+                        >
+                          <i class="fas fa-plus"></i>
+                          <b class="btnTitles"> Test</b>
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <ng-template #noTests>
-                    <p>No tests were orederd.</p>
-                  </ng-template>
                 </ng-template>
               </ng-container>
             </nav>
@@ -239,9 +437,21 @@
         </button>
       </div>
       <div [ngbCollapse]="isCollapsedNotes" class="col-md-10 mt-2">
-        <div class="card">
+        <div class="card" formGroupName="treatmentPlan">
           <div class="card-body">
-            <p>{{ patient.currentVisit.medical[0].treatmentPlan[0].notes }}</p>
+            <div class="row mx-auto mt-3">
+              <div class="col-md-10">
+                <label for="notes">
+                  Additional Notes
+                </label>
+                <textarea
+                  type="text"
+                  formControlName="notes"
+                  id="notes"
+                  class="form-control"
+                ></textarea>
+              </div>
+            </div>
           </div>
         </div>
       </div>

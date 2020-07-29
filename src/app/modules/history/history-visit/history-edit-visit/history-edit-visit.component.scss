@@ -10,11 +10,19 @@
   height: 100%;
 }
 
-.dischargeBtn {
+.saveBtn {
   font-size: 4rem;
   color: #3fb167;
   &:hover {
     color: #39c56a;
+    cursor: pointer;
+  }
+}
+.dischargeBtn {
+  font-size: 4rem;
+  color: #eea81de3;
+  &:hover {
+    color: #f8c35a;
     cursor: pointer;
   }
 }
@@ -73,6 +81,25 @@ a {
   color: #3fb167;
   font-weight: bold;
   border-color: #8bbe9d;
+}
+
+@media screen and (max-width: 1140px) {
+  .btnTitles {
+    display: none;
+  }
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid #de5469b2;
+}
+input.ng-valid.ng-touched {
+  border: 1px solid #32a75b79;
+}
+textarea.ng-invalid.ng-touched {
+  border: 1px solid #de5469b2;
+}
+textarea.ng-valid.ng-touched {
+  border: 1px solid #32a75b79;
 }
 
 .loader {
