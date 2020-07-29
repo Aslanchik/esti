@@ -12,15 +12,26 @@
       {{ patient.currentPatient.lname | titlecase }}
     </h1>
     <div
-      class="row col-md-3 col-sm-5 flex-column mt-1"
+      class="row col-md-2 col-sm-5 flex-column mt-1"
       *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
     >
       <i
-        class="editBtn fas fa-user-edit ml-3"
-        title="Edit Visit"
-        (click)="editVisit(patient)"
+        class="dischargeBtn fas fa-vote-yea ml-3"
+        title="Discharge Patient"
+        (click)="dischargePatient(patient)"
       ></i>
       <i class="dischargeText">Discharge Patient</i>
+    </div>
+    <div
+      class="row col-md-2 col-sm-5 flex-column mt-1"
+      *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
+    >
+      <i
+        class="deleteVisitBtn fas fa-user-slash"
+        title="Discharge Patient"
+        (click)="deleteVisit(patient)"
+      ></i>
+      <i class="dischargeText">Delete Visit</i>
     </div>
   </div>
   <div class="row">
@@ -43,6 +54,14 @@
             <span class="stateText">{{
               patient.currentVisit.medical[0].state | titlecase
             }}</span>
+          </div>
+          <div
+            class="input-group-append"
+            *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
+          >
+            <button class="btn btn-dark" (click)="changeState()">
+              <i class="fas fa-user-edit" title="Change State"></i>
+            </button>
           </div>
         </div>
       </div>

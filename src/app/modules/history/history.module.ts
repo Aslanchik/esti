@@ -14,6 +14,7 @@ import { HistorySearchComponent } from './history-dashboard/history-overview/his
 import { HistoryVisitComponent } from './history-visit/history-visit.component';
 import { YesNoPipe } from './pipes/yes-no.pipe';
 import { HistoryService } from './services/history.service';
+import { HistoryEditVisitComponent } from './history-visit/history-edit-visit/history-edit-visit.component';
 
 const exporting = [HistoryDashboardComponent];
 
@@ -25,6 +26,7 @@ const exporting = [HistoryDashboardComponent];
     HistorySearchComponent,
     HistoryVisitComponent,
     YesNoPipe,
+    HistoryEditVisitComponent,
   ],
   imports: [
     CommonModule,

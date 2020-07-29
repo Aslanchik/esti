@@ -10,7 +10,7 @@
   height: 100%;
 }
 
-.dischargeBtn {
+.editBtn {
   font-size: 4rem;
   color: #3fb167;
   &:hover {
@@ -18,14 +18,7 @@
     cursor: pointer;
   }
 }
-.deleteVisitBtn {
-  font-size: 4rem;
-  color: #de5468;
-  &:hover {
-    color: #ec5c72;
-    cursor: pointer;
-  }
-}
+
 .dischargeText {
   color: #4235457a;
 }

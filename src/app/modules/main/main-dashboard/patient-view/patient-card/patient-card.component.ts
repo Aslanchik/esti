@@ -114,6 +114,7 @@ export class PatientCardComponent implements OnInit, OnChanges {
       currentVisit: p.visit[0],
     };
     this.historyService.declareCurrentPatientVisit(patientData);
+    this.router.navigate(['/history/visit']);
   }
 
   renderActivePatients(): void {

@@ -20,7 +20,6 @@ export class HistoryService {
 
   declareCurrentPatientVisit(patientData: HistoryPatient): void {
     this.patient = patientData;
-    this.router.navigate(['/history/visit']);
   }
 
   getCurrentPatientVisit() {
