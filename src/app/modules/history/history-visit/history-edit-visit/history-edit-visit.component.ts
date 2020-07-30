@@ -137,8 +137,8 @@ export class HistoryEditVisitComponent implements OnInit {
     return this.editPatientForm.get('treatmentPlan.tasks.tests') as FormArray;
   }
 
-  addMedication(): void {
-    this.medication.push(new FormControl());
+  addMedication(med = ''): void {
+    this.medication.push(new FormControl(med));
   }
 
   deleteMedication(i): void {
@@ -280,12 +280,14 @@ export class HistoryEditVisitComponent implements OnInit {
       },
     } = patient;
 
+    medication.map((med) => this.addMedication(med));
+
     procedures.map((procedure) => {
       this.addProcedure(procedure.title);
     });
 
     tests.map((test) => {
-      this.addProcedure(test.title);
+      this.addTest(test.title);
     });
 
     this.editPatientForm.patchValue({

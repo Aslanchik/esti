@@ -38,6 +38,7 @@
         *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
       >
         <button
+          type="button"
           class="btn dischargeBtn fas fa-eject"
           title="Discharge Patient"
           (click)="dischargePatient(patient)"
@@ -50,6 +51,7 @@
         *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
       >
         <button
+          type="button"
           class="btn deleteVisitBtn fas fa-user-slash"
           title="Delete Visit"
           (click)="deleteVisit(patient)"
@@ -69,7 +71,9 @@
     <div class="row mt-4">
       <div class="col-md-5 col-lg-2">
         <label>ID</label>
-        <div class="form-control">{{ patient.currentPatient.govId }}</div>
+        <div class="form-control" readonly>
+          {{ patient.currentPatient.govId }}
+        </div>
       </div>
       <div class="col-md-5 col-lg-3 mr-1">
         <label>State </label>
@@ -81,17 +85,24 @@
               }}</span>
             </div>
             <div ngbDropdown class="input-group-append">
-              <button class="btn btn-dark" id="sortDropdown" ngbDropdownToggle>
+              <button
+                type="button"
+                class="btn btn-dark"
+                id="sortDropdown"
+                ngbDropdownToggle
+              >
                 Edit
               </button>
               <div ngbDropdownMenu aria-labelledby="sortDropdown">
                 <button
+                  type="button"
                   ngbDropdownItem
                   (click)="editPatientForm.get('state').setValue('critical')"
                 >
                   Critical
                 </button>
                 <button
+                  type="button"
                   ngbDropdownItem
                   (click)="editPatientForm.get('state').setValue('active')"
                 >
@@ -105,13 +116,13 @@
       <br />
       <div class="col-md-5 col-lg-3">
         <label>How the patient arrived?</label>
-        <div class="form-control">
+        <div class="form-control" readonly>
           {{ patient.currentVisit.how | titlecase }}
         </div>
       </div>
       <div class="col-md-5 col-lg-3">
         <label>Attending Nurse</label>
-        <div class="form-control">
+        <div class="form-control" readonly>
           {{ patient.currentVisit.attendingNurse | titlecase }}
         </div>
       </div>
@@ -288,6 +299,7 @@
     <div class="row mt-4">
       <div class="col-md-6">
         <button
+          type="button"
           class="btn btn-outline-secondary collapseBtn"
           (click)="isCollapsedTreat = !isCollapsedTreat"
         >
@@ -430,6 +442,7 @@
     <div class="row mt-2 mb-5">
       <div class="col-md-6">
         <button
+          type="button"
           class="btn btn-outline-secondary collapseBtn"
           (click)="isCollapsedNotes = !isCollapsedNotes"
         >
