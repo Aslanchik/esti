@@ -4,7 +4,7 @@
 <div class="container-fluid m-0" *ngIf="!fetching">
   <form
     [formGroup]="editPatientForm"
-    (ngSubmit)="onSubmit(editPatientForm.value)"
+    (ngSubmit)="onSubmit(editPatientForm.value, patient)"
   >
     <div class="row mt-4">
       <!-- NAVLINK TO BACK -->

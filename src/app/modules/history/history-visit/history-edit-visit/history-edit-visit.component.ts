@@ -163,10 +163,18 @@ export class HistoryEditVisitComponent implements OnInit {
 
   // FIGURE OUT HOW TO MAKE THIS WORk
 
-  onSubmit(value): void {
+  onSubmit(value, patient): void {
     if (this.editPatientForm.valid) {
-      console.log(value);
-      /* this.patientSer.editVisit(value); */
+      const {
+        currentPatient: { govId },
+        currentVisit: { _id },
+      } = patient;
+      const visitToEdit = {
+        govId: govId,
+        visitId: _id,
+        medical: value,
+      };
+      this.patientSer.editVisit(visitToEdit);
     }
   }
 
@@ -180,14 +188,12 @@ export class HistoryEditVisitComponent implements OnInit {
   handleDischarge(stateData) {
     this.patientSer.changeVisitState(stateData).subscribe(() => {
       this.swal.successSwal('Patient Successfully Discharged!');
-      window.location.replace('/main');
     });
   }
 
   handleDelete(visit) {
     this.patientSer.deleteVisit(visit).subscribe(() => {
       this.swal.successSwal('Visit Deleted Successfully!');
-      window.location.replace('/main');
     });
   }
 

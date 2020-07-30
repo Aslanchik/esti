@@ -33,7 +33,7 @@ export class PatientService {
   }
 
   editVisit(data) {
-    this.http.post(this._editVisitUrl, data).subscribe((resp) => {
+    this.http.patch(this._editVisitUrl, data).subscribe((resp) => {
       this.swal.successSwal('Changes Saved Successfully!');
     });
   }
