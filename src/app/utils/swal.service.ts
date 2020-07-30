@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 })
 export class SwalService {
   constructor() {}
-
+  // SUCCESS TOAST
   successToast(title) {
     const Toast = Swal.mixin({
       toast: true,
@@ -24,7 +24,7 @@ export class SwalService {
       title: `${title}`,
     });
   }
-
+  // SUCCESS SWAL WITH TIMER AND REDIRECT WITH RENDER
   successSwal(title) {
     let timerInterval;
     Swal.fire({

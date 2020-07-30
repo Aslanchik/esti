@@ -1,12 +1,10 @@
 <div class="container-fluid mt-3">
-  <!-- <div class="col-1">
-    <a class="btn navBtn"><i class="fas fa-arrow-circle-left"></i></a>
-  </div> -->
   <div class="row">
     <h2 class="mt-2 ml-4">
       <i class="fas fa-book-medical"></i> Patient History
     </h2>
     <div class="col-12">
+      <!-- SEARCH COMPONENT WHICH EMITS THE SEARCH TEXT -->
       <app-history-search
         (searchInput)="searchHistory($event)"
       ></app-history-search>
@@ -16,6 +14,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-11">
+              <!-- SHOW VISIT BUTTONS THAT YOU GET FROM SEARCH -->
               <li *ngIf="patients.length; else noPatients">
                 <app-history-item
                   *ngFor="let patient of patients | filterPatients: searchText"

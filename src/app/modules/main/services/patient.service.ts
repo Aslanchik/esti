@@ -21,45 +21,41 @@ export class PatientService {
     'http://localhost:3000/api/patients/editVisit';
   private _deleteUrl: string = 'http://localhost:3000/api/patients/delete';
 
-  private message: {};
-
   constructor(private http: HttpClient, private swal: SwalService) {}
 
+  // ADMIT NEW PATIENT INTO THE SYSTEM
   addNewPatient(value) {
     const patient: Patient = value;
     this.http.post(this._addPatientUrl, patient).subscribe((resp) => {
       this.swal.successSwal('New Patient Admitted Successfully!');
     });
   }
-
+  // EDIT A CERTAIN VISIT
   editVisit(data) {
     this.http.patch(this._editVisitUrl, data).subscribe((resp) => {
       this.swal.successSwal('Changes Saved Successfully!');
     });
   }
-
+  // EDIT AN ACTIVE PATIENTS STATE
   changeVisitState(stateData) {
     return this.http.patch(this._updateStateUrl, stateData);
   }
-
+  // DELETE VISIT/PATIENT IF NO VISITS
   deleteVisit(visit) {
     return this.http.post(this._deleteUrl, visit);
   }
-
+  // GET ALL PATIENTS THAT HAVE A VISIT THAT IS EITHER ACTIVE OR CRITICAL
   getActivePatients(): Observable<Patient[]> {
     return this.http.get<Patient[]>(this._getActivePatientsUrl);
   }
 
-  getMessage() {
-    return this.message;
-  }
-
+  // GET ALL TASKS THAT ARE NOT COMPLETE
   renderExistingTasks(patients: Patient[]) {
     const existingTasks: TaskItem[] = [];
-
+    // LOOP THROUGH TASKS
     for (const patient of patients) {
       const { notes } = patient.visit[0].medical[0].treatmentPlan[0];
-
+      // MAKE AN EXISTING TASKS ARRAY CONSISTING OF ALL PROCEDURES AND TESTS
       patient.visit.map((visit) => {
         visit.medical[0].treatmentPlan[0].tasks[0].procedures.map(
           (procedure) => {
@@ -98,10 +94,10 @@ export class PatientService {
         });
       });
     }
-
+    // RETURN ARRAY OF ALL NON COMPLETED TASKS WITH TYPES FOR RENDER
     return existingTasks;
   }
-
+  // SEND TO SERVER THAT A TASK IS DONE
   completeTask(t: TaskItem) {
     this.http.patch(this._updateCompleteTaskUrl, t).subscribe();
   }

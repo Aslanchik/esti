@@ -11,6 +11,7 @@ export class SortPipe implements PipeTransform {
    */
   transform(items: any[], parameter: string): any[] {
     if (parameter === 'fname') {
+      // SORT ITEMS BY FIRST NAME
       return items.sort((a, b) => {
         let nameA = a.fname.toUpperCase();
         let nameB = b.fname.toUpperCase();
@@ -19,6 +20,7 @@ export class SortPipe implements PipeTransform {
         else return 0;
       });
     } else if (parameter === 'state') {
+      // SORT ITEMS BY STATE
       return items.sort((a, b) => {
         let stateA = a.visit[0].medical[0].state.toUpperCase();
         let stateB = b.visit[0].medical[0].state.toUpperCase();

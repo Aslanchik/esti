@@ -34,10 +34,11 @@ export class NavigationBarComponent {
   loggedInStaff: string;
 
   constructor(private loginServ: LoginService) {
+    // GET CURRENTLY LOGGED IN
     const loggedIn = this.loginServ.getCurrentlyLoggedIn();
     this.loggedInStaff = loggedIn;
   }
-
+  // WHEN USER CLICKS LOGOUT THIS LOGS HIM OUT
   onLogout() {
     this.loginServ.logoutStaff();
   }

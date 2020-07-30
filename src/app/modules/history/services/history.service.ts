@@ -17,19 +17,19 @@ export class HistoryService {
     'http://localhost:3000/api/patients/search/';
 
   private patient: HistoryPatient;
-
+  // ASSIGN A PATIENT TO HISTORY VISIT DEPENDING ON WHICH PATIENT WAS CLICKED
   declareCurrentPatientVisit(patientData: HistoryPatient): void {
     this.patient = patientData;
   }
-
+  // RETURN THIS PATIENT DECLARED
   getCurrentPatientVisit() {
     return this.patient;
   }
-
+  // HTTP GET CALL TO GET ALL PATIENTS
   getPatients(): Observable<Patient[]> {
     return this.http.get<Patient[]>(this._getAllPatientsUrl);
   }
-
+  // GET PATIENTS DEPENDING ON QUERY
   getQueryPatients(query: string): Observable<Patient[]> {
     return this.http.get<Patient[]>(`${this._getQueryPatientsUrl}${query}`);
   }

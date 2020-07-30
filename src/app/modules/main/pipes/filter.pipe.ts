@@ -10,14 +10,18 @@ export class FilterPipe implements PipeTransform {
    * @returns {any[]}
    */
   transform(items: any[], searchText: string): any[] {
+    // IF NO ITEMS RETURN EMPTY STRING
     if (!items) {
       return [];
     }
+    // IF THERE IS NO SEARCH STRING RETURN ALL ITEMS
     if (!searchText) {
       return items;
     }
+    // CASE INSENSITIVE SEARCH
     searchText = searchText.toLocaleLowerCase();
 
+    // FILTER BY FIRST NAME || LAST NAME || ATTENDING NURSE
     return items.filter((item) => {
       return (
         item.fname.toLocaleLowerCase().includes(searchText) ||

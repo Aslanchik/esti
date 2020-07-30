@@ -1,5 +1,6 @@
 <div class="container-fluid">
   <div class="row flex-column mt-3 sticky-top">
+    <!-- SEARCH BAR WITH SORT -->
     <div class="mt-2 mb-2 input-group col-12">
       <input
         type="search"
@@ -17,6 +18,7 @@
         </div>
       </div>
     </div>
+    <!-- STATE MAP -->
     <div class="col-8 mx-auto">
       <div class="row text-center colors">
         <div class="col-sm-6 critical">Critical</div>
@@ -24,6 +26,7 @@
       </div>
     </div>
   </div>
+  <!-- RENDER PATIENT CARDS -->
   <div class="row">
     <div class="col-12 mt-5">
       <div *ngIf="patients.length">

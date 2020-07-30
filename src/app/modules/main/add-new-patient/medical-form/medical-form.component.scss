@@ -1,10 +1,15 @@
+.container-fluid {
+  height: 100%;
+  min-height: 100vh;
+}
+
 .navBtn {
   font-size: 7em;
   color: #32a75ba9;
   transition: all 0.8s ease-in-out;
   &:hover {
     color: #32a75b;
-    transform: translate(15px);
+    transform: translate(10px);
   }
 }
 .vitals {
@@ -55,4 +60,10 @@ textarea.ng-valid.ng-touched {
 .invalid {
   font-size: 1rem;
   color: #de5469de;
+}
+
+@media screen and (max-width: 870px) {
+  .navBtn {
+    font-size: 5rem;
+  }
 }

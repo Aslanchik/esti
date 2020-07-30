@@ -10,8 +10,10 @@ import { PatientService } from '../../services/patient.service';
 })
 export class TaskbarComponent implements OnInit, OnChanges {
   @Input() activePatients: Patient[];
+
   fetching: boolean = true;
   tasks: TaskItem[] = [];
+
   constructor(private patientSer: PatientService) {}
 
   ngOnInit(): void {
@@ -19,16 +21,17 @@ export class TaskbarComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    // IF THIS COMPONENT GETS AN INPUT FROM PARENT THEN GET THE ACTIVE TASKS OF THOSE PATIENTS
     if (this.activePatients) {
       this.getActiveTasks();
     }
   }
-
+  // FETCH ALL TASKS THAT ARE NOT COMPLETED FROM PATIENT SERVICE
   getActiveTasks() {
     this.tasks = this.patientSer.renderExistingTasks(this.activePatients);
     this.fetching = !this.fetching;
   }
-
+  // DELETE TASK FROM VIEW
   deleteTask(task: TaskItem) {
     this.tasks = this.tasks.filter((t) => t.task.title !== task.task.title);
   }

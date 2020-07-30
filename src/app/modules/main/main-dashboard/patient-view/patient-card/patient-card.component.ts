@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Patient } from '../../../interfaces/patient';
 import { PatientService } from '../../../services/patient.service';
 import { HistoryService } from 'src/app/modules/history/services/history.service';
@@ -11,13 +11,22 @@ import { SwalService } from 'src/app/utils/swal.service';
   templateUrl: './patient-card.component.html',
   styleUrls: ['./patient-card.component.scss'],
 })
-export class PatientCardComponent implements OnInit, OnChanges {
-  patients: Patient[] = [];
+export class PatientCardComponent implements OnChanges {
   @Input() activePatients: Patient[];
   @Input() searchText: string;
   @Input() sortParam: string;
-  fetching: boolean = true;
 
+  fetching: boolean = true;
+  patients: Patient[] = [];
+
+  constructor(
+    private patientService: PatientService,
+    private historyService: HistoryService,
+    private router: Router,
+    private swal: SwalService
+  ) {}
+
+  // GIVE CLASSES BY STATES
   setPatientClass(p: Patient) {
     if (p.visit[0].medical[0].state === 'active') {
       let state = {
@@ -39,21 +48,13 @@ export class PatientCardComponent implements OnInit, OnChanges {
     }
   }
 
-  constructor(
-    private patientService: PatientService,
-    private historyService: HistoryService,
-    private router: Router,
-    private swal: SwalService
-  ) {}
-
-  ngOnInit(): void {}
-
+  // WHEN THIS COMPONENT GETS INPUT RENDER THE PATIENTS
   ngOnChanges() {
     if (this.activePatients) {
       this.renderActivePatients();
     }
   }
-
+  // CHANGE PATIENT STATE TO ACTIVE || CRITICAL || DISCHARGED METHODS
   async changeState(p: Patient) {
     const { value: state } = await Swal.fire({
       title: 'Change Patient State',
@@ -108,6 +109,7 @@ export class PatientCardComponent implements OnInit, OnChanges {
     };
   }
 
+  // METHOD TO DECLARE HISTORY PATIENT TO VIEW
   viewVisit(p: Patient) {
     const patientData = {
       currentPatient: p,
@@ -116,7 +118,7 @@ export class PatientCardComponent implements OnInit, OnChanges {
     this.historyService.declareCurrentPatientVisit(patientData);
     this.router.navigate(['/history/visit']);
   }
-
+  // RENDER THE PATIENTS BASED ON INPUT
   renderActivePatients(): void {
     if (this.patients.length !== this.activePatients.length) {
       this.fetching = !this.fetching;

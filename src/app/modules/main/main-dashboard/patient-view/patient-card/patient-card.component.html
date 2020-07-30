@@ -4,6 +4,7 @@
     There are no active patients..
   </p>
 </div>
+<!-- HERE BE PATIENT CARDS -->
 <div class="row" *ngIf="patients.length">
   <div
     class="col-xl-4 col-lg-6 mb-3"
@@ -15,6 +16,7 @@
   >
     <div class="card patients" [ngClass]="setPatientClass(patient)">
       <div class="card-body">
+        <!-- LINKS TO EDIT/VIEW VISIT -->
         <div class="edit row flex-column float-right">
           <i
             class="fas fa-user-edit"
@@ -44,6 +46,7 @@
       </div>
     </div>
   </div>
+  <!-- ADD NEW PATIENT CARD -->
   <div class="col-xl-4 col-lg-6">
     <div class="card add" routerLink="/main/add-new-patient">
       <div class="card-body">

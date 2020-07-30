@@ -1,5 +1,6 @@
 .container-fluid {
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
 }
 .form {
   padding-top: 1rem;
@@ -13,7 +14,7 @@
   transition: all 0.8s ease-in-out;
   &:hover {
     color: #32a75b;
-    transform: translate(15px);
+    transform: translate(10px);
   }
 }
 
@@ -36,4 +37,9 @@ textarea.ng-valid.ng-touched {
 .invalid {
   font-size: 1rem;
   color: #de5469de;
+}
+@media screen and (max-width: 870px) {
+  .navBtn {
+    font-size: 5rem;
+  }
 }

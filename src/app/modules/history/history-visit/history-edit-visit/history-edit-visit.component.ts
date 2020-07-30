@@ -24,10 +24,19 @@ export class HistoryEditVisitComponent implements OnInit {
   patient: HistoryPatient;
   fetching: boolean = true;
   state: string;
-
   isCollapsedTreat: boolean = true;
   isCollapsedNotes: boolean = true;
 
+  constructor(
+    private historySer: HistoryService,
+    private patientSer: PatientService,
+    private _location: Location,
+    private router: Router,
+    private fb: FormBuilder,
+    private swal: SwalService
+  ) {}
+
+  // DECLARE REACTIVE FORM GROUP
   editPatientForm = this.fb.group({
     state: ['', Validators.required],
     allergies: ['None', [Validators.required, Validators.maxLength(255)]],
@@ -116,15 +125,7 @@ export class HistoryEditVisitComponent implements OnInit {
     }),
   });
 
-  constructor(
-    private historySer: HistoryService,
-    private patientSer: PatientService,
-    private _location: Location,
-    private router: Router,
-    private fb: FormBuilder,
-    private swal: SwalService
-  ) {}
-
+  // GETTERS FOR FORM ARRAYS
   get medication(): FormArray {
     return this.editPatientForm.get('treatmentPlan.medication') as FormArray;
   }
@@ -136,7 +137,7 @@ export class HistoryEditVisitComponent implements OnInit {
   get tests(): FormArray {
     return this.editPatientForm.get('treatmentPlan.tasks.tests') as FormArray;
   }
-
+  // METHODS TO MANIPULATE FORM ARRAYS
   addMedication(med = ''): void {
     this.medication.push(new FormControl(med));
   }
@@ -161,7 +162,7 @@ export class HistoryEditVisitComponent implements OnInit {
     this.tests.removeAt(i);
   }
 
-  // FIGURE OUT HOW TO MAKE THIS WORk
+  // SUBMIT EDITTED VISIT
 
   onSubmit(value, patient): void {
     if (this.editPatientForm.valid) {
@@ -177,26 +178,14 @@ export class HistoryEditVisitComponent implements OnInit {
       this.patientSer.editVisit(visitToEdit);
     }
   }
-
+  // SET CLASSES TO THE STATE FIELD
   setStateClass(patient) {
     const { state } = patient.currentVisit.medical[0];
     if (state === 'active') return { active: true };
     else if (state === 'critical') return { critical: true };
     else return { discharged: true };
   }
-
-  handleDischarge(stateData) {
-    this.patientSer.changeVisitState(stateData).subscribe(() => {
-      this.swal.successSwal('Patient Successfully Discharged!');
-    });
-  }
-
-  handleDelete(visit) {
-    this.patientSer.deleteVisit(visit).subscribe(() => {
-      this.swal.successSwal('Visit Deleted Successfully!');
-    });
-  }
-
+  // METHODS WHEN DISCHARGING
   dischargePatient(patient) {
     const {
       currentPatient: { fname, lname },
@@ -218,6 +207,21 @@ export class HistoryEditVisitComponent implements OnInit {
     });
   }
 
+  mapForStateChange(patient, state) {
+    return {
+      govId: patient.govId,
+      visitId: patient.visit[0]._id,
+      newState: state,
+    };
+  }
+
+  handleDischarge(stateData) {
+    this.patientSer.changeVisitState(stateData).subscribe(() => {
+      this.swal.successSwal('Patient Successfully Discharged!');
+    });
+  }
+
+  //METHODS FOR DELETING VISIT
   deleteVisit(patient) {
     Swal.fire({
       icon: 'warning',
@@ -242,14 +246,13 @@ export class HistoryEditVisitComponent implements OnInit {
     });
   }
 
-  mapForStateChange(patient, state) {
-    return {
-      govId: patient.govId,
-      visitId: patient.visit[0]._id,
-      newState: state,
-    };
+  handleDelete(visit) {
+    this.patientSer.deleteVisit(visit).subscribe(() => {
+      this.swal.successSwal('Visit Deleted Successfully!');
+    });
   }
 
+  // GET VISIT THAT WAS SELECTED
   getPatient() {
     this.patient = this.historySer.getCurrentPatientVisit();
     if (!this.patient) {
@@ -258,7 +261,7 @@ export class HistoryEditVisitComponent implements OnInit {
     this.assignDefaultValues(this.patient);
     this.fetching = !this.fetching;
   }
-
+  // ASSIGN DEFAULT VALUES BASED ON THE PATIENTS INFO - REACTIVE FORM
   assignDefaultValues(patient) {
     const {
       currentVisit: {
@@ -285,17 +288,17 @@ export class HistoryEditVisitComponent implements OnInit {
         ],
       },
     } = patient;
-
+    // SET DEFAULT MEDICATION FORM ARRAY
     medication.map((med) => this.addMedication(med));
-
+    // SET DEFAULT PROCEDURES FORM ARRAY
     procedures.map((procedure) => {
       this.addProcedure(procedure.title);
     });
-
+    // SET DEFAULT TESTS FORM ARRAY
     tests.map((test) => {
       this.addTest(test.title);
     });
-
+    // SET DEFAULT REST
     this.editPatientForm.patchValue({
       state: state,
       allergies: allergies,
@@ -325,10 +328,11 @@ export class HistoryEditVisitComponent implements OnInit {
       },
     });
   }
-
+  // GO BACK A PAGE
   goBack() {
     this._location.back();
   }
+
   ngOnInit(): void {
     this.getPatient();
   }

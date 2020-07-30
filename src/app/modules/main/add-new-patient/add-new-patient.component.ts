@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { LoginService } from '../../landing/services/login.service';
-import { Patient } from '../interfaces/patient';
+
 import { PatientService } from '../services/patient.service';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-add-new-patient',
   templateUrl: './add-new-patient.component.html',
   styleUrls: ['./add-new-patient.component.scss'],
 })
-export class AddNewPatientComponent implements OnInit {
+export class AddNewPatientComponent {
+  // DECLARE REACTIVE FORM
   newPatientForm = this.fb.group({
     govId: [
       '',
@@ -133,11 +133,11 @@ export class AddNewPatientComponent implements OnInit {
       }),
     }),
   });
-
+  // PROPERTY THAT TRACKS THE PROGRESS ON THE FORM
   progressValue: string = '0';
-  state: string = 'general';
 
-  message: {};
+  // PROPERTY THAT TRACKS WHICH FORM TO SHOW
+  state: string = 'general';
 
   constructor(
     private fb: FormBuilder,
@@ -146,14 +146,13 @@ export class AddNewPatientComponent implements OnInit {
     private patientSer: PatientService
   ) {}
 
-  ngOnInit(): void {}
-
+  // UPDATE PROGRESS BAR AS YOU PROGRESS IN THE FORM
   updateProgressBar() {
     if (this.progressValue === '0') this.progressValue = '33';
     else if (this.progressValue === '33') this.progressValue = '66';
     else if (this.progressValue === '66') this.progressValue = '100';
   }
-
+  // MOVE USER TO NEXT FORM
   changeFormStateForward(changedState) {
     if (changedState === 'general') {
       this.state = 'medical';
@@ -163,18 +162,18 @@ export class AddNewPatientComponent implements OnInit {
       this.updateProgressBar();
     }
   }
-
+  // MOVE USER BACKWARDS
   changeFormStateBackward() {
     if (this.state === 'plan') this.state = 'medical';
     else if (this.state === 'medical') this.state = 'general';
     else this.router.navigate(['/main']);
   }
-
+  // BEFORE SUBMITTING MAKE NAME LOWERCASE
   toLowerCaseVal(val) {
     val.fname = val.fname.toLowerCase();
     val.lname = val.lname.toLowerCase();
   }
-
+  // SUBMIT FORM AND CREATE NEW PATIENT
   onSubmit(value): void {
     if (this.newPatientForm.valid) {
       this.updateProgressBar();

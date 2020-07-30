@@ -6,11 +6,12 @@
         ><i class="fas fa-arrow-circle-left"></i
       ></a>
     </div>
-
+    <!-- HEADER PATIENT NAME -->
     <h1 class="col-md-7 col-sm-11 header display-3">
       {{ patient.currentPatient.fname | titlecase }}
       {{ patient.currentPatient.lname | titlecase }}
     </h1>
+    <!-- EDIT VISIT BTN -->
     <div
       class="row col-md-3 col-sm-5 flex-column mt-1"
       *ngIf="patient.currentVisit.medical[0].state !== 'discharged'"
@@ -23,6 +24,7 @@
       <i class="dischargeText">Edit Visit</i>
     </div>
   </div>
+  <!-- HEADER DATE -->
   <div class="row">
     <h3 class="col-md-8 mx-auto">
       Displaying visit from

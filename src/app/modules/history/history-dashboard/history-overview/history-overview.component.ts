@@ -15,15 +15,17 @@ export class HistoryOverviewComponent {
 
   constructor(private historyService: HistoryService) {}
 
-  getSearchedPatients(query: string): void {
-    this.historyService
-      .getQueryPatients(query)
-      .subscribe((patientData) => (this.patients = patientData));
-  }
-
+  // GET QUERY FROM CHILD COMPONENT
   searchHistory(searchInput) {
     if (!searchInput) this.patients = [];
     this.searchText = searchInput;
     this.getSearchedPatients(this.searchText);
+  }
+
+  // SEND SEARCH TEXT TO HISTORY SERVICE
+  getSearchedPatients(query: string): void {
+    this.historyService
+      .getQueryPatients(query)
+      .subscribe((patientData) => (this.patients = patientData));
   }
 }

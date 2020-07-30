@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 })
 export class LoginService {
   private _loginUrl: string = 'http://localhost:3000/api/login';
-
   private token: string;
   private loginStatusListener = new Subject<boolean>();
   private isLoggedIn = false;
@@ -23,7 +22,7 @@ export class LoginService {
     private router: Router,
     private swal: SwalService
   ) {}
-
+  // RETURN TOKEN TO WHOEVER ASKS
   getToken() {
     return this.token;
   }
@@ -31,15 +30,15 @@ export class LoginService {
   getLoginStatusListener() {
     return this.loginStatusListener.asObservable();
   }
-
+  // RETURN THE STAFF THAT IS CURRENTLY LOGGED IN
   getCurrentlyLoggedIn() {
     return this.currentlyLoggedIn;
   }
-
+  // VALIDATE IF LOGGED IN OR NOT
   getLoginStatus() {
     return this.isLoggedIn;
   }
-
+  // IF USER HAS JWT AUTO LOG HIM IN
   autoAuthUser() {
     const authInfo = this.getAuthData();
     if (!authInfo) return;
@@ -54,6 +53,7 @@ export class LoginService {
     }
   }
 
+  // LOGOUT STAFF AND DELETE JWT
   logoutStaff() {
     this.token = null;
     this.isLoggedIn = false;
@@ -63,12 +63,14 @@ export class LoginService {
     this.router.navigate(['/']);
   }
 
+  // SET TIMER FOR THE JWT - TAKES DURATION AND MAKES IT INTO MINUTES
   private setAuthTimer(duration: number) {
     this.tokenTimer = setTimeout(() => {
       this.logoutStaff();
     }, duration * 1000);
   }
 
+  // LOGIN STAFF USER TAKES FORM DATA
   loginStaff(value) {
     const user: LoginUser = value;
 
@@ -79,26 +81,35 @@ export class LoginService {
       )
       .subscribe(
         (response) => {
+          // ASSIGN CURRENTLY LOGGED IN FROM THE RESP OF SERVER
           this.currentlyLoggedIn = response.fullName;
-          const token = response.token;
-          this.token = token;
-          if (token) {
+          // SET TOKEN AS THE TOKEN FROM RESPONSE
+          this.token = response.token;
+          // IF TOKEN IS TRUTHY SET TIMER
+          if (response.token) {
             const expiresInDuration = response.expiresIn;
             this.setAuthTimer(expiresInDuration);
+            // DECLARE THIS STAFF AS LOGGED IN
             this.isLoggedIn = true;
             this.loginStatusListener.next(true);
-
+            // GET TIME
             const now = new Date();
+            // DECLARE EXPIRATION TIME
             const expirationDate = new Date(
               now.getTime() + expiresInDuration * 1000
             );
-
-            this.saveAuthData(token, response.fullName, expirationDate);
-
+            // SAVE AUTH DATA IN LOCALSTORAGE
+            this.saveAuthData(
+              response.token,
+              response.fullName,
+              expirationDate
+            );
+            // NAVIGATE INTO THE APP AND WELCOME STAFF
             this.router.navigate(['/main']);
             this.swal.successToast(`Welcome, ${response.fullName}!`);
           }
         },
+        // IF RESPONSE COMES AS ERROR DO A SWAL
         (err) => {
           Swal.fire({
             icon: 'error',
@@ -109,25 +120,27 @@ export class LoginService {
         }
       );
   }
-
+  // GET AUTH DATA FROM LOCALSTORAGE
   private getAuthData() {
     const token = localStorage.getItem('token');
     const name = localStorage.getItem('name');
     const expirationDate = localStorage.getItem('expiration');
+    // IF ONE OF THEM DOESNT EXIST - STOP
     if (!token || !expirationDate || !name) return;
+    // ELSE RETURN JWT
     return {
       token: token,
       name: name,
       expirationDate: new Date(expirationDate),
     };
   }
-
+  // SAVE AUTH DATA INTO THE LOCALSTORAGE
   private saveAuthData(token: string, name: string, expirationDate: Date) {
     localStorage.setItem('token', token);
     localStorage.setItem('name', name);
     localStorage.setItem('expiration', expirationDate.toISOString());
   }
-
+  // CLEAR AUTH DATA UPON LOGOUT
   private clearAuthData() {
     localStorage.removeItem('token');
     localStorage.removeItem('name');

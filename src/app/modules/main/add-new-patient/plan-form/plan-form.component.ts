@@ -1,6 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { PatientService } from '../../services/patient.service';
-import { Router } from '@angular/router';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
@@ -8,15 +6,13 @@ import { FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
   templateUrl: './plan-form.component.html',
   styleUrls: ['./plan-form.component.scss'],
 })
-export class PlanFormComponent implements OnInit {
+export class PlanFormComponent {
   @Input() parentFormGroup: FormGroup;
   @Output() controlName = new EventEmitter();
-  constructor(
-    private patientService: PatientService,
-    private router: Router,
-    private fb: FormBuilder
-  ) {}
 
+  constructor(private fb: FormBuilder) {}
+
+  // GETTERS FOR FORM ARRAYS
   get medication(): FormArray {
     return this.parentFormGroup.get(
       'visit.medical.treatmentPlan.medication'
@@ -32,7 +28,7 @@ export class PlanFormComponent implements OnInit {
       'visit.medical.treatmentPlan.tasks.tests'
     ) as FormArray;
   }
-
+  // METHODS TO MANIPULATE FORM ARRAYS
   addMedication() {
     this.medication.push(new FormControl());
   }
@@ -53,6 +49,4 @@ export class PlanFormComponent implements OnInit {
   deleteTest(i) {
     this.tests.removeAt(i);
   }
-
-  ngOnInit() {}
 }

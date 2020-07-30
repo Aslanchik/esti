@@ -3,11 +3,12 @@
     <a routerLink="/main" class="logoNav navbar-brand mx-auto">
       <h1 class="mb-3">ES <i class="fas fa-stethoscope"></i> TI</h1>
     </a>
-
+    <!-- STAFF NAME -->
     <div class="logged mx-auto mb-3" *ngIf="loggedInStaff">
       <span class="loggedInTitle">Active Nurse -</span>
       <span class="loggedIn"> {{ loggedInStaff | titlecase }} </span>
     </div>
+    <!-- SHOW NAV LINKS -->
     <li *ngFor="let item of navItems" class="mt-2 ml-3">
       <a routerLinkActive="active" [routerLink]="item.link" class="nav-link">
         <i class="{{ item.icon }}"></i>
@@ -20,6 +21,7 @@
         <span class="ml-3">Log Out</span>
       </a>
     </li>
+    <!-- GITHUB LINKEDIN -->
     <div class="personal-links ml-3">
       <div class="row mx-auto">
         <div class="col-12">
@@ -37,6 +39,7 @@
       </div>
     </div>
   </div>
+  <!-- SMALL NAVBAR WHEN SCREEN IS SMALLER -->
   <div class="miniNav row flex-column">
     <a routerLink="/main" class="logoMiniNav mx-auto mb-2" title="Home">
       <i class="fas fa-stethoscope"></i>
