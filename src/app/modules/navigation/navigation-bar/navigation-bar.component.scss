@@ -88,6 +88,7 @@ li:hover {
 @media screen and (max-width: 992px) {
   ul {
     width: 4rem;
+    transition: all 0.3s ease;
   }
   .fullNav {
     display: none;
@@ -103,8 +104,9 @@ li:hover {
   }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 993px) {
   .miniNav {
+    transition: all 0.3s ease;
     display: none;
   }
 }
