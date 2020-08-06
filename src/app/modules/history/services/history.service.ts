@@ -12,8 +12,8 @@ import { HistoryPatient } from '../interfaces/history-patient';
 export class HistoryService {
   constructor(private http: HttpClient, private router: Router) {}
 
-  private _getAllPatientsUrl: string = 'patients/all';
-  private _getQueryPatientsUrl: string = 'patients/search/';
+  private _getAllPatientsUrl: string = '/api/patients/all';
+  private _getQueryPatientsUrl: string = '/api/patients/search/';
 
   private patient: HistoryPatient;
   // ASSIGN A PATIENT TO HISTORY VISIT DEPENDING ON WHICH PATIENT WAS CLICKED
