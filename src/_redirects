@@ -1,4 +1,5 @@
 # Rewrite all requests to any file that doesn’t already exist to the index page, where router can handle it.
 
+
 /api/*  https://murmuring-citadel-82455.herokuapp.com/api/:splat  200
 /* /index.html 200
