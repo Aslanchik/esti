@@ -26,6 +26,11 @@ export class LoginComponent {
       .getLoginStatusListener()
       .subscribe((isLoggedIn) => {
         this.isLoggedIn = isLoggedIn;
+        if (!isLoggedIn)
+          this.user = {
+            govId: '',
+            password: '',
+          };
       });
   }
 
@@ -34,6 +39,5 @@ export class LoginComponent {
       this.loginSer.loginStaff(value);
       this.checkLogIn();
     }
-    this.user = { govId: '', password: '' };
   }
 }

@@ -111,6 +111,7 @@ export class LoginService {
         },
         // IF RESPONSE COMES AS ERROR DO A SWAL
         (err) => {
+          this.loginStatusListener.next(false);
           Swal.fire({
             icon: 'error',
             title: 'Sign In was Unsuccessfull!',

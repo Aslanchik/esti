@@ -21,7 +21,6 @@ export class RegisterComponent {
 
   onSubmit({ value, valid }: { value: RegisterUser; valid: boolean }): void {
     if (valid) {
-      console.log(value);
       this.registerSer.registerStaff(value);
       const error = this.registerSer.idEmailError.subscribe((value) => {
         if (value === 'id') this.user.govId = '';

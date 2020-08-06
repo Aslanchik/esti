@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class RegisterService {
-  private _registerUrl: string = 'http://localhost:5000/api/register';
+  private _registerUrl: string = '/api/register';
 
   constructor(private http: HttpClient, private loginService: LoginService) {}
 
