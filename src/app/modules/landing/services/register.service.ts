@@ -8,7 +8,7 @@ import { LoginUser } from '../interfaces/login-user';
   providedIn: 'root',
 })
 export class RegisterService {
-  private _registerUrl: string = 'http://localhost:3000/api/register';
+  private _registerUrl: string = 'staff/register';
 
   constructor(private http: HttpClient, private loginService: LoginService) {}
 

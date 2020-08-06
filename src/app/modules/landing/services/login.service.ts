@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   providedIn: 'root',
 })
 export class LoginService {
-  private _loginUrl: string = 'http://localhost:3000/api/login';
+  private _loginUrl: string = 'staff/login';
   private token: string;
   private loginStatusListener = new Subject<boolean>();
   private isLoggedIn = false;

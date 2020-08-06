@@ -10,16 +10,12 @@ import { SwalService } from 'src/app/utils/swal.service';
   providedIn: 'root',
 })
 export class PatientService {
-  private _addPatientUrl: string = 'http://localhost:3000/api/new-patient';
-  private _getActivePatientsUrl: string =
-    'http://localhost:3000/api/patients/active';
-  private _updateCompleteTaskUrl: string =
-    'http://localhost:3000/api/patients/updateCompletedTask';
-  private _updateStateUrl: string =
-    'http://localhost:3000/api/patients/updateState';
-  private _editVisitUrl: string =
-    'http://localhost:3000/api/patients/editVisit';
-  private _deleteUrl: string = 'http://localhost:3000/api/patients/delete';
+  private _addPatientUrl: string = 'patients/new-patient';
+  private _getActivePatientsUrl: string = 'patients/active';
+  private _updateCompleteTaskUrl: string = 'patients/updateCompletedTask';
+  private _updateStateUrl: string = 'patients/updateState';
+  private _editVisitUrl: string = 'patients/editVisit';
+  private _deleteUrl: string = 'patients/delete';
 
   constructor(private http: HttpClient, private swal: SwalService) {}
 
