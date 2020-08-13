@@ -10,7 +10,7 @@ import { SwalService } from 'src/app/utils/swal.service';
   providedIn: 'root',
 })
 export class PatientService {
-  private _addPatientUrl: string = '/api/patients/new-patient';
+  private _addPatientUrl: string = '/api/new-patient';
   private _getActivePatientsUrl: string = '/api/patients/active';
   private _updateCompleteTaskUrl: string = '/api/patients/updateCompletedTask';
   private _updateStateUrl: string = '/api/patients/updateState';
